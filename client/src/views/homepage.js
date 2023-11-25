@@ -50,7 +50,7 @@ export default function Homepage() {
         }
     return (
         <main className="flex" style={{marginBottom:"0px"}}>
-            <div className="w-1/2 relative">
+            <div className="w-1/2 overflow-hidden max-w-[100vw]">
             <Slider {...settings}>
                 <div>
                     <img src={img1} alt="Homepage" className="h-full w-full object-cover" />

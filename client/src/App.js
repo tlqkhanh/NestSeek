@@ -1,7 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, NavLink, Outlet } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './App.css';
 import Header from './components/header';
 import Footer from "./components/footer";
@@ -11,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="container">
-        <Header></Header>
+
         <Routes>
           <Route path="/">
             <Route index element={<Homepage />} />
