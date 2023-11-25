@@ -32,11 +32,9 @@ function App() {
     //     <Footer/>
     //   </div>
     // </BrowserRouter>
-    <>
     <BrowserRouter>
       <Router />
     </BrowserRouter>
-  </>
   );
 }
 

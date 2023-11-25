@@ -1,14 +1,14 @@
 import classNames from "classnames";
+import city_pic from "../../assets/city2.jpg"
 export default function AboutUs() {
-    // const img_url = "../src/assets/city2.jpg";
 
     return (
-    <div className={classNames('flex flex-col items-center', 'px-[5%] py-4')}>
+    <div className={classNames('flex flex-col items-center', 'px-[5%] py-4 w-full')}>
         <div className={classNames('p-4',"text-4xl font-bold")}> NEST SEEK</div>
         <div className={classNames("font-semibold")}>Welcome to Nestseek – your ultimate destination for finding ideal living spaces and business premises in Ho Chi Minh City !</div>
         <div className="w-full">
             <img
-                src={require("./city2.jpg")}
+                src={city_pic}
                 alt="city"
                 className="w-fit h-fit py-4"
             />
