@@ -4,7 +4,8 @@ import AboutUs from "../../views/AboutUs/AboutUs";
 import Homepage from "../../views/homepage";
 import Report from "../../views/Report/ReportList";
 import PendingPost from "../../views/Pending/PendingPost";
-
+import Explore from "../../views/Explore/explore";
+import Detail from "../../views/Explore/exploredetail";
 export default function Router() {
   const routes = useRoutes([
     {
@@ -15,7 +16,9 @@ export default function Router() {
             { path: "pending-post", element: <PendingPost />},
             {path: "report-list", element: <Report/>},
             { path: "admin", element: <Homepage /> },
-            { path: "postDetail/:post_id", element: '' },
+            { path: "explore", element: <Explore></Explore> },
+            { path: "postDetail/:post_id", element:<Detail></Detail>},
+            
           ],
     },
   ]);

@@ -1,4 +1,4 @@
-import homepageImage from "../assets/homepage3.png";
+import homepageImage from "../../assets/homepage3.png";
 const ExploreData = [
     {
         id: 1,

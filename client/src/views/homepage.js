@@ -50,7 +50,7 @@ export default function Homepage() {
         }
     return (
         <main className="flex" style={{marginBottom:"0px"}}>
-            <div className="w-1/2 overflow-hidden max-w-[100vw]">
+            <div className="w-1/2 overflow-hidden max-w-[50vw]">
             <Slider {...settings}>
                 <div>
                     <img src={img1} alt="Homepage" className="h-full w-full object-cover" />
@@ -76,7 +76,7 @@ export default function Homepage() {
                     <p>Discover Comfortable Spaces for Every Stay - Your Ideal Home or Business Location Awaits !</p>
                     <br></br>
                     <br></br>
-                    <button className="border-15 border-#013034 bg-white text-#013034 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
+                    <button className="border-15 border-textcolor bg-white text-textcolor font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
                     <Link to="/login">Rent now</Link>
                   </button>
                 </div>
