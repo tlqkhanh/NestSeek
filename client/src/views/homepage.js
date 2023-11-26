@@ -44,8 +44,7 @@ export default function Homepage() {
         {
           border: '1px solid #013034',
           padding: '10px 30px 10px 30px',
-          backgroundColor:"#013034",
-          color:"white"
+
         },
         }
     return (
@@ -76,7 +75,7 @@ export default function Homepage() {
                     <p>Discover Comfortable Spaces for Every Stay - Your Ideal Home or Business Location Awaits !</p>
                     <br></br>
                     <br></br>
-                    <button className="border-15 border-textcolor bg-white text-textcolor font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
+                    <button className="border-15 border-textcolor hover:bg-medium text-white bg-blue1 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
                     <Link to="/login">Rent now</Link>
                   </button>
                 </div>

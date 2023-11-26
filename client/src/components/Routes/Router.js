@@ -6,6 +6,9 @@ import Report from "../../views/Report/ReportList";
 import PendingPost from "../../views/Pending/PendingPost";
 import Explore from "../../views/Explore/explore";
 import Detail from "../../views/Explore/exploredetail";
+import Youradvertise from "../../views/ManageAccount/youradvertise";
+import BookingHistory from "../../views/ManageAccount/bookinghistory";
+import PaymentHistory from "../../views/ManageAccount/paymenthistory";
 export default function Router() {
   const routes = useRoutes([
     {
@@ -18,7 +21,9 @@ export default function Router() {
             { path: "admin", element: <Homepage /> },
             { path: "explore", element: <Explore></Explore> },
             { path: "postDetail/:post_id", element:<Detail></Detail>},
-            
+            {path:"your-advertise", element:<Youradvertise></Youradvertise>},
+            {path:"booking-history",element:<BookingHistory></BookingHistory>},
+            {path:"payment-history",element:<PaymentHistory></PaymentHistory>},
           ],
     },
   ]);

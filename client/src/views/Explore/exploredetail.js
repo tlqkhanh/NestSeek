@@ -99,7 +99,7 @@ const Detail = () => {
                     <div></div>
                     <div></div>
                     <div className="flex justify-end items-center">
-                        <button className="bg-bluelight hover:bg-#0E494E text-white font-bold py-2 px-4 rounded">
+                        <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
                             Advertise
                         </button>
                     </div>
@@ -138,7 +138,7 @@ const Detail = () => {
                             placeholder="Type your comment here..."
                         ></textarea>
                         <div className="flex justify-end mt-4">
-                            <button className="bg-bluelight hover:bg-#0E494E text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
                                 Send
                             </button>
                         </div>
