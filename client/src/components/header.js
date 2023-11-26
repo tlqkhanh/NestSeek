@@ -40,7 +40,7 @@ const Header = ({ isLoggedIn, userType }) => {
           <ul className="flex">
             <li>
               <button className="border-15 border-darkblue bg-white text-darkblue font-bold py-2 px-4 rounded">
-                    <Link to="/explore">About Us</Link>
+                    <Link to="/about-us">About Us</Link>
               </button>
             </li>
             <li>

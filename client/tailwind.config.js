@@ -5,7 +5,12 @@ module.exports = {
       colors: {
         'darkblue': '#013034',
         'blue1': '#0E494E',
+        'blue2':'#146269',
         'bluelight': '#86BEC2',
+        'medium':'#4F959B',
+        'superlight':'#B6DADD',
+        'red':'#FF7070',
+        'darkred':'#DD4708',
       }
     },
   },

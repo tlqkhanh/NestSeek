@@ -1,6 +1,6 @@
 import React from "react";
 import { FaSearch } from 'react-icons/fa';
-//import Header from "../../components/header";
+import Header from "../../components/header";
 import List from "../../components/list";
 import Data from './dataexplore';
 export default function Explore() {
@@ -37,8 +37,8 @@ export default function Explore() {
     `
     ;
     return (
-        <main className="justify-between p-4">
-          {/* <Header /> */}
+        <div className="flex-grow">
+          <Header/>
           <div className="flex justify-center">
             <div className="grid grid-cols-4 gap-5 top">
               <div className="flex items-center text-darkblue search">
@@ -66,6 +66,6 @@ export default function Explore() {
           </div>
           
           <style>{customcss}</style>
-        </main>
+        </div>
       );
 }
