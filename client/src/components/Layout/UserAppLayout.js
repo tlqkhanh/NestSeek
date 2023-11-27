@@ -4,7 +4,7 @@ import Header from "../header";
 
 export default function UserAppLayout() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-grow flex">
         <Outlet/>

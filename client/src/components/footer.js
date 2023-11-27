@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className={classNames("bg-gray-950 text-white w-full")}>
+    <div className={classNames("bg-gray-950 text-white w-full bottom-0")}>
         <div
           className={classNames(
             "flex flex-col md:flex-row md:items-center justify-between py-3 border-b border-white"
