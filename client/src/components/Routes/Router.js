@@ -8,23 +8,33 @@ import Explore from "../../views/Explore/explore";
 import Detail from "../../views/Explore/exploredetail";
 import Youradvertise from "../../views/ManageAccount/youradvertise";
 import BookingHistory from "../../views/ManageAccount/bookinghistory";
-import PaymentHistory from "../../views/ManageAccount/paymenthistory";
+import PaymentHistory from "../../views/ManageAccount/paymenthistory";\
+import HomepageLayout from "../Layout/HomepageLayout";
 export default function Router() {
   const routes = useRoutes([
     {
-      element: <UserAppLayout />,
+      element: <HomepageLayout/>, index:true,
+      children: [
+        {
+          element: <Homepage />,
           children: [
-            { element: <Homepage />, index: true },
-            { path: "about-us", element: <AboutUs /> },
-            { path: "pending-post", element: <PendingPost />},
-            {path: "report-list", element: <Report/>},
-            { path: "admin", element: <Homepage /> },
-            { path: "explore", element: <Explore></Explore> },
-            { path: "postDetail/:post_id", element:<Detail></Detail>},
-            {path:"your-advertise", element:<Youradvertise></Youradvertise>},
-            {path:"booking-history",element:<BookingHistory></BookingHistory>},
-            {path:"payment-history",element:<PaymentHistory></PaymentHistory>},
+            {
+              element: <UserAppLayout />,
+              children: [
+              { path: "about-us", element: <AboutUs /> },
+              { path: "pending-post", element: <PendingPost />},
+              { path: "report-list", element: <Report/>},
+              { path: "admin", element: <Homepage /> },
+              { path: "explore", element: <Explore></Explore> },
+              { path: "postDetail/:post_id", element:<Detail></Detail>},
+              {path:"your-advertise", element:<Youradvertise></Youradvertise>},
+              {path:"booking-history",element:<BookingHistory></BookingHistory>},
+              {path:"payment-history",element:<PaymentHistory></PaymentHistory>},
+              ],
+            }
           ],
+        }
+      ]
     },
   ]);
 
