@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../footer";
-import Header from "../header";
+import HomepaheHeader from "./HomepageHeader";
 
 export default function HomepageLayout() {
   return (
     <div className="flex flex-col h-screen">
-      <Header />
+      <HomepaheHeader />
       <div className="flex-grow flex">
         <Outlet/>
       </div>

@@ -8,7 +8,7 @@ import Explore from "../../views/Explore/explore";
 import Detail from "../../views/Explore/exploredetail";
 import Youradvertise from "../../views/ManageAccount/youradvertise";
 import BookingHistory from "../../views/ManageAccount/bookinghistory";
-import PaymentHistory from "../../views/ManageAccount/paymenthistory";\
+import PaymentHistory from "../../views/ManageAccount/paymenthistory";
 import HomepageLayout from "../Layout/HomepageLayout";
 export default function Router() {
   const routes = useRoutes([
