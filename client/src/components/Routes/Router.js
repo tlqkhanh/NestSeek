@@ -13,29 +13,23 @@ import HomepageLayout from "../Layout/HomepageLayout";
 export default function Router() {
   const routes = useRoutes([
     {
-      element: <HomepageLayout/>, index:true,
+      element: <UserAppLayout />,
       children: [
-        {
-          element: <Homepage />,
-          children: [
-            {
-              element: <UserAppLayout />,
-              children: [
-              { path: "about-us", element: <AboutUs /> },
-              { path: "pending-post", element: <PendingPost />},
-              { path: "report-list", element: <Report/>},
-              { path: "admin", element: <Homepage /> },
-              { path: "explore", element: <Explore></Explore> },
-              { path: "postDetail/:post_id", element:<Detail></Detail>},
-              {path:"your-advertise", element:<Youradvertise></Youradvertise>},
-              {path:"booking-history",element:<BookingHistory></BookingHistory>},
-              {path:"payment-history",element:<PaymentHistory></PaymentHistory>},
-              ],
-            }
-          ],
-        }
-      ]
+        { path: "about-us", element: <AboutUs /> },
+        { path: "pending-post", element: <PendingPost />},
+        { path: "report-list", element: <Report/>},
+        { path: "admin", element: <Homepage /> },
+        { path: "explore", element: <Explore></Explore> },
+        { path: "postDetail/:post_id", element:<Detail></Detail>},
+        {path:"your-advertise", element:<Youradvertise></Youradvertise>},
+        {path:"booking-history",element:<BookingHistory></BookingHistory>},
+        {path:"payment-history",element:<PaymentHistory></PaymentHistory>},
+      ],
     },
+    {
+      element: <HomepageLayout/>,
+      children: [{element: <Homepage />, index:true,}]
+    }
   ]);
 
   return routes;
