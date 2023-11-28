@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Header = ({ isLoggedIn, userType }) => {
+const HomepaheHeader = ({ isLoggedIn, userType }) => {
   const renderUserOptions = () => {
     if (isLoggedIn) {
       if (userType === 'user') {
@@ -83,4 +83,4 @@ const Header = ({ isLoggedIn, userType }) => {
   );
 };
 
-export default Header;
+export default HomepaheHeader;
