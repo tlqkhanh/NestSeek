@@ -1,20 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Data from "./dataexplore.js";
 import Header from "../../components/header.js";
 import { FaSearch } from "react-icons/fa";
 import RatingFrame from "../../components/rating.js";
+import { getPropertyDetail } from "../../action/property.action.js";
 const Detail = () => {
     const { post_id } = useParams();
 
-    if (!Data) {
-        return <div>Loading...</div>;
-    }
+    const [postDetail, setPostDetail] = useState();
+    const fetchData = async (post_id) => {
+        try {
+            const response = await getPropertyDetail(post_id);
+            console.log(response.data);
+            setPostDetail(response.data.property);
+        } catch (error) {
+            console.error('Error fetching property detail:', error);
+        }
+    };
 
-    const postDetail = Data.find(item => item.id === parseInt(post_id));
+    useEffect(() => {
+        fetchData(post_id);
+    }, [])
+
+    // if (!Data) {
+    //     return <div>Loading...</div>;
+    // }
+
+
+    //const postDetail = Data.find(item => item.id === parseInt(post_id));
 
     if (!postDetail) {
-        return <div>Post not found</div>;
+        return <div>Loading...</div>;
     }
     const userType = 'renter';
     let userButtons;
@@ -111,7 +128,7 @@ const Detail = () => {
                 <div className="grid grid-cols-2 gap-5">
                     <div className="flex justify-end items-center text-textcolor">
                         <img
-                            src={postDetail.imgUrl}
+                            src={'https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41477-019-0374-3/MediaObjects/41477_2019_374_Figa_HTML.jpg'}
                             alt={postDetail.name}
                             style={{ width: '60%', height: 'auto' }} 
                         />
@@ -120,8 +137,8 @@ const Detail = () => {
                         <h1 className="text-blue2 font-bold text-2xl">{postDetail.name}</h1>
                         <RatingFrame userType={userType} />
                         <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.score}</p>
-                        <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.author}</p>
-                        <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.date}</p>
+                        <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
+                        <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
                         <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
                         <p><span style={{fontWeight:"bold"}}>Location: </span>{postDetail.location}</p>
                         <p><span style={{fontWeight:"bold"}}>Description: </span> {postDetail.description}</p>
