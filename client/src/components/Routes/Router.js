@@ -21,15 +21,15 @@ export default function Router() {
         { path: "admin", element: <Homepage /> },
         { path: "explore", element: <Explore></Explore> },
         { path: "postDetail/:post_id", element:<Detail></Detail>},
-        {path:"your-advertise", element:<Youradvertise></Youradvertise>},
-        {path:"booking-history",element:<BookingHistory></BookingHistory>},
-        {path:"payment-history",element:<PaymentHistory></PaymentHistory>},
+        { path:"your-advertise", element:<Youradvertise></Youradvertise>},
+        { path:"booking-history",element:<BookingHistory></BookingHistory>},
+        { path:"payment-history",element:<PaymentHistory></PaymentHistory>},
       ],
     },
     {
       element: <HomepageLayout/>,
       children: [{element: <Homepage />, index:true,}]
-    }
+    },
   ]);
 
   return routes;
