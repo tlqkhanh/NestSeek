@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export default function PendingPost() {
     const post = [
@@ -46,7 +46,7 @@ export default function PendingPost() {
                         <div className="w-full h-fit flex flex-col justify-center items-center">
                             <div className={classNames("w-[100%] flex flex-row")}> 
                                 <div className="object-fill w-[50%]">
-                                    <img src={IMG(data.pic_url)} className="rounded-tl-xl object-contain"/>
+                                    <img src={IMG(data.pic_url)} alt="post_pic" className="rounded-tl-xl object-contain"/>
                                 </div>
                                 <div className="w-[50%] rounded-tr-xl p-4 flex flex-col justify-between">
                                     <div className={classNames('text-xl font-bold text-darkblue', 'py-3')}>{data.title}</div>

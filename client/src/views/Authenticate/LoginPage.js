@@ -2,13 +2,13 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import img1 from "../assets/homepage.jpg";
-import img2 from "../assets/homepage2.png";
-import img3 from "../assets/homepage3.png";
-import img4 from "../assets/homepage4.png";
-import Header from '../components/header';
-import { Link } from "react-router-dom";
-export default function Homepage() {
+import img1 from "../../assets/homepage.jpg";
+import img2 from "../../assets/homepage2.png";
+import img3 from "../../assets/homepage3.png";
+import img4 from "../../assets/homepage4.png";
+import Header from '../../components/header';
+import Login from "./Login";
+export default function LoginPage({ setToken }) {
     const customCSS = `
     .slick-dots {
       position: absolute;
@@ -33,22 +33,8 @@ export default function Homepage() {
         autoplaySpeed: 3000,
       };
     
-    const custom=
-    {
-        title:
-        {
-            fontSize:"200%",
-            fontWeight:"bold",
-        },
-        addborder:
-        {
-          border: '1px solid #013034',
-          padding: '10px 30px 10px 30px',
-
-        },
-        }
     return (
-        <main className="flex h-fit" style={{marginBottom:"0px"}}>
+        <main className="flex h-fit w-full" style={{marginBottom:"0px"}}>
             <div className="w-1/2 overflow-hidden max-w-[50vw]">
             <Slider {...settings}>
                 <div>
@@ -69,15 +55,7 @@ export default function Homepage() {
             <div className="w-1/2">
                 <Header />
                 <div className="items-center justify-center text-#0E494E m-20">
-                    <h1 style={custom.title}>Your Comfort</h1>
-                    <h1 style={custom.title}>Our Priority</h1>
-                    <br></br>
-                    <p>Discover Comfortable Spaces for Every Stay - Your Ideal Home or Business Location Awaits !</p>
-                    <br></br>
-                    <br></br>
-                    <button className="border-15 border-textcolor hover:bg-medium text-white bg-blue1 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
-                    <Link to="/login">Rent now</Link>
-                  </button>
+                    <Login setToken={setToken}/>
                 </div>
             </div>
             <style>{customCSS}</style>
