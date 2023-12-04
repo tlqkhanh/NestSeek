@@ -1,8 +1,10 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
+    // session_set_cookie_params(['samesite' => 'None', 'secure'=>false]);
+    header("Access-Control-Allow-Origin: http://localhost:3000");
     header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header("Access-Control-Allow-Credentials: true");
+    session_start();
     if ($_SERVER['REQUEST_METHOD']=="POST"){
         require('../../config/database.php');
         require('../../ulti/validateUserInput.php');
@@ -14,7 +16,7 @@
             $user = new User($conn,null,null,$data->email,$data->phoneNum,$data->password);
             $res = $user->validateUser();
             if ($res){
-                session_start();
+                
                 $_SESSION['user_id'] = $res['userID'];
                 $_SESSION['type'] = $res['user_type'];
 
@@ -28,11 +30,12 @@
                     'success' => true,
                     'message' => 'Login successful',
                     'user' => [
-                        'id' => $res['userID'],
+                        'uid' => $res['userID'],
                         'username' => $res['user_name'],
                         'type' => $res['user_type'],
                     ],
                     'token' => $token,
+                    'ssid' => session_id(),
                 ];
             }
             else{
@@ -40,6 +43,7 @@
                 $response = [
                     'success' => false,
                     'message' => 'Invalid credentials',
+                    'error' => 'User is not existed'
                 ];
             }
         }
@@ -48,6 +52,7 @@
             $response = [
                 'success' => false,
                 'message' => 'Invalid input',
+                'error' => $validateInput,
             ];
         }
 

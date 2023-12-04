@@ -19,9 +19,9 @@ function App() {
     //       <Route path="/">
     //         <Route index element={<Homepage />} />
     //         <Route path='about-us' element={<AboutUs/>}/>
-    //         <Route path='admin' element={<Homepage />}></Route>
+    //         <Route path='admin' element={<admin />}></Route>
     //         <Route path='explore'>
-    //           <Route index element={<Homepage />}/>
+    //           <Route index element={<Explore />}/>
     //           <Route path='postDetail/:post_id'></Route>
     //         </Route>
     //         <Route path='my'>

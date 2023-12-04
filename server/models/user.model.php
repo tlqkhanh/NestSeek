@@ -18,7 +18,7 @@
             $this->userID = $userID;
             $this->userName = $userName;
             $this->email = $email;
-            $this->password = $password ? password_hash($password, PASSWORD_DEFAULT) : null;
+            $this->password = $password;
             $this->type = $type;
             $this->fullName = $fullName;
             $this->phoneNum = $phoneNum;
@@ -48,7 +48,8 @@
             $insertQuery = "INSERT INTO User (user_name, email, password, user_type, full_name, phone_number, bank_number, bank_name, status)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $insertStmt = $this->conn->prepare($insertQuery);
-            $insertStmt->bind_param("sssssssss", $this->userName, $this->email, $this->password, $this->type, $this->fullName, $this->phoneNum, $this->bankNum, $this->bankName, $this->status);
+            $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+            $insertStmt->bind_param("sssssssss", $this->userName, $this->email, $hashedPassword, $this->type, $this->fullName, $this->phoneNum, $this->bankNum, $this->bankName, $this->status);
             $result = $insertStmt->execute();
             $insertStmt->close();
     
@@ -57,8 +58,8 @@
 
         public function validateUser() {
             $existingUser = $this->getUserWithSameEmailOrPhone();
-    
-            if ($existingUser && $this->password == $existingUser['password']) {
+
+            if ($existingUser && password_verify($this->password,$existingUser['password'])) {
                 return $existingUser;
             }
 

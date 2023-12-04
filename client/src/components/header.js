@@ -3,17 +3,19 @@ import { Link } from "react-router-dom";
 
 const Header = ({ isLoggedIn, userType }) => {
   const renderUserOptions = () => {
+
     if (isLoggedIn) {
-      if (userType === 'user') {
-        return (
-          <button className="border-15 border-darkblue bg-white hover:text-white text-darkblue font-bold py-2 px-4 rounded">
-            Manage User Account
-          </button>
-        );
-      } else if (userType === 'admin') {
+      if (userType === 'admin') {
         return (
           <button className="border-15 border-darkblue bg-white hover:text-white text-darkblue font-bold py-2 px-4 rounded">
             Manage Admin Account
+          </button>
+        );
+      }
+      else {
+        return (
+          <button className="border-15 border-darkblue bg-white hover:text-white text-darkblue font-bold py-2 px-4 rounded">
+            Manage User Account
           </button>
         );
       }

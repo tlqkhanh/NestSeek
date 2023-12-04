@@ -1,5 +1,6 @@
 <?php
     function validateInput($data) {
+        if (!$data) return $data;
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);

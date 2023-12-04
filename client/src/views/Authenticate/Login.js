@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../action/auth.action';
+import Cookies from 'universal-cookie';
 
-// ### call API login here ###
-// async function loginUser(credentials) {
-//     return fetch('http://localhost:8080/login', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(credentials)
-//     })
-//       .then(data => data.json())
-//    }
-
-export default function Login({ setToken }) {
+export default function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+
 
     const handleSubmit = async e => {
-        // e.preventDefault();
-        // const token = await loginUser({
-        //   username,
-        //   password
-        // });
-        // setToken(token);
-      }
+      e.preventDefault();
+      const userCredential = {email: username, phoneNum: username, password: password};
+      login(userCredential)
+      .then(res => {
+        console.log(res.data);
+        cookies.set('uid',res.data.user.uid, {path: '/'});
+        cookies.set('type',res.data.user.type, {path: '/'});
+        cookies.set('username',res.data.user.username, {path: '/'});
+        cookies.set('token',res.data.token, {path: '/'});
+        console.log(document.cookie);
+        navigate("/postDetail/1");
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
   return(
     <div className='w-full flex justify-center items-center'>
     <div className={classNames("login-wrapper flex flex-col items-center", 'bg-bluelight rounded-xl', 'md:w-[60%] md:h-[100%] p-6 sm:w-fit sm:h-fit')}>
@@ -34,7 +37,7 @@ export default function Login({ setToken }) {
         <label className='md:pb-4 sm:pb-2'>
           <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
                  type="text" 
-                 placeholder="Phone number" 
+                 placeholder="Phone number or Email" 
                  onChange={e => setUserName(e.target.value)}
           />
         </label>
@@ -52,7 +55,3 @@ export default function Login({ setToken }) {
     </div>
   )
 }
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-  }

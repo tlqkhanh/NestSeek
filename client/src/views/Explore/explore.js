@@ -55,7 +55,7 @@ export default function Explore() {
     ;
     return (
         <div className="flex-grow">
-          <Header/>
+          {/* <Header/> */}
           <div className="flex justify-center">
             <div className="grid grid-cols-4 gap-5 top">
               <div className="flex items-center text-darkblue search">
