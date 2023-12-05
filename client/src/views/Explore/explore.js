@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from 'react-icons/fa';
 import Header from "../../components/header";
 import List from "../../components/list";
 import Data from './dataexplore';
+import { getPropertyList } from "../../action/property.action";
 export default function Explore() {
+
+  const [propertyList, setPropertyList] = useState([]);
+  const fetchData = async () => {
+    try {
+      const response = await getPropertyList();
+      setPropertyList(response.data.propertyList);
+    } catch (error) {
+      console.error('Error fetching property list:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+
     const customcss=`
     .icon
     {
@@ -38,7 +55,7 @@ export default function Explore() {
     ;
     return (
         <div className="flex-grow">
-          <Header/>
+          {/* <Header/> */}
           <div className="flex justify-center">
             <div className="grid grid-cols-4 gap-5 top">
               <div className="flex items-center text-darkblue search">
@@ -61,9 +78,12 @@ export default function Explore() {
             </div>
           </div>
           
-          <div className="flex justify-center">
-            <List data={Data} />
-          </div>
+          {propertyList.length!=0 
+          ? <div className="flex justify-center">
+              <List data={propertyList} />
+            </div>
+          : <p>There is no property!!!</p>
+          }
           
           <style>{customcss}</style>
         </div>

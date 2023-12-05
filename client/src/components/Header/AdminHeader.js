@@ -1,27 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// import classNames from "classnames";
+import AdminCard from "./AdminCard";
 
-const Header = ({ isLoggedIn, userType }) => {
-  const renderUserOptions = () => {
-
-    if (isLoggedIn) {
-      if (userType === 'admin') {
-        return (
-          <button className="border-15 border-darkblue bg-white hover:text-white text-darkblue font-bold py-2 px-4 rounded">
-            Manage Admin Account
-          </button>
-        );
-      }
-      else {
-        return (
-          <button className="border-15 border-darkblue bg-white hover:text-white text-darkblue font-bold py-2 px-4 rounded">
-            Manage User Account
-          </button>
-        );
-      }
-    }
-    return null;
-  };
+const AdminHeader = ({ isLoggedIn, userType }) => {
+  // const renderUserOptions = () => {
+  //   if (isLoggedIn) {
+  //     if (userType === 'user') {
+  //       return (
+  //         <button className="border-15 border-darkblue bg-white hover:text-white text-darkblue font-bold py-2 px-4 rounded">
+  //           Manage User Account
+  //         </button>
+  //       );
+  //     } else if (userType === 'admin') {
+  //       return (
+  //         <button className="border-15 border-darkblue bg-white hover:text-white hover:bg-darkblue text-darkblue font-bold py-2 px-4 rounded">
+  //           Manage Admin Account
+  //         </button>
+  //       );
+  //     }
+  //   }
+  //   return null;
+  // };
   const customstyle=
   {
     addborder:
@@ -55,25 +55,29 @@ const Header = ({ isLoggedIn, userType }) => {
                     <Link to="/explore">Advertise</Link>
               </button>
             </li>
-            {isLoggedIn ? (
+            {isLoggedIn === 'true' ? (
               <li>
-                <button className="border-15 border-darkblue bg-white text-darkblue font-bold py-2 px-4 rounded">
-                  Account
-                </button>
-                <div className="options">
+                {/* <button className={classNames("border border-darkblue bg-white text-darkblue hover:bg-gray-200 font-bold ", "flex flex-row justify-center items-center py-2 px-4 rounded-xl")}> */}
+                  {/* <div className="px-3"> */}
+                  {/* <UserIcon className="w-6 h-6"/></div> */}
+                  {/* <ChevronDownIcon className="w-4 h-4" /> */}
+                  {/* <div>Account</div> */}
+                {/* </button> */}
+                <AdminCard/>
+                {/* <div className="options">
                   {renderUserOptions()}
-                </div>
+                </div> */}
               </li>
             ) : (
               <>
                 <li>
                   <button className="border-15 border-darkblue hover:bg-medium hover:text-white bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customstyle.addborder}>
-                    <Link to="/sign-up">Sign Up</Link>
+                    <Link to="/signup">Sign Up</Link>
                   </button>
                 </li>
                 <li>
                   <button className="border-15 border-darkblue hover:bg-medium hover:text-white bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customstyle.addborder}>
-                    <Link to="/log-in">Log In</Link>
+                    <Link to="/login">Log In</Link>
                   </button>
                 </li>
               </>
@@ -85,4 +89,4 @@ const Header = ({ isLoggedIn, userType }) => {
   );
 };
 
-export default Header;
+export default AdminHeader;

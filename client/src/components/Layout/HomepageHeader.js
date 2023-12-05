@@ -66,12 +66,12 @@ const HomepaheHeader = ({ isLoggedIn, userType }) => {
               <>
                 <li>
                   <button className="border-15 border-darkblue hover:bg-medium hover:text-white bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customstyle.addborder}>
-                    <Link to="/signup">Sign Up</Link>
+                    <Link to="/sign-up">Sign Up</Link>
                   </button>
                 </li>
                 <li>
                   <button className="border-15 border-darkblue hover:bg-medium hover:text-white bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customstyle.addborder}>
-                    <Link to="/login">Log In</Link>
+                    <Link to="/log-in">Log In</Link>
                   </button>
                 </li>
               </>
