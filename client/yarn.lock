@@ -9380,7 +9380,7 @@ unique-string@^2.0.0:
   dependencies:
     crypto-random-string "^2.0.0"
 
-universal-cookie@6.1.1:
+universal-cookie@^6.1.1:
   version "6.1.1"
   resolved "https://registry.npmjs.org/universal-cookie/-/universal-cookie-6.1.1.tgz"
   integrity sha512-33S9x3CpdUnnjwTNs2Fgc41WGve2tdLtvaK2kPSbZRc5pGpz2vQFbRWMxlATsxNNe/Cy8SzmnmbuBM85jpZPtA==

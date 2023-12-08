@@ -12,6 +12,7 @@ module.exports = {
         'superlight':'#B6DADD',
         'red':'#FF7070',
         'darkred':'#DD4708',
+        'bgcolor':'#C6DFE2',
       }
     },
   },
