@@ -30,7 +30,7 @@ export default function Homepage() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000,
+        autoplaySpeed: 300,
       };
     
     const custom=
@@ -42,14 +42,14 @@ export default function Homepage() {
         },
         addborder:
         {
-          border: '1px solid #013034',
+          border: '1px',
           padding: '10px 30px 10px 30px',
 
         },
         }
     return (
-        <main className="flex h-fit" style={{marginBottom:"0px"}}>
-            <div className="w-1/2 overflow-hidden max-w-[50vw]">
+        <div className="flex h-fit" style={{marginBottom:"0px"}}>
+            <div className="w-1/2 overflow-hidden max-w-[50vw] hidden lg:block">
             <Slider {...settings}>
                 <div>
                     <img src={img1} alt="Homepage" className="h-full w-full object-cover" />
@@ -66,21 +66,52 @@ export default function Homepage() {
                 </div>
             </Slider>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 hidden lg:block">
                 <Header />
-                <div className="items-center justify-center text-#0E494E m-20">
+                <div className="items-center justify-center text-blue1 m-20">
                     <h1 style={custom.title}>Your Comfort</h1>
                     <h1 style={custom.title}>Our Priority</h1>
                     <br></br>
                     <p>Discover Comfortable Spaces for Every Stay - Your Ideal Home or Business Location Awaits !</p>
                     <br></br>
                     <br></br>
-                    <button className="border-15 border-textcolor hover:bg-medium text-white bg-blue1 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
+                    <button className="border hover:bg-medium text-white bg-blue1 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
+                    <Link to="/login">Rent now</Link>
+                  </button>
+                </div>
+            </div>
+            <div className="flex flex-col justify-center lg:hidden">
+            <Header />
+            <div className="w-full overflow-hidden max-w-[100vw] lg:hidden">
+            <Slider {...settings}>
+                <div>
+                    <img src={img1} alt="Homepage" className="h-full w-full object-cover" />
+                </div>
+               
+                <div>
+                    <img src={img3} alt="Homepage" className="h-full w-full object-cover" />
+                </div>
+                <div>
+                    <img src={img2} alt="Homepage" className="h-full w-full object-cover" />
+                </div>
+                <div>
+                    <img src={img4} alt="Homepage" className="h-full w-full object-cover" />
+                </div>
+            </Slider>
+            </div>
+            <div className="items-center justify-center text-blue1 m-20">
+                    <h1 style={custom.title}>Your Comfort</h1>
+                    <h1 style={custom.title}>Our Priority</h1>
+                    <br></br>
+                    <p>Discover Comfortable Spaces for Every Stay - Your Ideal Home or Business Location Awaits !</p>
+                    <br></br>
+                    <br></br>
+                    <button className="border hover:bg-medium text-white bg-blue1 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
                     <Link to="/login">Rent now</Link>
                   </button>
                 </div>
             </div>
             <style>{customCSS}</style>
-        </main>
+        </div>
     )
 }

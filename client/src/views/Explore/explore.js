@@ -38,26 +38,11 @@ export default function Explore() {
     {
         padding: 10px 30px 10px 30px;
     }
-    @media screen and (max-width: 1000px) {
-      .grid {
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
-      }
-  }
-  
-  @media screen and (max-width: 768px) {
-      .grid {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
-      }
-  }
     `
     ;
     return (
         <div className="flex-grow">
-          {/* <Header/> */}
-          <div className="flex justify-center">
-            <div className="grid grid-cols-4 gap-5 top">
+            <div className="flex flex-wrap justify-between p-20 xl:ml-20 xl:mr-20">
               <div className="flex items-center text-darkblue search">
                 <span className="ml-2">
                   <FaSearch className="text-bluelight icon" />
@@ -68,22 +53,21 @@ export default function Explore() {
                   placeholder="Search..."
                 />
               </div>
-              <div></div>
-              <div></div>
-              <div className="flex justify-end items-center">
+              <div className="flex items-center">
                 <button className="bg-bluelight hover:bg-blue1 text-white font-bold py-2 px-4 rounded">
                   Advertise
                 </button>
               </div>
             </div>
-          </div>
-          
+          <div className="flex justify-center items-center">
           {propertyList.length!=0 
           ? <div className="flex justify-center">
               <List data={propertyList} />
             </div>
           : <p>There is no property!!!</p>
           }
+          
+          </div>
           
           <style>{customcss}</style>
         </div>
