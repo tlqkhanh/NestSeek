@@ -40,18 +40,18 @@ export default function GuestLayout() {
     .catch(error => {
       // console.log(error.response)
       console.log(error);
-      navigate('/401');
+      //navigate('/401');
     })
   }, [])
 
 
   return (
     <div className="flex flex-col min-h-screen">
-      {isAuth && <Header isLoggedIn={isAuth} userType={userType}/>}
-      {isAuth && <div className="flex-grow flex">
+      <Header isLoggedIn={isAuth} userType={userType}/>
+      <div className="flex-grow flex">
         <Outlet/>
-      </div>}
-      {isAuth && <Footer />}
+      </div>
+      <Footer />
     </div>
   );
 }

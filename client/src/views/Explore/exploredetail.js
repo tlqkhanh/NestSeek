@@ -37,22 +37,22 @@ const Detail = () => {
     let userButtons;
     if (userType === 'owner') {
         userButtons = (
-            <div className="flex justify-end items-center">
-                <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+            <div className="flex flex-col sm:flex-row justify-end items-center">
+                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Edit
                 </button>
-                <button className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Delete
                 </button>
             </div>           
         );
     } else if (userType === 'renter') {
         userButtons = (
-            <div className="flex justify-end items-center">
-                <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+            <div className="flex flex-col sm:flex-row justify-end items-center">
+                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Book
                 </button>
-                <button className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Report
                 </button>
             </div>
@@ -60,7 +60,7 @@ const Detail = () => {
     } else if (userType === 'admin') {
         userButtons = (
             <div className="flex justify-end items-center">
-                <button className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Delete
                 </button>
             </div>
@@ -99,29 +99,29 @@ const Detail = () => {
     return (
         <div>
             <div className="flex-grow">
-                <div className="flex flex-wrap justify-between p-20 xl:ml-20 xl:mr-20">
-                <div className="flex items-center text-darkblue search">
-                    <span className="ml-2">
-                    <FaSearch className="text-bluelight icon" />
-                    </span>
-                    <input
-                    type="text"
-                    className="w-full focus:outline-none"
-                    placeholder="Search..."
-                    />
-                </div>
-                <div className="flex items-center">
-                    <button className="bg-bluelight hover:bg-blue1 text-white font-bold py-2 px-4 rounded">
-                    Advertise
-                    </button>
-                </div>
+                <div className="flex flex-col sm:flex-row justify-between p-20 xl:ml-20 xl:mr-20">
+                    <div className="flex items-center text-darkblue search">
+                        <span className="ml-2">
+                        <FaSearch className="text-bluelight icon" />
+                        </span>
+                        <input
+                        type="text"
+                        className="w-full focus:outline-none"
+                        placeholder="Search..."
+                        />
+                    </div>
+                    <div className="flex items-center justify-end pt-10 sm:pt-0">
+                        <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
+                        Advertise
+                        </button>
+                    </div>
                 </div>
             </div>
             <br></br>
             <br></br>
             <div className="flex justify-center">
                 <div className="hidden lg:block">
-                    <div className="flex flex-row pl-20 pr-20 xl:ml-20 xl:mr-20 gap-5">
+                    <div className="flex flex-row sm:pl-20 sm:pr-20 xl:ml-20 xl:mr-20 gap-5">
                         <div className="flex justify-center items-center text-textcolor w-1/2">
                             <img
                                 src={'https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41477-019-0374-3/MediaObjects/41477_2019_374_Figa_HTML.jpg'}
@@ -143,7 +143,7 @@ const Detail = () => {
                     </div>
                 </div>
                 
-                <div className="lg:hidden">
+                <div className="lg:hidden w-full">
                 <div className="flex flex-col justify-center items-center xl:ml-20 xl:mr-20">
                         <div className="content rounded-2xl text-darkblue">
                             <div className="flex justify-center items-center text-textcolor">
@@ -169,7 +169,7 @@ const Detail = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center cmt pl-20 pr-20 xl:ml-20 xl:mr-20">
+            <div className="flex justify-center cmt sm:pl-20 sm:pr-20 xl:ml-20 xl:mr-20">
                 <div className="grid grid-cols-1 w-full">
                     <div className="col-span-2 p-14 ">
                         <h2 className="font-bold mb-4 text-2xl text-blue2">Comment</h2> <br></br>

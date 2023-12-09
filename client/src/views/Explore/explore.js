@@ -42,23 +42,23 @@ export default function Explore() {
     ;
     return (
         <div className="flex-grow">
-            <div className="flex flex-wrap justify-between p-20 xl:ml-20 xl:mr-20">
-              <div className="flex items-center text-darkblue search">
-                <span className="ml-2">
-                  <FaSearch className="text-bluelight icon" />
-                </span>
-                <input
-                  type="text"
-                  className="w-full focus:outline-none"
-                  placeholder="Search..."
-                />
-              </div>
-              <div className="flex items-center">
-                <button className="bg-bluelight hover:bg-blue1 text-white font-bold py-2 px-4 rounded">
-                  Advertise
-                </button>
-              </div>
-            </div>
+            <div className="flex flex-col sm:flex-row justify-between p-20 xl:ml-20 xl:mr-20">
+                    <div className="flex items-center text-darkblue search">
+                        <span className="ml-2">
+                        <FaSearch className="text-bluelight icon" />
+                        </span>
+                        <input
+                        type="text"
+                        className="w-full focus:outline-none"
+                        placeholder="Search..."
+                        />
+                    </div>
+                    <div className="flex items-center justify-end pt-10 sm:pt-0">
+                        <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
+                        Advertise
+                        </button>
+                    </div>
+                </div>
           <div className="flex justify-center items-center">
           {propertyList.length!=0 
           ? <div className="flex justify-center">

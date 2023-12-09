@@ -87,8 +87,8 @@ const Header = ({ isLoggedIn, userType }) => {
         <div className="md:hidden flex flex-row">
         <Menu as="div" className="relative inline-block text-left ">
           <div>
-            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
-              <TiThMenu></TiThMenu>
+            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
+            <TiThMenu className="text-2xl text-blue2" />
             </Menu.Button>
           </div>
 

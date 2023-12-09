@@ -31,6 +31,7 @@ export default function Homepage() {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 300,
+        
       };
     
     const custom=
@@ -48,27 +49,27 @@ export default function Homepage() {
         },
         }
     return (
-        <div className="flex h-fit" style={{marginBottom:"0px"}}>
+        <div className="flex" style={{marginBottom:"0px"}}>
             <div className="w-1/2 overflow-hidden max-w-[50vw] hidden lg:block">
             <Slider {...settings}>
                 <div>
-                    <img src={img1} alt="Homepage" className="h-full w-full object-cover" />
+                    <img src={img1} alt="Homepage" className="h-screen w-full object-cover" />
                 </div>
                
                 <div>
-                    <img src={img3} alt="Homepage" className="h-full w-full object-cover" />
+                    <img src={img3} alt="Homepage" className="h-screen w-full object-cover" />
                 </div>
                 <div>
-                    <img src={img2} alt="Homepage" className="h-full w-full object-cover" />
+                    <img src={img2} alt="Homepage" className="h-screen w-full object-cover" />
                 </div>
                 <div>
-                    <img src={img4} alt="Homepage" className="h-full w-full object-cover" />
+                    <img src={img4} alt="Homepage" className="h-screen w-full object-cover" />
                 </div>
             </Slider>
             </div>
             <div className="w-1/2 hidden lg:block">
                 <Header />
-                <div className="items-center justify-center text-blue1 m-20">
+                <div className="items-center justify-center text-blue1 m-20 pt-20">
                     <h1 style={custom.title}>Your Comfort</h1>
                     <h1 style={custom.title}>Our Priority</h1>
                     <br></br>

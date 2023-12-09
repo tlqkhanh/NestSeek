@@ -53,7 +53,6 @@ export default function Router() {
         { path: "explore/postDetail/:post_id", element:<Detail></Detail>},
         { path:"log-in", element: <LoginPage /> },
         { path:"sign-up", element: <SignUpPage /> },
-        { path:"bill",element:<Bill></Bill>},
       ]
     },
     {
@@ -62,7 +61,7 @@ export default function Router() {
         { path:"your-advertise", element:<Youradvertise></Youradvertise>},
         { path:"booking-history",element:<BookingHistory></BookingHistory>},
         { path:"payment-history",element:<PaymentHistory></PaymentHistory>},
-        
+        { path:"bill",element:<Bill></Bill>},
       ],
     },
     // Route for Admin Role

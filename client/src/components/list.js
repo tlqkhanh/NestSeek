@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const List = ({ data }) => {
     return (
-        <div className="flex flex-wrap justify-between sm:pl-20 sm:pr-20 md:pl-10 md:pr-10 lg:pl-12 lg:pr-12">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3">
             {data.map(item => (
                 <div key={item.id} className="w-64 rounded overflow-hidden shadow-lg m-3">
                     <Link to={`postDetail/${item.propertyID}`} className="block">

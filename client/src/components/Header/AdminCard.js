@@ -8,7 +8,7 @@ export default function AdminCard() {
   return (
     <Menu as="div" className="relative text-left px-2 w-full h-full flex">
       <div className="">
-        <Menu.Button className="px-6 py-2 inline-flex w-full h-full justify-center items-center rounded-xl text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-200">
+        <Menu.Button className="px-6 py-2 inline-flex w-full justify-center items-center rounded-full text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-200">
           {/* <img
             className={classNames("w-10 h-10 rounded-full")}
             src="/src/assets/me_ava.jpg"
