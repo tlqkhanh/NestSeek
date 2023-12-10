@@ -10,6 +10,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Quản lý nhà trọ ABC",
         date: "2023-11-26",
+        pay:true,
     },
     {
         id: 2,
@@ -21,6 +22,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Chủ căn hộ XYZ",
         date: "2023-11-25",
+        pay:false,
     },
     {
         id: 3,
@@ -32,6 +34,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Quản lý nhà trọ ABC",
         date: "2023-11-26",
+        pay:false,
     },
     {
         id: 4,
@@ -43,6 +46,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Chủ căn hộ XYZ",
         date: "2023-11-25",
+        pay:false,
     },
     {
         id: 5,
@@ -54,6 +58,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Quản lý nhà trọ ABC",
         date: "2023-11-26",
+        pay:false,
     },
     {
         id: 6,
@@ -65,6 +70,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Chủ căn hộ XYZ",
         date: "2023-11-25",
+        pay:true,
     },
     {
         id: 7,
@@ -76,6 +82,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Quản lý nhà trọ ABC",
         date: "2023-11-26",
+        pay:true,
     },
     {
         id: 8,
@@ -87,6 +94,7 @@ const PostData = [
         imgUrl: homepageImage,
         author: "Chủ căn hộ XYZ",
         date: "2023-11-25",
+        pay:true,
     },
 ];
 
