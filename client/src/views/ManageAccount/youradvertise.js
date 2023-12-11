@@ -21,29 +21,15 @@ export default function Youradvertise() {
     {
         padding: 10px 30px 10px 30px;
     }
-    @media screen and (max-width: 1000px) {
-      .grid {
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
-      }
-  }
-  
-  @media screen and (max-width: 768px) {
-      .grid {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
-      }
-  }
     `
     ;
     return (
         <div className="flex-grow">
-          <Header/>
           <div className="flex justify-center mt-12 mb-12">
             <h1 className="text-blue1 font-bold text-4xl">Your Advertise</h1>
           </div>
           
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center p-10 m-3">
             <List data={datapost} />
           </div>
           

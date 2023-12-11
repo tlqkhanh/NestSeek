@@ -20,7 +20,7 @@ import UserAppLayout from "../Layout/UserAppLayout";
 import Youradvertise from "../../views/ManageAccount/youradvertise";
 import BookingHistory from "../../views/ManageAccount/bookinghistory";
 import PaymentHistory from "../../views/ManageAccount/paymenthistory";
-
+import Bill from "../../views/ManageAccount/bill";
 //end user layout
 
 //begin admin layout
@@ -61,6 +61,7 @@ export default function Router() {
         { path:"your-advertise", element:<Youradvertise></Youradvertise>},
         { path:"booking-history",element:<BookingHistory></BookingHistory>},
         { path:"payment-history",element:<PaymentHistory></PaymentHistory>},
+        { path:"bill",element:<Bill></Bill>},
       ],
     },
     // Route for Admin Role

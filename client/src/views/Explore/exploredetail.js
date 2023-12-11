@@ -37,22 +37,22 @@ const Detail = () => {
     let userButtons;
     if (userType === 'owner') {
         userButtons = (
-            <div className="flex justify-end items-center">
-                <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+            <div className="flex flex-col sm:flex-row justify-end items-center">
+                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Edit
                 </button>
-                <button className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Delete
                 </button>
             </div>           
         );
     } else if (userType === 'renter') {
         userButtons = (
-            <div className="flex justify-end items-center">
-                <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+            <div className="flex flex-col sm:flex-row justify-end items-center">
+                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Book
                 </button>
-                <button className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Report
                 </button>
             </div>
@@ -60,7 +60,7 @@ const Detail = () => {
     } else if (userType === 'admin') {
         userButtons = (
             <div className="flex justify-end items-center">
-                <button className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Delete
                 </button>
             </div>
@@ -82,8 +82,6 @@ const Detail = () => {
         .content
         {
             border:solid 1px #B6DADD;
-            padding:20px;
-            border-radius:15px;
             width:60%;
         }
         .cmt
@@ -100,23 +98,21 @@ const Detail = () => {
 
     return (
         <div>
-            <div className="flex justify-center">
-                <div className="grid grid-cols-4 gap-5 top">
-                    <div className="flex items-center text-textcolor search">
+            <div className="flex-grow">
+                <div className="flex flex-col sm:flex-row justify-between p-20 xl:ml-20 xl:mr-20">
+                    <div className="flex items-center text-darkblue search">
                         <span className="ml-2">
-                            <FaSearch className="text-bluelight icon" />
+                        <FaSearch className="text-bluelight icon" />
                         </span>
                         <input
-                            type="text"
-                            className="w-full focus:outline-none"
-                            placeholder="Search..."
+                        type="text"
+                        className="w-full focus:outline-none"
+                        placeholder="Search..."
                         />
                     </div>
-                    <div></div>
-                    <div></div>
-                    <div className="flex justify-end items-center">
+                    <div className="flex items-center justify-end pt-10 mt-10 sm:pt-0 sm:mt-0">
                         <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
-                            Advertise
+                        Advertise
                         </button>
                     </div>
                 </div>
@@ -124,30 +120,58 @@ const Detail = () => {
             <br></br>
             <br></br>
             <div className="flex justify-center">
-                <div className="grid grid-cols-2 gap-5">
-                    <div className="flex justify-end items-center text-textcolor">
-                        <img
-                            src={'https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41477-019-0374-3/MediaObjects/41477_2019_374_Figa_HTML.jpg'}
-                            alt={postDetail.name}
-                            style={{ width: '60%', height: 'auto' }} 
-                        />
+                <div className="hidden lg:block">
+                    <div className="flex flex-row sm:pl-20 sm:pr-20 xl:ml-20 xl:mr-20 gap-5">
+                        <div className="flex justify-center items-center text-textcolor w-1/2">
+                            <img
+                                src={'https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41477-019-0374-3/MediaObjects/41477_2019_374_Figa_HTML.jpg'}
+                                alt={postDetail.name}
+                                className="w-full"
+                            />
+                        </div>
+                        <div className="content rounded-2xl text-darkblue p-4">
+                            <h1 className="text-blue2 font-bold text-2xl">{postDetail.name}</h1>
+                            <RatingFrame userType={userType} />
+                            <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.score}</p>
+                            <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
+                            <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
+                            <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
+                            <p><span style={{fontWeight:"bold"}}>Location: </span>{postDetail.location}</p>
+                            <p><span style={{fontWeight:"bold"}}>Description: </span> {postDetail.description}</p>
+                            {userButtons}
+                        </div>
                     </div>
-                    <div className="content text-darkblue">
-                        <h1 className="text-blue2 font-bold text-2xl">{postDetail.name}</h1>
-                        <RatingFrame userType={userType} />
-                        <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.score}</p>
-                        <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
-                        <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
-                        <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
-                        <p><span style={{fontWeight:"bold"}}>Location: </span>{postDetail.location}</p>
-                        <p><span style={{fontWeight:"bold"}}>Description: </span> {postDetail.description}</p>
-                        {userButtons}
+                </div>
+                
+                <div className="lg:hidden w-full">
+                <div className="flex flex-col justify-center items-center xl:ml-20 xl:mr-20">
+                        <div className="content rounded-2xl text-darkblue">
+                            <div className="flex justify-center items-center text-textcolor">
+                                <img
+                                    src={'https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41477-019-0374-3/MediaObjects/41477_2019_374_Figa_HTML.jpg'}
+                                    alt={postDetail.name}
+                                    className="w-full rounded-t-2xl"
+                                />
+                            </div>
+                            <div className="p-4">
+                                <h1 className="text-blue2 font-bold text-2xl">{postDetail.name}</h1>
+                                <RatingFrame userType={userType} />
+                                <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.score}</p>
+                                <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
+                                <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
+                                <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
+                                <p><span style={{fontWeight:"bold"}}>Location: </span>{postDetail.location}</p>
+                                <p><span style={{fontWeight:"bold"}}>Description: </span> {postDetail.description}</p>
+                            {userButtons}
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center cmt">
-                <div className="grid grid-cols-1 gap-5 w-full max-w-screen-lg">
-                    <div className="col-span-2 p-4 ">
+            <div className="flex justify-center cmt sm:pl-20 sm:pr-20 xl:ml-20 xl:mr-20">
+                <div className="grid grid-cols-1 w-full">
+                    <div className="col-span-2 p-14 ">
                         <h2 className="font-bold mb-4 text-2xl text-blue2">Comment</h2> <br></br>
                         <textarea
                             className="w-full h-32 p-2 border-2 border-superlight "
@@ -159,7 +183,7 @@ const Detail = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="col-span-2 p-4">
+                    <div className="col-span-2 pl-14 pr-14 pt-8 pb-8">
                         <h2 className="font-bold mb-4 text-2xl text-blue2">Other Comments</h2>
                         <div className="comment">
                             <h2 className="text-blue1 font-bold">Username</h2>
