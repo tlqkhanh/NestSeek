@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 30, 2023 lúc 06:00 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Dec 04, 2023 at 03:25 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `nestseek`
+-- Database: `nestseek`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `bill`
+-- Table structure for table `bill`
 --
 
 CREATE TABLE `bill` (
@@ -37,7 +37,7 @@ CREATE TABLE `bill` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `bill`
+-- Dumping data for table `bill`
 --
 
 INSERT INTO `bill` (`billID`, `tax`, `initial_amount`, `total_amount`, `for_rentID`, `status`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `bill` (`billID`, `tax`, `initial_amount`, `total_amount`, `for_rent
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE `comment` (
@@ -60,7 +60,7 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `comment`
+-- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`commentID`, `comment`, `comment_time`, `userID`, `propertyID`, `isChild`, `parentID`) VALUES
@@ -73,7 +73,7 @@ INSERT INTO `comment` (`commentID`, `comment`, `comment_time`, `userID`, `proper
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `property`
+-- Table structure for table `property`
 --
 
 CREATE TABLE `property` (
@@ -92,7 +92,7 @@ CREATE TABLE `property` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `property`
+-- Dumping data for table `property`
 --
 
 INSERT INTO `property` (`propertyID`, `name`, `area`, `location`, `description`, `imageURL`, `price`, `created_at`, `ownerID`, `status`, `initial_slot`, `cur_slot`) VALUES
@@ -103,7 +103,7 @@ INSERT INTO `property` (`propertyID`, `name`, `area`, `location`, `description`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `rating`
+-- Table structure for table `rating`
 --
 
 CREATE TABLE `rating` (
@@ -114,7 +114,7 @@ CREATE TABLE `rating` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `rating`
+-- Dumping data for table `rating`
 --
 
 INSERT INTO `rating` (`ratingID`, `rate`, `userID`, `propertyID`) VALUES
@@ -124,7 +124,7 @@ INSERT INTO `rating` (`ratingID`, `rate`, `userID`, `propertyID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `rent`
+-- Table structure for table `rent`
 --
 
 CREATE TABLE `rent` (
@@ -137,7 +137,7 @@ CREATE TABLE `rent` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `rent`
+-- Dumping data for table `rent`
 --
 
 INSERT INTO `rent` (`rentID`, `rent_date`, `period`, `renterID`, `propertyID`, `status`) VALUES
@@ -147,7 +147,7 @@ INSERT INTO `rent` (`rentID`, `rent_date`, `period`, `renterID`, `propertyID`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `report`
+-- Table structure for table `report`
 --
 
 CREATE TABLE `report` (
@@ -162,7 +162,7 @@ CREATE TABLE `report` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -179,28 +179,28 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`userID`, `user_name`, `email`, `password`, `user_type`, `full_name`, `phone_number`, `bank_number`, `bank_name`, `status`) VALUES
-(1, 'owner1', 'owner1@example.com', 'password1', 'owner', 'Owner One', '1234567890', '1234567890123456', 'BankA', 'normal'),
+(1, 'owner1', 'owner1@example.com', '$2y$10$ZlYnvgaMT9ip6WGbz9bFSeFNW4MDGtISEMXqhkUVw2DRLXeje./4W', 'owner', 'Owner One', '1234567890', '1234567890123456', 'BankA', 'normal'),
 (2, 'renter1', 'renter1@example.com', 'password2', 'renter', 'Renter One', '9876543210', '6543210987654321', 'BankB', 'normal'),
 (3, 'admin1', 'admin1@example.com', 'password3', 'admin', 'Admin One', '1112223333', NULL, NULL, 'normal'),
 (4, 'user4', 'user4@example.com', 'password4', 'renter', 'Owner Two', '4445556666', NULL, NULL, 'normal');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `bill`
+-- Indexes for table `bill`
 --
 ALTER TABLE `bill`
   ADD PRIMARY KEY (`billID`),
   ADD KEY `for_rentID` (`for_rentID`);
 
 --
--- Chỉ mục cho bảng `comment`
+-- Indexes for table `comment`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`commentID`),
@@ -209,14 +209,14 @@ ALTER TABLE `comment`
   ADD KEY `parentID` (`parentID`);
 
 --
--- Chỉ mục cho bảng `property`
+-- Indexes for table `property`
 --
 ALTER TABLE `property`
   ADD PRIMARY KEY (`propertyID`),
   ADD KEY `fk_owner` (`ownerID`);
 
 --
--- Chỉ mục cho bảng `rating`
+-- Indexes for table `rating`
 --
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`ratingID`),
@@ -224,7 +224,7 @@ ALTER TABLE `rating`
   ADD KEY `propertyID` (`propertyID`);
 
 --
--- Chỉ mục cho bảng `rent`
+-- Indexes for table `rent`
 --
 ALTER TABLE `rent`
   ADD PRIMARY KEY (`rentID`),
@@ -232,76 +232,76 @@ ALTER TABLE `rent`
   ADD KEY `propertyID` (`propertyID`);
 
 --
--- Chỉ mục cho bảng `report`
+-- Indexes for table `report`
 --
 ALTER TABLE `report`
   ADD PRIMARY KEY (`reportID`),
   ADD KEY `reporterID` (`reporterID`);
 
 --
--- Chỉ mục cho bảng `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userID`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `bill`
+-- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
   MODIFY `billID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `comment`
+-- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
   MODIFY `commentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT cho bảng `property`
+-- AUTO_INCREMENT for table `property`
 --
 ALTER TABLE `property`
   MODIFY `propertyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `rating`
+-- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
   MODIFY `ratingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `rent`
+-- AUTO_INCREMENT for table `rent`
 --
 ALTER TABLE `rent`
   MODIFY `rentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `report`
+-- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
   MODIFY `reportID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `bill`
+-- Constraints for table `bill`
 --
 ALTER TABLE `bill`
   ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`for_rentID`) REFERENCES `rent` (`rentID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `comment`
+-- Constraints for table `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -309,27 +309,27 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`parentID`) REFERENCES `comment` (`commentID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `property`
+-- Constraints for table `property`
 --
 ALTER TABLE `property`
   ADD CONSTRAINT `fk_owner` FOREIGN KEY (`ownerID`) REFERENCES `user` (`userID`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `rating`
+-- Constraints for table `rating`
 --
 ALTER TABLE `rating`
   ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`propertyID`) REFERENCES `property` (`propertyID`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `rent`
+-- Constraints for table `rent`
 --
 ALTER TABLE `rent`
   ADD CONSTRAINT `rent_ibfk_1` FOREIGN KEY (`renterID`) REFERENCES `user` (`userID`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `rent_ibfk_2` FOREIGN KEY (`propertyID`) REFERENCES `property` (`propertyID`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `report`
+-- Constraints for table `report`
 --
 ALTER TABLE `report`
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`reporterID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;

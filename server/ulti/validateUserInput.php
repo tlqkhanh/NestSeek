@@ -73,4 +73,37 @@
         return $errorMes;
     }
 
+    function validateProperty($data){
+        $errorMes = '';
+        $name = validateInput($data->name);
+        $area= $data->area;
+        $location = validateInput($data->location);
+        $description = validateInput($data->description);
+        $imageURL = validateInput($data->imageURL);
+        $price = $data->price;
+        $initialSlot = $data->initialSlot;
+        if (empty($name)){
+            $errorMes = 'Name is required!';
+        }
+        else if (empty($location)){
+            $errorMes = 'Location is required!';
+        }
+        else if (empty($description)){
+            $errorMes = 'Description is required!';
+        }
+        else if (empty($imageURL)){
+            $errorMes = 'ImageURL is required!';
+        }
+        else if (empty($price) || is_double($price) || $price <= 0){
+            $errorMes = 'Price is required and must be a number greater than 0!';
+        }
+        else if (empty($area) || is_double($area) || $area <= 0){
+            $errorMes = 'Area is required and must be a number greater than 0!';
+        }
+        else if (empty($initialSlot) || is_int($initialSlot) || $initialSlot<=0){
+            $errorMes = 'Initial slot is required and must be a number greater than 0!';
+        }
+        return $errorMes;
+    }
+
 ?>

@@ -86,13 +86,33 @@
             $bills = [];
             while ($stmt->fetch()) {
                 // Add bill information to the array
-                $bills[] = new Bill($conn, $billID, $tax, $initialAmount, $totalAmount, $forRentID, $status);
+                $bills[] = new Bill(null, $billID, $forRentID, $tax, $initialAmount, $totalAmount, $status);
             }
     
             // Close the statement
             $stmt->close();
     
             return $bills;
+        }
+
+        public static function getBillById($conn, $billId) {
+            $query = "SELECT b.*, r.*, p.* FROM bill b
+            JOIN rent r ON b.for_rentID = r.rentID
+            JOIN property p ON r.propertyID = p.propertyID
+            WHERE b.billID = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $billId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $billInfo = $result->fetch_assoc();
+                $stmt->close();
+                return $billInfo;
+            } else {
+                $stmt->close();
+                return null; // No bill found with the given ID
+            }
         }
 
 

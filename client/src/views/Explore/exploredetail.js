@@ -132,11 +132,12 @@ const Detail = () => {
                         <div className="content rounded-2xl text-darkblue p-4">
                             <h1 className="text-blue2 font-bold text-2xl">{postDetail.name}</h1>
                             <RatingFrame userType={userType} />
-                            <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.score}</p>
+                            <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.rating}</p>
                             <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
                             <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
-                            <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
                             <p><span style={{fontWeight:"bold"}}>Location: </span>{postDetail.location}</p>
+                            <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
+                            <p><span style={{fontWeight:"bold"}}>Current slot: </span>{postDetail.curSlot}</p>
                             <p><span style={{fontWeight:"bold"}}>Description: </span> {postDetail.description}</p>
                             {userButtons}
                         </div>

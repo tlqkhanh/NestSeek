@@ -30,19 +30,12 @@
         // Method to add a report instance to the database
         public function createReport() {
             // Prepare an SQL INSERT statement
-            $query = "INSERT INTO Report (report_type, reportedID, reporterID, report_date, reason) VALUES (?, ?, ?, ?, ?)";
+            $query = "INSERT INTO Report (report_type, reportedID, reporterID, reason) VALUES (?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
-    
-            // Bind parameters
-            $stmt->bind_param("siss", $this->reportType, $this->reportedID, $this->reporterID, $this->reportDate, $this->reason);
-    
-            // Execute the insert
+            $stmt->bind_param("siss", $this->reportType, $this->reportedID, $this->reporterID, $this->reason);
             $result = $stmt->execute();
-    
-            // Close the statement
             $stmt->close();
-    
-            return $result; // Return true if the insert was successful, false otherwise
+            return $result;
         }
     
         // Method to delete a report from the database

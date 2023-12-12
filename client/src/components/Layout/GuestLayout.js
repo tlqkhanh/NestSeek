@@ -39,7 +39,7 @@ export default function GuestLayout() {
     })
     .catch(error => {
       // console.log(error.response)
-      console.log(error);
+      console.log(error.response.data.error);
       //navigate('/401');
     })
   }, [])

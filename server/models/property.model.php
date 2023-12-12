@@ -49,10 +49,10 @@
                 return false; // Cannot create a property without an owner
             }
     
-            $query = "INSERT INTO Property (name, area, location, description, imageURL, price, created_at, initial_slot, cur_slot, status, ownerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO Property (name, area, location, description, imageURL, price, initial_slot, cur_slot, ownerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
     
-            $stmt->bind_param("sdsssdssisi", $this->name, $this->area, $this->location, $this->description, $this->imageURL, $this->price, $this->createdDate, $this->initialSlot, $this->curSlot, $this->status, $this->owner);
+            $stmt->bind_param("sdsssdiii", $this->name, $this->area, $this->location, $this->description, $this->imageURL, $this->price, $this->initialSlot, $this->curSlot, $this->owner);
 
             $result = $stmt->execute();
     
@@ -60,6 +60,55 @@
             $stmt->close();
     
             return $result; // Return true if the insert was successful, false otherwise
+        }
+
+        public function updateProperty() {
+            $query = "UPDATE property
+            SET
+                name = ?,
+                area = ?,
+                location = ?,
+                decription = ?,
+                imageURL = ?,
+                price = ?,
+                initial_slot = ?
+            WHERE propertyID = ?";
+            $stmt = $this->conn->prepare($query);
+    
+            $stmt->bind_param("sdsssdii", $this->name, $this->area, $this->location, $this->description, $this->imageURL, $this->price, $this->initialSlot, $this->propertyID);
+
+            $result = $stmt->execute();
+            $stmt->close();
+            return $result;
+        }
+
+        public function deleteProperty(){
+            $query = "DELETE FROM property WHERE propertyID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("i", $this->propertyID);
+            $result = $stmt->execute();
+            $stmt->close();
+            return $result;
+        }
+
+        public function getCurSlot(){
+            $query = "SELECT cur_slot FROM Property WHERE propertyID = ?";
+            $stmt = $this->conn->prerpare($query);
+            $stmt->bind_param("i", $this->propertyID);
+            $stmt->execute();
+            $result = 0;
+            $stmt->bind_result($result);
+            $stmt->fetch();
+            $stmt->close();
+            return $result[0];
+        }
+
+        public function updateCurSlot($curSlot) {
+            $query = "UPDATE Property SET cur_slot = ? WHERE propertyID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("ii", $curSlot, $this->propertyID);
+            $stmt->execute();
+            $stmt->close();
         }
 
         public static function getPropertyById($conn, $propertyId) {
@@ -101,20 +150,21 @@
             // Check if a property was found
             if ($propertyID !== null) {
                 // Return property information as an associative array
-                return [
-                    'propertyID' => $propertyID,
-                    'name' => $name,
-                    'area' => $area,
-                    'location' => $location,
-                    'description' => $description,
-                    'imageURL' => $imageURL,
-                    'price' => $price,
-                    'createdDate' => $created_at,
-                    'initialSlot' => $initial_slot,
-                    'curSlot' => $cur_slot,
-                    'status' => $status,
-                    'ownerID' => $owner,
-                ];
+                return new Property(null,
+                    $propertyID,
+                    $name,
+                    $owner,
+                    $area,
+                    $location,
+                    $description,
+                    $imageURL,
+                    $price,
+                    $created_at,
+                    $initial_slot,
+                    $cur_slot,
+                    $status,
+                    
+                );
             } else {
                 // Property not found
                 return null;
