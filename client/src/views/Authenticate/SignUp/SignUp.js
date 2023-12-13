@@ -33,10 +33,10 @@ function SignUp() {
     }
 
     return(
-        <div className='w-full flex justify-center items-center'>
+        <div className='w-full flex justify-center items-center mt-20'>
             <div className={classNames("login-wrapper flex flex-col items-center", 'bg-bluelight rounded-xl', 'md:w-[60%] md:h-[100%] p-6 sm:w-fit sm:h-fit')}>
                 <div className='font-semibold text-2xl text-darkblue lg:p-8 md:p-6 sm:p-2'>Sign Up</div>
-                <div className="form">
+                <div className="form ">
                     <div className="form-body">
                         <div className="username md:pb-4 sm:pb-2">
                             <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
@@ -66,7 +66,7 @@ function SignUp() {
                                     type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password"/>
                         </div>
                     </div>
-                    <div className="footer">
+                    <div className="footer ">
                         <button onClick={()=>handleSubmit()} type="submit" className="bg-darkblue py-2 px-4 rounded-lg text-white">Register</button>
                     </div>
                 </div>

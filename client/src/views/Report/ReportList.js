@@ -30,8 +30,8 @@ export default function Report() {
             <div className="font-bold text-4xl py-4">Report List</div>
 
             <div className="relative overflow-x-auto w-full py-6 px-4">
-                <table className="w-full text-center text-gray-500 text-base">
-                    <thead className="text-lg text-gray-700 uppercase bg-gray-50">
+                <table className="w-full text-gray-500 text-base ">
+                    <thead className="text-lg text-gray-700 uppercase bg-gray-50  text-center">
                         <tr>
                             <th scope="col" className="px-6 py-4">
                                 User name
@@ -49,9 +49,9 @@ export default function Report() {
                     </thead>
                     <tbody>
                         {report.map((report, index) => (
-                            <tr className="bg-white border-b" key={index}>
-                                <th scope="row" className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                    {report.username}
+                            <tr className="bg-white border-b " key={index}>
+                                <th scope="row" className="px-6 ml-15 py-3 font-medium text-gray-900 whitespace-nowrap text-justify">
+                                    <p className="">{report.username}</p>
                                 </th>
                                 <td className="px-6 py-3 border-x">
                                     {report.date}
@@ -59,9 +59,9 @@ export default function Report() {
                                 <td className="px-6 py-3 border-x flex justify-center">
                                     <div className="w-fit hover:text-blue-600 cursor-pointer hover:underline text-left">{report.post}</div>
                                 </td>
-                                <td className="w-[10%]">
-                                    <button className="py-3 bg-red-600 hover:bg-red-800 rounded-xl w-full text-white flex justify-center">
-                                        <TrashIcon className="w-6 h-6"/>
+                                <td className="w-[10%] border-x">
+                                    <button className="py-3 bg-white hover:bg-white rounded-xl w-full flex justify-center ">
+                                        <TrashIcon className="w-6 h-6 text-red "/>                                        
                                     </button>
                                 </td>
                             </tr>

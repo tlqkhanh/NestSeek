@@ -53,8 +53,8 @@ export default function SignUpPage({ setToken }) {
             </Slider>
             </div>
             <div className="w-1/2">
-                <Header />
-                <div className="items-center justify-center text-#0E494E m-20">
+                {/* <Header /> */}
+                <div className="items-center justify-center text-#0E494">
                     <SignUp />
                 </div>
             </div>

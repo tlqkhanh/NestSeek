@@ -30,8 +30,8 @@ export default function Login() {
       })
     }
   return(
-    <div className='w-full flex justify-center items-center'>
-    <div className={classNames("login-wrapper flex flex-col items-center", 'bg-bluelight rounded-xl', 'md:w-[60%] md:h-[100%] p-6 sm:w-fit sm:h-fit')}>
+    <div className='w-[60%] flex justify-center items-center'>
+    <div className={classNames("login-wrapper flex flex-col items-center", 'bg-bluelight rounded-xl', 'md:w-[60%] md:h-[100%] lg:w-[70%] p-6 sm:w-fit sm:h-fit')}>
       <div className='font-semibold text-2xl text-darkblue lg:p-8 md:p-6 sm:p-2'>Log In</div>
       <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center'>
         <label className='md:pb-4 sm:pb-2'>

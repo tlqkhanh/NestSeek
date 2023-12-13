@@ -25,25 +25,25 @@ import Footer from "../footer";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
-  const [isAuth,setIsAuth] = useState(false);
+  const [isAuth,setIsAuth] = useState(true);
   const [userType,setUserType] = useState('guest');
-  useEffect(()=>{
-    const cookies = new Cookies();
-    const token = cookies.get('token');
-    const userType = cookies.get('type');
+  // useEffect(()=>{
+  //   const cookies = new Cookies();
+  //   const token = cookies.get('token');
+  //   const userType = cookies.get('type');
 
-    authorize(token)
-    .then(res => {
-      console.log(res);
-      setIsAuth(true);
-      setUserType(userType);
-    })
-    .catch(error => {
-      // console.log(error.response)
-      console.log(error);
-      navigate('/403');
-    })
-  }, [])
+  //   authorize(token)
+  //   .then(res => {
+  //     console.log(res);
+  //     setIsAuth(true);
+  //     setUserType(userType);
+  //   })
+  //   .catch(error => {
+  //     // console.log(error.response)
+  //     console.log(error);
+  //     navigate('/403');
+  //   })
+  // }, [])
 
 
   return (
@@ -52,7 +52,7 @@ export default function AdminLayout() {
       {isAuth && <div className="flex-grow flex">
         <Outlet/>
       </div>}
-      {isAuth && <Footer />}
+      {/* {isAuth && <Footer />} */}
     </div>
   );
 }
