@@ -312,24 +312,6 @@ const Detail = () => {
                         </div>
                     </div>
                     <div className="col-span-2 pl-14 pr-14 pt-8 pb-8">
-                        <h2 className="font-bold mb-4 text-2xl text-blue2">Other Comments</h2>
-                        <div className="comment">
-                            <h2 className="text-blue1 font-bold">Username</h2>
-                            <p className="text-medium">Data : dd/mm/yyyy</p>
-                            <p className="text-darkblue">With meticulously designed rooms and suites, each adorned with plush furnishings and state-of-the-art amenities, our hotel offers a haven of relaxation and sophistication.</p>
-                        </div>
-                        <div className="comment">
-                            <h2 className="text-blue1 font-bold">Username</h2>
-                            <p className="text-medium">Data : dd/mm/yyyy</p>
-                            <p className="text-darkblue">With meticulously designed rooms and suites, each adorned with plush furnishings and state-of-the-art amenities, our hotel offers a haven of relaxation and sophistication.</p>
-                        </div>
-                        <div className="comment">
-                            <h2 className="text-blue1 font-bold">Username</h2>
-                            <p className="text-medium">Data : dd/mm/yyyy</p>
-                            <p className="text-darkblue">With  meticulously designed rooms and suites, each adorned with plush furnishings and state-of-the-art amenities, our hotel offers a haven of relaxation and sophistication.</p>
-                        </div>
-                    </div>
-                    <div className="col-span-2 pl-14 pr-14 pt-8 pb-8">
                     <h2 className="font-bold mb-4 text-2xl text-blue2">Other Comments</h2>
                     {comments.map((comment) => (
                         <Comment
