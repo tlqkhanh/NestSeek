@@ -23,6 +23,7 @@ import PaymentHistory from "../../views/ManageAccount/paymenthistory";
 import Bill from "../../views/ManageAccount/bill";
 import Profile from "../../views/Profile/Profile";
 import Response from "../../views/Response/Response";
+import EditProperty from "../../views/Response/EditProperty";
 
 //end user layout
 
@@ -56,19 +57,20 @@ export default function Router() {
         { path: "explore/postDetail/:post_id", element:<Detail></Detail>},
         { path:"log-in", element: <LoginPage /> },
         { path:"advertise", element: <Response></Response> },
+        {path: "advertise/edit/:post_id", element: <EditProperty></EditProperty>},
 
         { path:"sign-up", element: <SignUpPage /> },
-        { path:"profile/:profileid",element: <Profile></Profile>},
 
       ]
     },
     {
       element: <UserAppLayout />,
       children: [
-        { path:"your-advertise", element:<Youradvertise></Youradvertise>},
-        { path:"booking-history",element:<BookingHistory></BookingHistory>},
-        { path:"payment-history",element:<PaymentHistory></PaymentHistory>},
-        { path:"bill",element:<Bill></Bill>},
+        { path:"my/your-advertise", element:<Youradvertise></Youradvertise>},
+        { path:"my/booking-history",element:<BookingHistory></BookingHistory>},
+        { path:"my/payment-history",element:<PaymentHistory></PaymentHistory>},
+        { path:"my/bill",element:<Bill></Bill>},
+        { path:"my/profile",element: <Profile></Profile>},
         // { path:"profile/:profileid",element: <Profile></Profile>},
 
       ],

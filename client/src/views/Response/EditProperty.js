@@ -1,9 +1,12 @@
 import classNames from 'classnames';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-function Response() {
+import { getPropertyDetail } from "../../action/property.action.js";
+import { useParams } from 'react-router-dom';
+function EditProperty() {
     const cookies = new Cookies();
+    const {post_id} = useParams('post_id');
     const [Name, setName] = useState('');
     const [area,setArea] = useState(0);
     const [location, setlocation] = useState('');
@@ -45,7 +48,8 @@ function Response() {
         }
 
         try {
-            axios.post(`http://localhost:9000/server/api/property/addProperty.php`,{
+            axios.post(`http://localhost:9000/server/api/property/updateProperty.php`,{
+                propertyID: post_id,
                 name: Name,
                 area: area,
                 location: location,
@@ -58,7 +62,7 @@ function Response() {
             {
                 withCredentials: true,
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 }
             })
             .then(response=> {
@@ -69,13 +73,48 @@ function Response() {
                 }
             })
             .catch(err => {
-                alert(`Error: ${err.response.data.message}`)
-                window.location.href = '/explore';
+                console.log("Error: ", err.response.data)
             })
         } catch (error) {
             console.log(error);
         }
     }
+
+    const fetchData = async (post_id) => {
+        try {
+            axios.get(`http://localhost:9000/server/api/property/updateProperty.php?pId=${post_id}`,{
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response=>{
+                if (response.status>=200 && response.status<400){
+                    const property = response.data.property;
+                    setName(property.name);
+                    setArea(property.area);
+                    setlocation(property.location);
+                    setDescription(property.description);
+                    setImage(property.imageURL);
+                    setPrice(property.price);
+                    setSlot(property.initialSlot);
+                }
+            })
+            .catch(err => {
+                alert(`Error: ${err.response.data.message}`);
+                window.location.href = "/explore";
+                console.log(err.response);
+            })
+        } catch (error) {
+            console.error('Error fetching property detail:', error);
+        }
+    };
+
+
+
+    useEffect(()=>{
+        fetchData(post_id)
+    },[])
 
     return(
         <div className='w-full flex justify-center items-center'>
@@ -135,4 +174,4 @@ function Response() {
     )       
 }
 
-export default Response
+export default EditProperty

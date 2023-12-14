@@ -92,13 +92,13 @@
         }
 
         public static function getUserById($userId,$conn) {
-            $userID = $userName = $email = $userType = $fullName = $phoneNumber = $bankNumber = $bankName = null;
-            $query = "SELECT userID, user_name, email, user_type, full_name, phone_number, bank_number, bank_name FROM User WHERE userID = ?";
+            $userID = $userName = $email = $userType = $fullName = $phoneNumber = $bankNumber = $bankName = $status = null;
+            $query = "SELECT userID, user_name, email, user_type, full_name, phone_number, bank_number, bank_name, status FROM User WHERE userID = ?";
             $stmt = $conn->prepare($query);
         
             $stmt->bind_param("i", $userId);
             $stmt->execute();
-            $stmt->bind_result($userID, $userName, $email, $userType, $fullName, $phoneNumber, $bankNumber, $bankName);
+            $stmt->bind_result($userID, $userName, $email, $userType, $fullName, $phoneNumber, $bankNumber, $bankName, $status);
             $stmt->fetch();
             $stmt->close();
             if ($userID !== null) {
@@ -112,6 +112,7 @@
                     'phone_number' => $phoneNumber,
                     'bank_number' => $bankNumber,
                     'bank_name' => $bankName,
+                    'status' => $status,
                 ];
             } else {
                 // User not found

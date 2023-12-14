@@ -4,11 +4,33 @@ import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { UserIcon } from "@heroicons/react/24/outline";
 import Cookies from "universal-cookie";
+import axios from "axios";
 
 export default function UserCard() {
   const cookies = new Cookies();
   async function handleLogout(event){
     event.preventDefault();
+    try {
+      axios.post(`http://localhost:9000/server/api/auth/logout.php`,{
+      },
+      {
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+      .then(response=> {
+          if (response.status>=200 && response.status<400){
+              console.log(response.data);
+              alert(response.data.message);
+              window.location.href = "/explore";
+          }
+      })
+      .catch(err => {
+          console.log("Error: ", err.response.data.message)
+      })
+  } catch (error) {
+      console.log(error);
+  }
     cookies.remove('uid');
     cookies.remove('type');
     cookies.remove('token');
@@ -42,7 +64,7 @@ export default function UserCard() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="profile"
+                  href="/my/profile"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-white",
                     "block px-4 py-2 text-sm"
@@ -55,7 +77,7 @@ export default function UserCard() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="booking-history"
+                  href="/my/booking-history"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-white",
                     "block px-4 py-2 text-sm"
@@ -68,7 +90,7 @@ export default function UserCard() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="payment-history"
+                  href="/my/payment-history"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-white",
                     "block px-4 py-2 text-sm"
@@ -81,13 +103,13 @@ export default function UserCard() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="your-advertise"
+                  href="/my/my-advertise"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-white",
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Your Advertise
+                  My Advertise
                 </a>
               )}
             </Menu.Item>

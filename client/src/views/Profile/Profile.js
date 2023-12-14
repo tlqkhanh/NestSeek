@@ -1,15 +1,23 @@
-
-
-import {useState } from "react";
+import {useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 const logo ="https://cdn-icons-png.flaticon.com/512/3177/3177440.png";
 export default function Profile() {
-  const { device_id} = useParams(); // Get the values from the URL
-  const [name, setName] = useState(device_id);
+  const { profile_id} = useParams(); // Get the values from the URL
+  const [loading,setLoading] = useState(true);
+  const [userName,setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [bankNum, setBankNum] = useState("");
+  const [bankName,setBankName] = useState("");
+  const [type,setType] = useState("");
+  const [rating,setRating] = useState("");
+  const [status,setStatus] = useState("");
+
   const [location, setLocaltion] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+
   const [isEditing, setIsEditing] = useState(false);
   const handleEditClick = () => {
     setIsEditing(true); // Enable edit mode
@@ -20,6 +28,55 @@ export default function Profile() {
   const handleCancel = () => {
     setIsEditing(false); // Enable edit mode
   };
+
+  const fetchData = async () => {
+    let url = "http://localhost:9000/server/api/auth/profile.php";
+    if (profile_id) url = url + `?uid=${profile_id}`;
+    try {
+        axios.get(url,{
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response=>{
+            if (response.status>=200 && response.status<400){
+                const userData = response.data.user;
+                setUserName(userData.username);
+                setEmail(userData.email);
+                setName(userData.fullName);
+                setPhone(userData.phoneNum);
+                setBankNum(userData.bankNum);
+                setBankName(userData.bankName);
+                setType(userData.type);
+                setRating(userData.rating);
+                setStatus(userData.status);
+                // const property = response.data.property;
+                // setName(property.name);
+                // setArea(property.area);
+                // setlocation(property.location);
+                // setDescription(property.description);
+                // setImage(property.imageURL);
+                // setPrice(property.price);
+                // setSlot(property.initialSlot);
+                console.log(response.data)
+                setLoading(false);
+            }
+        })
+        .catch(err => {
+            alert(`Error: ${err.response.data.message}`);
+            console.log(err.response);
+        })
+    } catch (error) {
+        console.error('Error fetching property detail:', error);
+    }
+  };
+
+  useEffect(()=>{
+    fetchData()
+  },[])
+
+  if (loading) return <div>Loading...</div>;
 
   return (     
       <div className=" flex flex-col w-full bg-white rounded-lg mt-5 justify-center font-semibold text-black capitalize tracking-wide ">
@@ -44,9 +101,11 @@ export default function Profile() {
                   className="w-[30%] h-[30% ] justify-center"
                   alt="avatar"
                 />
-                <div className="flex-1 flex-row ">
-                  <div className="justify-items-start mt-5"> Nguyen User </div>
-                  <div className="justify-items-end "> Status </div>
+                <div className="flex">
+                  <div className="justify-items-start mt-5 mx-3"> User {userName} </div>
+                  <div className="justify-items-start mt-5 mx-3"> Status: {status} </div>
+                  {status=="owner" && <div className="justify-items-start mt-5 mx-3"> Rating: {rating} </div>}
+                  
                 </div>
                
               </div>
@@ -55,53 +114,42 @@ export default function Profile() {
                   className="mr-5 bg-emerald-600 rounded-xl hover:bg-emerald-700 w-fit h-fit text-white font-bold py-2 px-4 mt-5  justify-center flex"
                   disabled={isEditing}
                   onClick={handleEditClick}
+                  style={{ display: isEditing ? 'none' : 'block' }}
                 >
                 Edit
               </button>
             </div>
             {/* Form dâta */}
             <form className="w-full justify-between ml-5">
-              <div className="flex flex-col md:flex-row ">
-                {/* Name */}
-                <div className="px-3 py-3 font-semibold text-black capitalize tracking-wide">
-                  <nav className="px-3 py-3 text-bluelight">    Name            </nav>
-                  <input
-                    className="px-3 py-3 self-stretch bg-white bg-opacity-0 rounded-lg border"
-                    value={name}
-                    placeholder="Input Name Here"
-                    type="text"
-                    onChange={(event) => setName(event.target.value)}
-                    id="name"
-                    disabled={!isEditing}
-                  />
-                </div>
-                {/* Locaion */}
-                <div className="px-3 py-3 font-semibold text-black capitalize tracking-wide ">
-                  <nav className="px-3 py-3 text-bluelight">  Locaion   </nav>
-                  <input
-                    className="px-3 py-3 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
-                    value={location}
-                    type="text"
-                    placeholder="Input LocationHere"
-                    onChange={(event) => setLocaltion(event.target.value)}
-                    id="location"
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="flex-1 flex-col px-3 py-3">              
-                <nav className="flex px-3 py-3 font-semibold  text-bluelight">
-                  Password
-                </nav>
-                <input
-                  className="px-3 py-3 bg-white bg-opacity-0 rounded-lg border   "
-                  value={password}
-                  type="password"
-                  placeholder="Input password"
-                  onChange={(event) => setPassword(event.target.value)}
-                  id="password"
-                  disabled={!isEditing}
-                />
+              <div className="flex flex-col md:flex-row gap-6 text-bluelight">
+                  {/* Name */}
+                  <div className="px-3 py-3">
+                    <nav className="px-3 py-3">
+                      Name
+                    </nav>
+                    <input
+                      className="px-3 py-3 self-stretch bg-white bg-opacity-0 rounded-lg border   "
+                      value={email}
+                      placeholder="Input Full Name Here"
+                      type="name"
+                      onChange={(event) => setName(event.target.value)}
+                      id="name"
+                      disabled={!isEditing}
+                    />
+                  </div>
+                  {/* Locaion */}
+                  <div className="px-3 py-3 ">
+                    <nav className="px-3 py-3 text-bluelight">
+                      Type
+                    </nav>
+                    <input
+                      className="px-3 py-3 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
+                      value={type}
+                      type="text"
+                      id="type"
+                      disabled
+                    />
+                  </div>
               </div>
               <div className="flex flex-col md:flex-row gap-6 text-bluelight">
                   {/* Name */}
@@ -135,9 +183,42 @@ export default function Profile() {
                     />
                   </div>
               </div>
+              <div className="flex flex-col md:flex-row gap-6 text-bluelight">
+                  {/* Name */}
+                  <div className="px-3 py-3">
+                    <nav className="px-3 py-3">
+                      Bank 
+                    </nav>
+                    <input
+                      className="px-3 py-3 self-stretch bg-white bg-opacity-0 rounded-lg border   "
+                      value={bankName}
+                      type="text"
+                      placeholder="Input Bank Here"
+                      onChange={(event) => setBankName(event.target.value)}
+                      id="bankName"
+                      disabled={!isEditing}
+                    />
+                  </div>
+                  {/* Locaion */}
+                  <div className="px-3 py-3 ">
+                    <nav className="px-3 py-3 text-bluelight">
+                      Bank Number
+                    </nav>
+                    <input
+                      className="px-3 py-3 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
+                      value={bankNum}
+                      type="text"
+                      placeholder="Input Bank Number Here"
+                      onChange={(event) => setBankNum(event.target.value)}
+                      id="bankNum"
+                      disabled={!isEditing}
+                    />
+                  </div>
+              </div>
+              
             </form> 
             {/* Submit Buton */}
-            <div className="flex flex-col">
+            <div className="flex flex-col" style={{ display: isEditing ? 'block' : 'none' }}>
               {/* Submit button */}
               <div className="flex justify-center mt-5 text-center px-3 py-3">
                 <button

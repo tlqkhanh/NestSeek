@@ -84,7 +84,7 @@ export default function Explore() {
                         }}
                         />
                     </div>
-                    {type=='renter' && <Link to={"/advertise"} className="flex items-center justify-end pt-10 sm:pt-0">
+                    {type=='owner' && <Link to={"/advertise"} className="flex items-center justify-end pt-10 sm:pt-0">
                         <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
                           Advertise
                         </button>

@@ -77,7 +77,7 @@ export default function Homepage() {
                     <br></br>
                     <br></br>
                     <button className="border hover:bg-medium text-white bg-blue1 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
-                    <Link to="/login">Rent now</Link>
+                    <Link to="/log-in">Rent now</Link>
                   </button>
                 </div>
             </div>
@@ -108,7 +108,7 @@ export default function Homepage() {
                     <br></br>
                     <br></br>
                     <button className="border hover:bg-medium text-white bg-blue1 font-bold py-2 px-4 rounded addborder" style={custom.addborder}>
-                    <Link to="/login">Rent now</Link>
+                    <Link to="/log-in">Rent now</Link>
                   </button>
                 </div>
             </div>

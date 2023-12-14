@@ -224,7 +224,9 @@ const Detail = () => {
     if (userType === 'owner' && postDetail && postDetail.owner===uid) {
         userButtons = (
             <div className="flex flex-col sm:flex-row justify-end items-center">
-                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded"
+                    onClick={()=>{window.location.href = `/advertise/edit/${post_id}`}}
+                >
                     Edit
                 </button>
                 <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded"
@@ -301,7 +303,7 @@ const Detail = () => {
                         placeholder="Search..."
                         />
                     </div>
-                    {type=='renter' && <Link to={"/advertise"} className="flex items-center justify-end pt-10 sm:pt-0">
+                    {type=='owner' && <Link to={"/advertise"} className="flex items-center justify-end pt-10 sm:pt-0">
                         <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
                           Advertise
                         </button>

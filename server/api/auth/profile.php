@@ -1,5 +1,5 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Origin: http://localhost:3000");
     header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header("Access-Control-Allow-Credentials: true");
@@ -9,8 +9,9 @@
         require('../../config/database.php');
         require('../../ulti/validateUserInput.php');
         require('../../models/user.model.php');     
-        if (isset($_GET['userId'])){
-            $userId = $_GET['userId'];
+        if (isset($_GET['userId']) || isset($_SESSION['uid'])){
+            if (isset($_GET['userId'])) $userId = $_GET['userId'];
+            else $userId = $_SESSION['uid'];
             $res = User::getUserById($userId,$conn);
             if ($res){
                 if ($res['user_type']!='admin'){
@@ -27,8 +28,9 @@
                             'fullName' => $res['full_name'],
                             'phoneNum' => $res['phone_number'],
                             'bankNum' => $res['bank_number'],
-                            'bank_name' => $res['bankNum'],
+                            'bankName' => $res['bank_name'],
                             'type' => $res['user_type'],
+                            'status' => $res['status'],
                             'rating' => $avgRating,
                         ],
                     ];

@@ -17,7 +17,7 @@
             $res = $user->validateUser();
             if ($res){
                 
-                $_SESSION['user_id'] = $res['userID'];
+                $_SESSION['uid'] = $res['userID'];
                 $_SESSION['type'] = $res['user_type'];
 
                 // Generate and set an HTTP-only cookie for the token

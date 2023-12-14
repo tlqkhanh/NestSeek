@@ -4,11 +4,33 @@ import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { UserIcon } from "@heroicons/react/24/outline";
 import Cookies from "universal-cookie";
+import axios from "axios";
 
 export default function AdminCard() {
   const cookies = new Cookies();
   async function handleLogout(event){
     event.preventDefault();
+    try {
+      axios.post(`http://localhost:9000/server/api/auth/logout.php`,{
+      },
+      {
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+      .then(response=> {
+          if (response.status>=200 && response.status<400){
+              console.log(response.data);
+              alert(response.data.message);
+              window.location.href = "/explore";
+          }
+      })
+      .catch(err => {
+          console.log("Error: ", err.response.data.message)
+      })
+  } catch (error) {
+      console.log(error);
+  }
     cookies.remove('uid');
     cookies.remove('type');
     cookies.remove('token');

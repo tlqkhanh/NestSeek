@@ -68,7 +68,7 @@
                 name = ?,
                 area = ?,
                 location = ?,
-                decription = ?,
+                description = ?,
                 imageURL = ?,
                 price = ?,
                 initial_slot = ?
