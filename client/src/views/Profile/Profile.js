@@ -80,34 +80,31 @@ export default function Profile() {
   return (     
       <div className=" flex flex-col w-full bg-white rounded-lg mt-5 justify-center font-semibold text-black capitalize tracking-wide ">
         {/* Title */}
-        <div>
-          <div className="flex-col w-[30%]">
-          </div>
-          <h1 className="flex-1 fit tracking-wide  w-[60%] underline text-[30px] text-center text-emerald-700 font-semibold text-greenjustify-center mb-10">
+        <div className="flex justify-center">
+
+          <h1 className="flex-1 fit tracking-wide  w-[60%] text-[30px] text-center text-emerald-700 font-semibold text-greenjustify-center mb-10">
               User Profile
           </h1>
         </div>
        
-        <div className="flex">
-          <div className="flex-col w-[25%]">
-          </div>
-          <div className="flex-col justify-center bg-white rounded-xl mb-10 w-1/2 border-2">
+        <div className="flex justify-center ">
+          <div className="flex-col justify-center bg-white rounded-xl mb-10 md:p-10 border-2">
             <div className="flex flex-row md:flex-row gap-10 justify-between mt-3">
               {/* Name */}
-              <div className="flex px-3 items-center justify-center">
-                <img
-                  src={logo}
-                  className="w-[30%] h-[30% ] justify-center"
-                  alt="avatar"
-                />
-                <div className="flex">
-                  <div className="justify-items-start mt-5 mx-3"> User {userName} </div>
-                  <div className="justify-items-start mt-5 mx-3"> Status: {status} </div>
-                  {status=="owner" && <div className="justify-items-start mt-5 mx-3"> Rating: {rating} </div>}
-                  
+              <div class="py-8 px-8 max-w-sm bg-white rounded-xl  space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+                <img class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0" src="https://tailwindcss.com/img/erin-lindford.jpg" alt="Woman's Face"/>
+                <div class="text-center space-y-2 sm:text-left">
+                    <div class="space-y-0.5">
+                        <p class="text-lg text-blue2 font-semibold">
+                        User {userName}
+                        </p>
+                        <p class=" text-blue3 font-medium">
+                        Status: {status} 
+                        </p>
+                        {status=="owner" && <div className="justify-items-start text-blue3 mt-5 mx-3"> Rating: {rating} </div>}
+                    </div>
                 </div>
-               
-              </div>
+            </div>
               {/* Edit */}
               <button
                   className="mr-5 bg-emerald-600 rounded-xl hover:bg-emerald-700 w-fit h-fit text-white font-bold py-2 px-4 mt-5  justify-center flex"
@@ -120,7 +117,7 @@ export default function Profile() {
             </div>
             {/* Form dâta */}
             <form className="w-full justify-between ml-5">
-              <div className="flex flex-col md:flex-row gap-6 text-bluelight">
+              <div className="flex flex-col md:flex-row gap-6 text-medium">
                   {/* Name */}
                   <div className="px-3 py-3">
                     <nav className="px-3 py-3">
@@ -138,7 +135,7 @@ export default function Profile() {
                   </div>
                   {/* Locaion */}
                   <div className="px-3 py-3 ">
-                    <nav className="px-3 py-3 text-bluelight">
+                    <nav className="px-3 py-3 text-medium">
                       Type
                     </nav>
                     <input
@@ -150,7 +147,7 @@ export default function Profile() {
                     />
                   </div>
               </div>
-              <div className="flex flex-col md:flex-row gap-6 text-bluelight">
+              <div className="flex flex-col md:flex-row gap-6 text-medium">
                   {/* Name */}
                   <div className="px-3 py-3">
                     <nav className="px-3 py-3">
@@ -168,7 +165,7 @@ export default function Profile() {
                   </div>
                   {/* Locaion */}
                   <div className="px-3 py-3 ">
-                    <nav className="px-3 py-3 text-bluelight">
+                    <nav className="px-3 py-3 text-medium">
                       Phone Number
                     </nav>
                     <input
@@ -182,7 +179,7 @@ export default function Profile() {
                     />
                   </div>
               </div>
-              <div className="flex flex-col md:flex-row gap-6 text-bluelight">
+              <div className="flex flex-col md:flex-row gap-6 text-medium">
                   {/* Name */}
                   <div className="px-3 py-3">
                     <nav className="px-3 py-3">
@@ -200,7 +197,7 @@ export default function Profile() {
                   </div>
                   {/* Locaion */}
                   <div className="px-3 py-3 ">
-                    <nav className="px-3 py-3 text-bluelight">
+                    <nav className="px-3 py-3 text-medium">
                       Bank Number
                     </nav>
                     <input
@@ -236,8 +233,6 @@ export default function Profile() {
               </div>
             </div>
           </div>  
-          <div className="flex-col w-[25%]">
-          </div>
         </div>     
       </div>
   );

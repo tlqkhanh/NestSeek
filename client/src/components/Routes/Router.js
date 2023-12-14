@@ -59,8 +59,8 @@ export default function Router() {
         { path:"log-in", element: <LoginPage /> },
         { path:"advertise", element: <Response></Response> },
         {path: "advertise/edit/:post_id", element: <EditProperty></EditProperty>},
-
         { path:"sign-up", element: <SignUp /> },
+
 
       ]
     },

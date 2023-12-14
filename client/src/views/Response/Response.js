@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+import { AiOutlineUser, AiOutlineEnvironment, AiOutlineArea, AiOutlineFieldNumber, AiOutlineDollar, AiOutlineLink, AiOutlineFileText } from 'react-icons/ai';
+import { FaRegSquare } from 'react-icons/fa';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
+const iconStyles = {
+    position: 'absolute',
+    top: '50%',
+    left: '10px',
+    transform: 'translateY(-50%)',
+  };
 const Response = () => {
     const cookies = new Cookies();
     const [name, setName] = useState('');
@@ -75,34 +83,55 @@ const Response = () => {
             <div className="login-wrapper flex flex-col mb-5 items-center bg-bluelight rounded-xl md:w-[50%] md:h-[100%] p-6 sm:w-fit sm:h-fit">
                 <div className='font-semibold text-2xl text-white lg:p-8 md:p-6 sm:p-2 text-center'>Write something about your accommodation!</div>
                 <form className="form w-[70%]" onSubmit={handleSubmit}>
-                    <div className="form-body space-y-4">
-                        <div className="">
+                <div className="form-body space-y-4">
+                        <div className="relative">
                             <label htmlFor="Name" className="block mb-2 text-sm font-medium text-white">Name:</label>
-                            <input type="text" value={name} onChange={(e) => handleInputChange(e)} id="Name" placeholder="Name" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' />
+                            <div className='relative'>
+                                <AiOutlineUser style={iconStyles} className='text-gray-500' />
+                                <input type="text" value={name} onChange={(e) => handleInputChange(e)} id="Name" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10' />
+                            </div>
                         </div>
-                        <div className="">
+                        <div className="relative">
                             <label htmlFor="location" className="block mb-2 text-sm font-medium text-white">Location:</label>
-                            <input type="text" value={location} onChange={(e) => handleInputChange(e)} id="location" placeholder="Location" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' />
+                            <div className='relative'>
+                                <AiOutlineEnvironment style={iconStyles} className='text-gray-500' />
+                                <input type="text" value={location} onChange={(e) => handleInputChange(e)} id="location"  className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10' />
+                            </div>
                         </div>
-                        <div className="">
+                        <div className="relative">
                             <label htmlFor="area" className="block mb-2 text-sm font-medium text-white">Area:</label>
-                            <input type="number" value={area} onChange={(e) => handleInputChange(e)} id="area" placeholder="Area" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' />
+                            <div className='relative'>
+                                <FaRegSquare style={iconStyles} className='text-gray-500'></FaRegSquare>
+                                <input type="number" value={area} onChange={(e) => handleInputChange(e)} id="area"  className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10' />
+                            </div>
                         </div>
-                        <div className="">
+                        <div className="relative">
                             <label htmlFor="slot" className="block mb-2 text-sm font-medium text-white">Number of available slot:</label>
-                            <input type="number" value={slot} onChange={(e) => handleInputChange(e)} id="slot" placeholder="Number of available slot" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' />
+                            <div className='relative'>
+                                <AiOutlineFieldNumber style={iconStyles} className='text-gray-500' />
+                                <input type="number" value={slot} onChange={(e) => handleInputChange(e)} id="slot" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10' />
+                            </div>
                         </div>
-                        <div className="">
+                        <div className="relative">
                             <label htmlFor="price" className="block mb-2 text-sm font-medium text-white">Price:</label>
-                            <input type="text" value={price} onChange={(e) => handleInputChange(e)} id="price" placeholder="Price" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' />
+                            <div className='relative'>
+                                <AiOutlineDollar style={iconStyles} className='text-gray-500' />
+                                <input type="text" value={price} onChange={(e) => handleInputChange(e)} id="price"  className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10' />
+                            </div>
                         </div>
-                        <div className="">
+                        <div className="relative">
                             <label htmlFor="image" className="block mb-2 text-sm font-medium text-white">ImageURL:</label>
-                            <input type="url" value={image} onChange={(e) => handleInputChange(e)} id="image" placeholder="ImageURL" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' />
+                            <div className='relative'>
+                                <AiOutlineLink style={iconStyles} className='text-gray-500' />
+                                <input type="url" value={image} onChange={(e) => handleInputChange(e)} id="image"  className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10' />
+                            </div>
                         </div>
-                        <div className="">
+                        <div className="relative">
                             <label htmlFor="description" className="block mb-2 text-sm font-medium text-white">Description:</label>
-                            <textarea type="description" value={description} onChange={(e) => handleInputChange(e)} id="description" rows="4" placeholder="Description" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' />
+                            <div className='relative'>
+                                <AiOutlineFileText style={iconStyles} className='text-gray-500' />
+                                <textarea type="description" value={description} onChange={(e) => handleInputChange(e)} id="description" rows="4" className='bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10' />
+                            </div>
                         </div>
                     </div>
                     <div className="flex justify-center p-4">
