@@ -12,7 +12,7 @@ import AboutUs from "../../views/AboutUs/AboutUs";
 import Explore from "../../views/Explore/explore";
 import Detail from "../../views/Explore/exploredetail";
 import LoginPage from "../../views/Authenticate/LoginPage";
-import SignUpPage from "../../views/Authenticate/SignUp/SignUpPage";
+import SignUp from "../../views/Authenticate/SignUp/SignUp";
 //end guest layout
 
 //begin user layout
@@ -22,6 +22,7 @@ import BookingHistory from "../../views/ManageAccount/bookinghistory";
 import PaymentHistory from "../../views/ManageAccount/paymenthistory";
 import Bill from "../../views/ManageAccount/bill";
 import Profile from "../../views/Profile/Profile";
+import Response from "../../views/Response/Response";
 
 //end user layout
 
@@ -36,7 +37,6 @@ import Report from "../../views/Report/ReportList";
 import ErrorLayout from "../Layout/ErrorLayout";
 import Error401 from "../../views/Error/401";
 import Error403 from "../../views/Error/403";
-import Response from "../../views/Response/Response";
 
 //end erro layout
 
@@ -55,9 +55,9 @@ export default function Router() {
         { path: "explore", element: <Explore></Explore> },
         { path: "explore/postDetail/:post_id", element:<Detail></Detail>},
         { path:"log-in", element: <LoginPage /> },
-        { path:"response", element: <Response></Response> },
+        { path:"advertise", element: <Response></Response> },
 
-        { path:"sign-up", element: <SignUpPage /> },
+        { path:"sign-up", element: <SignUp /> },
         { path:"profile/:profileid",element: <Profile></Profile>},
 
       ]

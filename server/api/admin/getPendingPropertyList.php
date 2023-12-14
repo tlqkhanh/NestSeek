@@ -14,7 +14,7 @@
             $searchKeyWord = validateInput($_GET['search']);
         }
         
-        $properties = Property::getAllProperty($conn,$searchKeyWord);
+        $properties = Property::getAllProperty($conn,$searchKeyWord,'pending');
         http_response_code(200);
         $response = [
             'success' => true,

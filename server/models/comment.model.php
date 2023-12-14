@@ -33,11 +33,11 @@
         // Method to add a comment instance to the database
         public function createComment() {
             // Prepare an SQL INSERT statement
-            $query = "INSERT INTO Comment (comment, comment_time, userID, propertyID, isChild, parentID) VALUES (?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO Comment (comment, userID, propertyID, isChild, parentID) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
     
             // Bind parameters
-            $stmt->bind_param("ssiiis", $this->comment, $this->commentTime, $this->userID, $this->propertyID, $this->isChild, $this->parentID);
+            $stmt->bind_param("siiss", $this->comment, $this->userID, $this->propertyID, $this->isChild, $this->parentID);
     
             // Execute the insert
             $result = $stmt->execute();
@@ -51,7 +51,7 @@
         // Method to delete a comment from the database
         public function deleteComment() {
             // Prepare an SQL DELETE statement
-            $query = "DELETE FROM Comment WHERE commentID = ?";
+            $query = "CALL DeleteCommentAndChildren(?)";
             $stmt = $this->conn->prepare($query);
     
             // Bind parameters
@@ -69,7 +69,10 @@
         // Static method to get all comments for a specific property
         public static function getAllTopLevelCommentsOfProperty($conn, $propertyId) {
             // Prepare an SQL SELECT statement
-            $query = "SELECT * FROM Comment WHERE propertyID = ? AND isChild = 'no'";
+            $query = "SELECT Comment.*, User.full_name
+            FROM Comment
+            JOIN User ON Comment.userID = User.userID
+            WHERE Comment.propertyID = ? AND Comment.isChild = 'no'";
             $stmt = $conn->prepare($query);
         
             // Bind parameters
@@ -77,21 +80,12 @@
         
             // Execute the query
             $stmt->execute();
-        
-            // Declare variables to store the result
-            $commentID = $comment = $commentTime = $userID = $isChild = $parentID = null;
-        
-            // Bind result variables
-            $stmt->bind_result($commentID, $comment, $commentTime, $userID, $propertyId, $isChild, $parentID);
-        
-            // Fetch the result
+
+            $resultSet = $stmt->get_result();
             $comments = [];
-            while ($stmt->fetch()) {
-                // Add comment information to the array
-                $comments[] = new Comment($conn, $commentID, $comment, $commentTime, $userID, $propertyId, $isChild, $parentID);
+            while ($row = $resultSet->fetch_assoc()) {
+                $comments[] = $row;
             }
-        
-            // Close the statement
             $stmt->close();
         
             return $comments;
@@ -99,37 +93,25 @@
 
         public static function getAllChildrenComment($conn, $parentCommentID) {
             // Prepare an SQL SELECT statement
-            $query = "SELECT * FROM Comment WHERE parentID = ?";
+            $query = "SELECT Comment.*, User.full_name FROM Comment
+            JOIN User ON Comment.userID = User.userID
+            WHERE parentID = ?";
             $stmt = $conn->prepare($query);
         
             // Bind parameters
             $stmt->bind_param("i", $parentCommentID);
-        
-            // Execute the query
             $stmt->execute();
-        
-            // Declare variables to store the result
-            $commentID = $comment = $commentTime = $userID = $propertyID = $isChild = $parentID = null;
-        
-            // Bind result variables
-            $stmt->bind_result($commentID, $comment, $commentTime, $userID, $propertyID, $isChild, $parentID);
-        
-            // Fetch the result
+            $resultSet = $stmt->get_result();
             $comments = [];
-            while ($stmt->fetch()) {
-                // Add comment information to the array
-                $comments[] = new Comment($conn, $commentID, $comment, $commentTime, $userID, $propertyID, $isChild, $parentID);
+            while ($row = $resultSet->fetch_assoc()) {
+                $comments[] = $row;
             }
-        
             // Close the statement
             $stmt->close();
         
             return $comments;
         }
 
-        public function __destruct() {
-            $this->conn->close();
-        }
     }
     
 

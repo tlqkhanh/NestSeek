@@ -20,23 +20,27 @@
             $this->userID = $userID;
             $this->propertyID = $propertyID;
         }
-    
+
         // Method to add a rating instance to the database
         public function createRating() {
-            // Prepare an SQL INSERT statement
-            $query = "INSERT INTO Rating (rate, userID, propertyID) VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO Rating (rate, userID, propertyID) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($query);
-    
-            // Bind parameters
             $stmt->bind_param("iii", $this->rate, $this->userID, $this->propertyID);
-    
-            // Execute the insert
             $result = $stmt->execute();
-    
-            // Close the statement
             $stmt->close();
     
-            return $result; // Return true if the insert was successful, false otherwise
+            return $result;
+        }
+
+        public function updateRating(){
+            $query = "UPDATE rating SET rate = ? WHERE ratingID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("ii", $this->rate, $this->ratingID);
+            $result = $stmt->execute();
+            $stmt->close();
+    
+            return $result;
+
         }
     
         // Static method to get all ratings for a specific property
@@ -107,7 +111,7 @@
             // Prepare an SQL SELECT statement to calculate the average rating
             $query = "SELECT COALESCE(AVG(rate), 0) as avgRating FROM Rating R
                       JOIN Property P ON R.propertyID = P.propertyID
-                      WHERE P.owner = ?";
+                      WHERE P.ownerID = ?";
             $stmt = $conn->prepare($query);
         
             // Bind parameters
@@ -152,6 +156,24 @@
             $stmt->close();
 
             return round($avgRating,1);
+        }
+
+        public static function getRatingOfUserForProperty($conn,$userID,$propertyID){
+            $query = "SELECT * FROM rating WHERE userID=? AND propertyID=?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ii", $userID, $propertyID);
+
+            $ratingId = $rate = 0;
+
+            $res = $stmt->execute();
+            
+            $stmt->store_result();
+            if (!$res || $stmt->num_rows === 0) return false;
+
+            $stmt->bind_result($ratingId,$rate,$userID, $propertyID);
+            $stmt->fetch();
+
+            return new Rating($conn,$ratingId,$rate,$userID,$propertyID);
         }
 
     }

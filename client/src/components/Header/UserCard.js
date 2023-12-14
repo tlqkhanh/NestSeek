@@ -3,8 +3,18 @@ import { Menu, Transition } from "@headlessui/react";
 // import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
 import { UserIcon } from "@heroicons/react/24/outline";
+import Cookies from "universal-cookie";
 
 export default function UserCard() {
+  const cookies = new Cookies();
+  async function handleLogout(event){
+    event.preventDefault();
+    cookies.remove('uid');
+    cookies.remove('type');
+    cookies.remove('token');
+    cookies.remove('username');
+    window.location.href = "/";
+  }
   return (
     <Menu as="div" className="relative text-left px-2 w-full h-full flex">
       <div className="">
@@ -81,7 +91,7 @@ export default function UserCard() {
                 </a>
               )}
             </Menu.Item>
-            <form method="POST" action="#">
+            <form method="POST" action="#" onSubmit={handleLogout}>
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -91,7 +101,7 @@ export default function UserCard() {
                       "block w-full px-4 py-2 text-left text-sm"
                     )}
                   >
-                    Sign out
+                    Log out
                   </button>
                 )}
               </Menu.Item>

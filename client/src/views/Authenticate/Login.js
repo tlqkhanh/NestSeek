@@ -20,7 +20,7 @@ const Login = () => {
         cookies.set('username', res.data.user.username, { path: '/' });
         cookies.set('token', res.data.token, { path: '/' });
         console.log(document.cookie);
-        navigate('/explore/postDetail/1');
+        navigate("/explore");
       })
       .catch((error) => {
         console.log(error);
@@ -32,34 +32,35 @@ const Login = () => {
       <div className="w-full max-w-sm p-4 bg-bluelight border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex justify-center">
-            <h5 className="text-2xl font-bold text-gray-900">Log In</h5>
+            <h5 className="text-2xl font-bold text-white">Log In</h5>
           </div>
           <div>
-            <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">
+            <label htmlFor="username" className="block mb-2 text-sm font-medium text-white">
               Phone number or Email
             </label>
             <input
               id="username"
               type="text"
               placeholder="Phone number or Email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               onChange={(e) => setUserName(e.target.value)}
               required
             />
           </div>
           <div>
-            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
+            <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">
               Password
             </label>
             <input
               id="password"
               type="password"
               placeholder="Password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
+          
           <div>
             <button
               type="submit"
@@ -68,6 +69,9 @@ const Login = () => {
               Log in
             </button>
           </div>
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-100">
+          Not registered? <a href="/sign-up" className="text-blue2 hover:underline ">Đăng ký</a>
+        </div>
         </form>
       </div>
     </div>

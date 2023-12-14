@@ -6,6 +6,8 @@
         public $totalAmount;
         public $forRentID;
         public $status;
+        public $createdDate;
+        public $paidDate;
         private $conn;
     
         // Constructor with optional parameters
@@ -16,7 +18,9 @@
             $tax = null,
             $initialAmount = null,
             $totalAmount = null,
-            $status = 'pending'
+            $status = 'pending',
+            $createdDate = null,
+            $paidDate = null,
         ) {
             $this->conn = $conn;
             $this->billID = $billID;
@@ -25,6 +29,8 @@
             $this->totalAmount = $totalAmount;
             $this->forRentID = $forRentID;
             $this->status = $status;
+            $this->createdDate = $createdDate;
+            $this->paidDate = $paidDate;
         }
     
         // Method to add a bill instance to the database
@@ -77,16 +83,16 @@
             $stmt->execute();
     
             // Declare variables to store the result
-            $billID = $tax = $initialAmount = $totalAmount = $forRentID = $status = null;
+            $billID = $tax = $initialAmount = $totalAmount = $forRentID = $status = $created_data = $paid_date = null;
     
             // Bind result variables
-            $stmt->bind_result($billID, $tax, $initialAmount, $totalAmount, $forRentID, $status);
+            $stmt->bind_result($billID, $tax, $initialAmount, $totalAmount, $forRentID, $status,$created_data,$paid_date);
     
             // Fetch the result
             $bills = [];
             while ($stmt->fetch()) {
                 // Add bill information to the array
-                $bills[] = new Bill($conn, $billID, $tax, $initialAmount, $totalAmount, $forRentID, $status);
+                $bills[] = new Bill(null, $billID, $forRentID, $tax, $initialAmount, $totalAmount, $status,$created_data,$paid_date);
             }
     
             // Close the statement
@@ -95,9 +101,24 @@
             return $bills;
         }
 
+        public static function getBillById($conn, $billId) {
+            $query = "SELECT b.*, r.*, p.* FROM bill b
+            JOIN rent r ON b.for_rentID = r.rentID
+            JOIN property p ON r.propertyID = p.propertyID
+            WHERE b.billID = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $billId);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-        public function __destruct() {
-            $this->conn->close();
+            if ($result->num_rows > 0) {
+                $billInfo = $result->fetch_assoc();
+                $stmt->close();
+                return $billInfo;
+            } else {
+                $stmt->close();
+                return null; // No bill found with the given ID
+            }
         }
     }
 

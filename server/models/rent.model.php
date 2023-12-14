@@ -29,19 +29,33 @@
 
         public function createRent() {
             // Prepare an SQL INSERT statement
-            $query = "INSERT INTO Rent (rentDate, period, renterID, propertyID, status) VALUES (?, ?, ?, ?, ?)";
+            $query = "INSERT INTO Rent (rent_date, period, renterID, propertyID, status) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
-    
-            // Bind parameters
             $stmt->bind_param("siiss", $this->rentDate, $this->period, $this->renterID, $this->propertyID, $this->status);
-    
-            // Execute the insert
-            $result = $stmt->execute();
+            $stmt->execute();
+            $lastInsertId = $this->conn->insert_id;
     
             // Close the statement
             $stmt->close();
     
-            return $result; // Return true if the insert was successful, false otherwise
+            return $lastInsertId; // Return true if the insert was successful, false otherwise
+        }
+
+        public static function haveUserRented($conn,$userID,$propertyID){
+            $query = "SELECT * FROM rent WHERE renterID = ? and propertyID = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ii", $userID, $propertyID);
+            $res = $stmt->execute();
+            if ($res){
+                $stmt->store_result();
+                $numRows = $stmt->num_rows;
+                $stmt->close();
+                return $numRows;
+            }
+            else {
+                $stmt->close();
+                return $stmt->error;
+            }
         }
     
         // Method to update the status of a rent record in the database
@@ -91,10 +105,6 @@
             $stmt->close();
     
             return $rents;
-        }
-
-        public function __destruct() {
-            $this->conn->close();
         }
     }
     

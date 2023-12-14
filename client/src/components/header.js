@@ -6,10 +6,17 @@ import { Menu, Transition } from '@headlessui/react'
 import AdminCard from "./Header/AdminCard";
 import UserCard from "./Header/UserCard";
 import logo from "../assets/logo.png";
+import Cookies from "universal-cookie";
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 const Header = ({ isLoggedIn, userType }) => {
+  const cookies = new Cookies();
+  userType = cookies.get('type');
+  isLoggedIn = userType?true:false;
+
+
+
   const renderUserOptions = () => {
 
     if (isLoggedIn) {
@@ -71,7 +78,7 @@ const Header = ({ isLoggedIn, userType }) => {
             </li>
             <li>
               <button className=" bg-white text-blue2 font-bold py-2 px-4 rounded">
-                    <Link to="/explore">Advertise</Link>
+                    <Link to="/advertise">Advertise</Link>
               </button>
             </li>
             {isLoggedIn ? (
