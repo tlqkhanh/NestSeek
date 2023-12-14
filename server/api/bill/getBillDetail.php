@@ -16,7 +16,7 @@
                 $response = [
                     'success' => true,
                     'message' => 'Get bill successfully',
-                    'billList' => $bill,
+                    'bill' => $bill,
                 ];
             }
             else {

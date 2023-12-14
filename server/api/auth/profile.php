@@ -5,15 +5,15 @@
     header("Access-Control-Allow-Credentials: true");
     session_start();
 
-    if ($_SERVER['REQUEST_METHOD']=="POST"){
+    if ($_SERVER['REQUEST_METHOD']=="GET"){
         require('../../config/database.php');
         require('../../ulti/validateUserInput.php');
         require('../../models/user.model.php');     
-        if (isset($_SESSION['user_id']) && isset($_SESSION['token'])){
-            $data = json_decode(file_get_contents("php://input"));
-            $user = User::getUserById($data->userId,$conn);
-            if ($user){
-                if ($user['user_type']!='admin'){
+        if (isset($_GET['userId'])){
+            $userId = $_GET['userId'];
+            $res = User::getUserById($userId,$conn);
+            if ($res){
+                if ($res['user_type']!='admin'){
                     require('../../models/rating.model.php');
                     $avgRating = Rating::getAvgRatingOfOwner($conn,$res['userID']);
                     http_response_code(200);
@@ -33,7 +33,7 @@
                         ],
                     ];
                 }
-                else if ($user['user_type']=='admin' && isset($_SESSION['type']) && $_SESSION['type']=='admin')
+                else if ($res['user_type']=='admin' && isset($_SESSION['type']) && $_SESSION['type']=='admin')
                 {
                     http_response_code(200);
                     $response = [
@@ -63,15 +63,15 @@
                 http_response_code(404);
                 $response = [
                     'success' => false,
-                    'message' => 'User not found!',
+                    'message' => 'User is not found!',
                 ];
             }    
         }
         else {
-            http_response_code(401);
+            http_response_code(404);
             $response = [
                 'success' => false,
-                'message' => 'User is unauthenticated!',
+                'message' => 'User is not found!',
             ];
         }
         $conn->close();

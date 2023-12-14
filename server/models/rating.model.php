@@ -111,7 +111,7 @@
             // Prepare an SQL SELECT statement to calculate the average rating
             $query = "SELECT COALESCE(AVG(rate), 0) as avgRating FROM Rating R
                       JOIN Property P ON R.propertyID = P.propertyID
-                      WHERE P.owner = ?";
+                      WHERE P.ownerID = ?";
             $stmt = $conn->prepare($query);
         
             // Bind parameters

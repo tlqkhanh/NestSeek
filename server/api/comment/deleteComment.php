@@ -4,26 +4,28 @@
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header("Access-Control-Allow-Credentials: true");
 
-    if ($_SERVER['REQUEST_METHOD']=="GET")
+    if ($_SERVER['REQUEST_METHOD']=="POST")
     {
-        require('../../config/database.php');
         require('../../ulti/validateUserInput.php');
+        require('../../config/database.php');
         require('../../models/comment.model.php');
-        if (isset($_GET['parentID'])){
-            $parentID = $_GET['parentID'];
-            $commentList = Comment::getAllChildrenComment($conn,$parentID);
+        $data = json_decode(file_get_contents("php://input"));
+        $commentId = $data->commentID;
+        $comment = new Comment($conn,$commentId);
+
+        $res = $comment->deleteComment();
+        if ($res){
             http_response_code(200);
             $response = [
-                'success' => true,
-                'message' => 'Get child comment list successfully',
-                'commentList' => $commentList,
+                "success" => true,
+                "message" => 'Delete comment successfully!'
             ];
         }
         else{
-            http_response_code(400);
+            http_response_code(500);
             $response = [
-                'success' => false,
-                'message' => 'Bad request',
+                "success" => false,
+                "message" => 'Internal server error!'
             ];
         }
         $conn->close();

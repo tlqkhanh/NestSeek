@@ -21,26 +21,27 @@
                 if (empty($content)){
                     http_response_code(400);
                     $response = [
-                        $success => false,
-                        $message => 'Content of comment is required!'
+                        "success" => false,
+                        "message" => 'Content of comment is required!'
                     ];
                 }
                 else{
-                    $isChild = $data->parentID ? 'yes' : 'no';
-                    $comment = new Comment($conn, null, $content, null, $data->userID, $data->propertyID, $isChild, $data->parentID);
+                    $isChild = $data->parentID!=0 ? 'yes' : 'no';
+                    $parentID = $data->parentID!=0 ? $data->parentID : null;
+                    $comment = new Comment($conn, null, $content, null, $data->userID, $data->propertyID, $isChild, $parentID);
                     $res = $comment->createComment();
                     if ($res){
                         http_response_code(200);
                         $response = [
-                            $success => true,
-                            $message => 'Create comment successfully!'
+                            "success" => true,
+                            "message" => 'Create comment successfully!'
                         ];
                     }
                     else{
                         http_response_code(500);
                         $response = [
-                            $success => false,
-                            $message => 'Internal server error!'
+                            "success" => false,
+                            "message" => 'Internal server error!'
                         ];
                     }
                 }
@@ -48,16 +49,16 @@
             else{
                 http_response_code(400);
                 $response = [
-                    $success => false,
-                    $message => 'Only users having rented this place or its ownner can comment on it!'
+                    "success" => false,
+                    "message" => 'Only users having rented this place or its ownner can comment on it!'
                 ];
             }
         }
         else{
             http_response_code(500);
                 $response = [
-                    $success => false,
-                    $message => 'Internal server error: '.$numOfRent,
+                    "success" => false,
+                    "message" => 'Internal server error: '.$numOfRent,
                 ];
         }
         $conn->close();

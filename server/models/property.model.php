@@ -93,20 +93,28 @@
 
         public function getCurSlot(){
             $query = "SELECT cur_slot FROM Property WHERE propertyID = ?";
-            $stmt = $this->conn->prerpare($query);
+            $stmt = $this->conn->prepare($query);
             $stmt->bind_param("i", $this->propertyID);
             $stmt->execute();
             $result = 0;
             $stmt->bind_result($result);
             $stmt->fetch();
             $stmt->close();
-            return $result[0];
+            return $result;
         }
 
         public function updateCurSlot($curSlot) {
             $query = "UPDATE Property SET cur_slot = ? WHERE propertyID = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("ii", $curSlot, $this->propertyID);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        public function changePropertyStatus($status){
+            $query = "UPDATE Property SET status = ? WHERE propertyID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("si", $status, $this->propertyID);
             $stmt->execute();
             $stmt->close();
         }
@@ -150,7 +158,7 @@
             // Check if a property was found
             if ($propertyID !== null) {
                 // Return property information as an associative array
-                return new Property(null,
+                return new Property($conn,
                     $propertyID,
                     $name,
                     $owner,
@@ -227,11 +235,12 @@
             return $properties;
         }
 
-        public static function getAllProperty($conn, $search = null) {
+        public static function getAllProperty($conn, $search = null, $status='published') {
             // Prepare an SQL SELECT statement with optional search condition
             $query = "SELECT * FROM Property WHERE
-                      name LIKE CONCAT('%', ?, '%') OR
-                      location LIKE CONCAT('%', ?, '%')";
+                      (name LIKE CONCAT('%', ?, '%') OR
+                      location LIKE CONCAT('%', ?, '%'))
+                      AND status = ?";
     
             // If $search is null, retrieve all records
             if ($search === null) {
@@ -242,7 +251,7 @@
     
             // Bind parameters
             if ($search !== null) {
-                $stmt->bind_param("ss", $search, $search);
+                $stmt->bind_param("sss", $search, $search, $status);
             }
     
             // Execute the query

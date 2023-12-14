@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Data from "./dataexplore.js";
-import Header from "../../components/header.js";
 import { FaSearch } from "react-icons/fa";
 import RatingFrame from "../../components/rating.js";
 import { getPropertyDetail } from "../../action/property.action.js";
+import axios from "axios";
 const Detail = () => {
     const { post_id } = useParams();
 
@@ -12,23 +11,92 @@ const Detail = () => {
     const fetchData = async (post_id) => {
         try {
             const response = await getPropertyDetail(post_id);
-            console.log(response.data);
             setPostDetail(response.data.property);
         } catch (error) {
             console.error('Error fetching property detail:', error);
         }
     };
 
+
+    const [postMainComment,setPostMainComment] = useState([]);
+    const fetchMainComment = async (post_id) => {
+        try {
+            axios.get(`http://localhost:9000/server/api/comment/getParentCommentList.php?propertyID=${post_id}`,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response=> {
+                if (response.status>=200 && response.status<400){
+                    console.log(response.data.message);
+                    setPostMainComment(response.data.commentList);
+                }
+            })
+            .catch(err => {
+                console.log("Error: ", err.response.data.message)
+            })
+          } catch (error) {
+              console.log(error);
+          }
+    }
+
     useEffect(() => {
         fetchData(post_id);
+        fetchMainComment(post_id);
     }, [])
 
-    // if (!Data) {
-    //     return <div>Loading...</div>;
-    // }
 
+    const handleDeleteProperty = async () =>{
+        try {
+            axios.post(`http://localhost:9000/server/api/property/deleteProperty.php`,
+            { propertyID: post_id},
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response=> {
+                if (response.status>=200 && response.status<400){
+                    console.log(response.data.message);
+                    window.location.href = "/explore";
+                }
+            })
+            .catch(err => {
+                console.log("Error: ", err.response.data.message)
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    //const postDetail = Data.find(item => item.id === parseInt(post_id));
+    const handleBookProperty = async () =>{
+        try {
+            axios.post(`http://localhost:9000/server/api/rent/createRent.php`,
+            { propertyID: post_id,
+                userID: 6, //userID = cookies.get(uid)
+                period: 12
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response=> {
+                if (response.status>=200 && response.status<400){
+                    console.log(response.data);
+                    //window.location.href = "/explore";
+                }
+            })
+            .catch(err => {
+                console.log("Error: ", err.response.data)
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    
 
     if (!postDetail) {
         return <div>Loading...</div>;
@@ -41,7 +109,9 @@ const Detail = () => {
                 <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
                     Edit
                 </button>
-                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded"
+                    onClick={handleDeleteProperty}
+                >
                     Delete
                 </button>
             </div>           
@@ -49,7 +119,9 @@ const Detail = () => {
     } else if (userType === 'renter') {
         userButtons = (
             <div className="flex flex-col sm:flex-row justify-end items-center">
-                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded"
+                    onClick={handleBookProperty}
+                >
                     Book
                 </button>
                 <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
@@ -124,7 +196,7 @@ const Detail = () => {
                     <div className="flex flex-row sm:pl-20 sm:pr-20 xl:ml-20 xl:mr-20 gap-5">
                         <div className="flex justify-center items-center text-textcolor w-1/2">
                             <img
-                                src={'https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41477-019-0374-3/MediaObjects/41477_2019_374_Figa_HTML.jpg'}
+                                src={postDetail.imageURL}
                                 alt={postDetail.name}
                                 className="w-full"
                             />

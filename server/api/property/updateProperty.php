@@ -12,11 +12,12 @@
         $data = json_decode(file_get_contents("php://input"));
         $errorMes = validateProperty($data);
         $property = Property::getPropertyById($conn,$data->propertyID);
-        if ($property->initialSlot - $property->getCurSlot() <= 0){
+        $newCurSlot = $property->initialSlot - $property->getCurSlot();
+        if ( $newCurSlot<= 0){
             $errorMes = 'New total available slots can\'t be smaller than total of rented slot!!!';
         }
         if ($errorMes!=''){
-            $property = new Property($conn,$data->propertyID,$data->name,null,$data->area,$data->location,$data->description,$data->imageURL,$data->price,null,$data->initialSlot,$data->initialSlot);
+            $property = new Property($conn,$data->propertyID,$data->name,null,$data->area,$data->location,$data->description,$data->imageURL,$data->price,null,$data->initialSlot,$newCurSlot);
             $res = $property->updateProperty();
             if ($res){
                 http_response_code(200);

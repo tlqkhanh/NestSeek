@@ -9,7 +9,7 @@
 
     function validateUserSignIn($data){
         $errorMes = '';
-        $userName = validateInput($data->username);
+        $userName = validateInput($data->userName);
         $email = validateInput($data->email); 
         $password = $data->password;
         $phoneNum = validateInput($data->phoneNum);

@@ -1,19 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from 'react-icons/fa';
-import Header from "../../components/header";
 import List from "../../components/list";
-import Data from './dataexplore';
 import { getPropertyList } from "../../action/property.action";
+import axios from "axios";
 export default function Explore() {
+
+  const [searchValue, setSearchValue] = useState("");
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
 
   const [propertyList, setPropertyList] = useState([]);
   const fetchData = async () => {
     try {
-      const response = await getPropertyList();
-      setPropertyList(response.data.propertyList);
+      axios.get(`http://localhost:9000/server/api/property/propertyList.php?search=${searchValue}`,
+      {
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+      .then(response=> {
+          if (response.status>=200 && response.status<400){
+              console.log(response.data.message);
+              setPropertyList(response.data.propertyList);
+          }
+      })
+      .catch(err => {
+          console.log("Error: ", err.response.data.message)
+      })
     } catch (error) {
-      console.error('Error fetching property list:', error);
+        console.log(error);
     }
+
+
   };
 
   useEffect(() => {
@@ -51,6 +70,15 @@ export default function Explore() {
                         type="text"
                         className="w-full focus:outline-none"
                         placeholder="Search..."
+                        value={searchValue}
+                        onChange={handleSearchChange}
+                        name="search"
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            fetchData();
+                          }
+                        }}
                         />
                     </div>
                     <div className="flex items-center justify-end pt-10 sm:pt-0">
@@ -60,7 +88,7 @@ export default function Explore() {
                     </div>
                 </div>
           <div className="flex justify-center items-center">
-          {propertyList.length!=0 
+          {propertyList.length!==0 
           ? <div className="flex justify-center">
               <List data={propertyList} />
             </div>

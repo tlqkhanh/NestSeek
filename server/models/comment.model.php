@@ -33,11 +33,11 @@
         // Method to add a comment instance to the database
         public function createComment() {
             // Prepare an SQL INSERT statement
-            $query = "INSERT INTO Comment (comment, comment_time, userID, propertyID, isChild, parentID) VALUES (?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO Comment (comment, userID, propertyID, isChild, parentID) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
     
             // Bind parameters
-            $stmt->bind_param("ssiiis", $this->comment, $this->commentTime, $this->userID, $this->propertyID, $this->isChild, $this->parentID);
+            $stmt->bind_param("siiss", $this->comment, $this->userID, $this->propertyID, $this->isChild, $this->parentID);
     
             // Execute the insert
             $result = $stmt->execute();
@@ -51,7 +51,7 @@
         // Method to delete a comment from the database
         public function deleteComment() {
             // Prepare an SQL DELETE statement
-            $query = "DELETE FROM Comment WHERE commentID = ?";
+            $query = "CALL DeleteCommentAndChildren(?)";
             $stmt = $this->conn->prepare($query);
     
             // Bind parameters
@@ -127,9 +127,6 @@
             return $comments;
         }
 
-        public function __destruct() {
-            $this->conn->close();
-        }
     }
     
 

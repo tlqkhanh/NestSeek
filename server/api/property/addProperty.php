@@ -11,29 +11,29 @@
         require('../../models/property.model.php');
         $data = json_decode(file_get_contents("php://input"));
         $errorMes = validateProperty($data);
-        if ($errorMes!=''){
+        if ($errorMes==''){
             $property = new Property($conn,null,$data->name,$data->ownerID,$data->area,$data->location,$data->description,$data->imageURL,$data->price,null,$data->initialSlot,$data->initialSlot);
             $res = $property->createProperty();
             if ($res){
                 http_response_code(200);
                 $response = [
-                    $success => true,
-                    $message => 'Create property successfully!'
+                    "success" => true,
+                    "message" => 'Create property successfully!'
                 ];
             }
             else{
                 http_response_code(500);
                 $response = [
-                    $success => false,
-                    $message => 'Internal server error!'
+                    "success" => false,
+                    "message" => 'Internal server error!'
                 ];
             }
         }
         else{
             http_response_code(400);
             $response = [
-                $success => false,
-                $message => $errorMes,
+                "success" => false,
+                "message" => $errorMes,
             ];
         }
         $conn->close();

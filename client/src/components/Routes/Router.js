@@ -22,6 +22,7 @@ import BookingHistory from "../../views/ManageAccount/bookinghistory";
 import PaymentHistory from "../../views/ManageAccount/paymenthistory";
 import Bill from "../../views/ManageAccount/bill";
 import Profile from "../../views/Profile/Profile";
+import Response from "../../views/Response/Response";
 
 //end user layout
 
@@ -36,7 +37,6 @@ import Report from "../../views/Report/ReportList";
 import ErrorLayout from "../Layout/ErrorLayout";
 import Error401 from "../../views/Error/401";
 import Error403 from "../../views/Error/403";
-import Response from "../../views/Response/Response";
 
 //end erro layout
 
@@ -55,7 +55,7 @@ export default function Router() {
         { path: "explore", element: <Explore></Explore> },
         { path: "explore/postDetail/:post_id", element:<Detail></Detail>},
         { path:"log-in", element: <LoginPage /> },
-        { path:"response", element: <Response></Response> },
+        { path:"advertise", element: <Response></Response> },
 
         { path:"sign-up", element: <SignUpPage /> },
         { path:"profile/:profileid",element: <Profile></Profile>},

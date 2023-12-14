@@ -10,23 +10,23 @@ export default function UserAppLayout() {
   const navigate = useNavigate();
   const [isAuth,setIsAuth] = useState(false);
   const [userType,setUserType] = useState('guest');
-  useEffect(()=>{
-    const cookies = new Cookies();
-    const token = cookies.get('token');
-    const userType = cookies.get('type');
+  // useEffect(()=>{
+  //   const cookies = new Cookies();
+  //   const token = cookies.get('token');
+  //   const userType = cookies.get('type');
 
-    authenticate(token)
-    .then(res => {
-      console.log(res);
-      setIsAuth(true);
-      setUserType(userType);
-    })
-    .catch(error => {
-      // console.log(error.response)
-      console.log(error);
-      navigate('/401');
-    })
-  }, [])
+  //   authenticate(token)
+  //   .then(res => {
+  //     console.log(res);
+  //     setIsAuth(true);
+  //     setUserType(userType);
+  //   })
+  //   .catch(error => {
+  //     // console.log(error.response)
+  //     console.log(error);
+  //     navigate('/401');
+  //   })
+  // }, [])
 
 
   return (

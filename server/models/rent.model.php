@@ -29,7 +29,7 @@
 
         public function createRent() {
             // Prepare an SQL INSERT statement
-            $query = "INSERT INTO Rent (rentDate, period, renterID, propertyID, status) VALUES (?, ?, ?, ?, ?)";
+            $query = "INSERT INTO Rent (rent_date, period, renterID, propertyID, status) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("siiss", $this->rentDate, $this->period, $this->renterID, $this->propertyID, $this->status);
             $stmt->execute();
