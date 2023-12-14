@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from 'react-icons/fa';
 import List from "../../components/list";
-import { getPropertyList } from "../../action/property.action";
 import axios from "axios";
+import Cookies from "universal-cookie";
+import { Link } from "react-router-dom";
 export default function Explore() {
+  const cookies = new Cookies();
+  const type = cookies.get('type');
 
   const [searchValue, setSearchValue] = useState("");
   const handleSearchChange = (event) => {
@@ -81,11 +84,11 @@ export default function Explore() {
                         }}
                         />
                     </div>
-                    <div className="flex items-center justify-end pt-10 sm:pt-0">
+                    {type=='renter' && <Link to={"/advertise"} className="flex items-center justify-end pt-10 sm:pt-0">
                         <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
-                        Advertise
+                          Advertise
                         </button>
-                    </div>
+                    </Link>}
                 </div>
           <div className="flex justify-center items-center">
           {propertyList.length!==0 

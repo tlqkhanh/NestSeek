@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import RatingFrame from "../../components/rating.js";
 import { getPropertyDetail } from "../../action/property.action.js";
@@ -8,6 +8,7 @@ import axios from "axios";
 import Cookies from "universal-cookie"
 const Detail = () => {
     const cookies = new Cookies();
+    const type = cookies.get('type');
     const { post_id } = useParams();
 
     const [postDetail, setPostDetail] = useState();
@@ -300,11 +301,11 @@ const Detail = () => {
                         placeholder="Search..."
                         />
                     </div>
-                    <div className="flex items-center justify-end pt-10 mt-10 sm:pt-0 sm:mt-0">
+                    {type=='renter' && <Link to={"/advertise"} className="flex items-center justify-end pt-10 sm:pt-0">
                         <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
-                        Advertise
+                          Advertise
                         </button>
-                    </div>
+                    </Link>}
                 </div>
             </div>
             <br></br>

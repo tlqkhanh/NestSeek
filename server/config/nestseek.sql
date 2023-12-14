@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2023 at 07:54 AM
+-- Generation Time: Dec 14, 2023 at 08:36 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -186,7 +186,7 @@ TRUNCATE TABLE `rating`;
 INSERT INTO `rating` (`ratingID`, `rate`, `userID`, `propertyID`) VALUES
 (1, 4, 2, 1),
 (2, 5, 2, 2),
-(11, 2, 6, 8);
+(11, 4, 6, 8);
 
 -- --------------------------------------------------------
 
@@ -312,7 +312,7 @@ TRUNCATE TABLE `user`;
 INSERT INTO `user` (`userID`, `user_name`, `email`, `password`, `user_type`, `full_name`, `phone_number`, `bank_number`, `bank_name`, `status`) VALUES
 (1, 'owner1', 'owner1@example.com', '$2y$10$ZlYnvgaMT9ip6WGbz9bFSeFNW4MDGtISEMXqhkUVw2DRLXeje./4W', 'owner', 'Owner One', '1234567890', '1234567890123456', 'BankA', 'normal'),
 (2, 'renter1', 'renter1@example.com', 'password2', 'renter', 'Renter One', '9876543210', '6543210987654321', 'BankB', 'normal'),
-(3, 'admin1', 'admin1@example.com', 'password3', 'admin', 'Admin One', '1112223333', NULL, NULL, 'normal'),
+(3, 'admin1', 'admin1@example.com', '$2y$10$3Ea2YrbS0b/0kgfeLbPv6O2y3FGOoRD5JdRxL8dFqVqenkt60Ou2C', 'admin', 'Admin One', '1112223333', NULL, NULL, 'normal'),
 (4, 'user4', 'user4@example.com', 'password4', 'renter', 'Owner Two', '4445556666', NULL, NULL, 'normal'),
 (5, 'tlqkhanh', 'tlqkhanh@gmail.com', '$2y$10$3Ea2YrbS0b/0kgfeLbPv6O2y3FGOoRD5JdRxL8dFqVqenkt60Ou2C', 'owner', 'TLQKhanh', '0398680678', '', '', 'normal'),
 (6, 'kiwi', 'kiwi@gmail.com', '$2y$10$qEXhNpTpuX9IRtCuHXmYse5tV8ZO2cR9aosmYhQSPF0FEuuOCqSbC', 'renter', 'Kiwikiwi', '9988776655', '', '', 'normal');

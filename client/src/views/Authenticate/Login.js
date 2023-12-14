@@ -23,7 +23,7 @@ export default function Login() {
         cookies.set('username',res.data.user.username, {path: '/'});
         cookies.set('token',res.data.token, {path: '/'});
         console.log(document.cookie);
-        navigate("/explore/postDetail/1");
+        navigate("/explore");
       })
       .catch(error => {
         console.log(error);
