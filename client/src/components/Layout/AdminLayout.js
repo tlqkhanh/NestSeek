@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import AdminHeader from "../Header/AdminHeader";
 import Footer from "../footer";
-
+import Header from '../header';
 export default function AdminLayout() {
   const navigate = useNavigate();
   const [isAuth,setIsAuth] = useState(true);
@@ -48,7 +48,7 @@ export default function AdminLayout() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {isAuth && <AdminHeader isLoggedIn={isAuth} userType={userType}/>}
+      {isAuth && <Header isLoggedIn={isAuth} userType={userType}/>}
       {isAuth && <div className="flex-grow flex">
         <Outlet/>
       </div>}

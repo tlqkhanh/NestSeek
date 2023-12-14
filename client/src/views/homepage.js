@@ -26,11 +26,11 @@ export default function Homepage() {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
+        speed: 700,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 300,
+        autoplaySpeed: 1200,
         
       };
     
