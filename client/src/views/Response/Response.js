@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const Response = () => {
+    const cookies = new Cookies();
     const [name, setName] = useState('');
     const [area, setArea] = useState(0);
     const [location, setLocation] = useState('');

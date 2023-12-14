@@ -8,20 +8,16 @@
     {
         require('../../config/database.php');
         require('../../ulti/validateUserInput.php');
-        require('../../models/property.model.php');
+        require('../../models/report.model.php');
         require('../../ulti/auth.php');
         if (isAuth('admin')){
-            $searchKeyWord = null;
-            if (isset($_GET['search'])){
-                $searchKeyWord = validateInput($_GET['search']);
-            }
-            
-            $properties = Property::getAllProperty($conn,$searchKeyWord,'pending');
+
+            $reports = Report::getAllReports($conn);
             http_response_code(200);
             $response = [
                 'success' => true,
-                'message' => 'Get properties list successfully',
-                'propertyList' => $properties,
+                'message' => 'Get report list successfully',
+                'reportList' => $reports,
             ];
         }
         else{

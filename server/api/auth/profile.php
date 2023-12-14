@@ -48,8 +48,10 @@
                             'fullName' => $res['full_name'],
                             'phoneNum' => $res['phone_number'],
                             'bankNum' => $res['bank_number'],
-                            'bank_name' => $res['bankNum'],
+                            'bankName' => $res['bank_name'],
+                            'status' => $res['status'],
                             'type' => $res['user_type'],
+                            'rating'=>0,
                         ],
                     ];
                 }

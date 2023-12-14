@@ -1,5 +1,5 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Origin: http://localhost:3000");
     header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header("Access-Control-Allow-Credentials: true");
@@ -7,7 +7,7 @@
 
     // Check if the user is logged in
     if ($_SERVER['REQUEST_METHOD']=="POST"){
-        if (isset($_SESSION['user_id']) && isset($_SESSION['token'])) {
+        if (isset($_SESSION['uid']) && isset($_SESSION['token'])) {
             // Destroy the session
             session_destroy();
             $_SESSION = [];

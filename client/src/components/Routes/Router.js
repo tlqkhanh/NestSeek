@@ -38,6 +38,7 @@ import Report from "../../views/Report/ReportList";
 import ErrorLayout from "../Layout/ErrorLayout";
 import Error401 from "../../views/Error/401";
 import Error403 from "../../views/Error/403";
+import Error404 from "../../views/Error/404";
 
 //end erro layout
 
@@ -59,17 +60,17 @@ export default function Router() {
         { path:"advertise", element: <Response></Response> },
         {path: "advertise/edit/:post_id", element: <EditProperty></EditProperty>},
 
-        { path:"sign-up", element: <SignUpPage /> },
+        { path:"sign-up", element: <SignUp /> },
 
       ]
     },
     {
       element: <UserAppLayout />,
       children: [
-        { path:"my/your-advertise", element:<Youradvertise></Youradvertise>},
+        { path:"my/my-advertise", element:<Youradvertise></Youradvertise>},
         { path:"my/booking-history",element:<BookingHistory></BookingHistory>},
         { path:"my/payment-history",element:<PaymentHistory></PaymentHistory>},
-        { path:"my/bill",element:<Bill></Bill>},
+        { path:"my/payment-history/bill/:bill_id",element:<Bill></Bill>},
         { path:"my/profile",element: <Profile></Profile>},
         // { path:"profile/:profileid",element: <Profile></Profile>},
 
@@ -88,6 +89,7 @@ export default function Router() {
       element: <ErrorLayout/>,
       children: [
         {path: "401", element: <Error401/>},
+        {path: "404", element: <Error404/>},
         {path: "403", element: <Error403/>},
       ]
     },

@@ -115,13 +115,14 @@
             $query = "UPDATE Property SET status = ? WHERE propertyID = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("si", $status, $this->propertyID);
-            $stmt->execute();
+            $res = $stmt->execute();
             $stmt->close();
+            return $res;
         }
 
         public static function getPropertyById($conn, $propertyId) {
             // Prepare an SQL SELECT statement
-            $query = "SELECT * FROM Property WHERE propertyID = ?";
+            $query = "SELECT * FROM Property WHERE propertyID = ? AND status = 'published'";
             $stmt = $conn->prepare($query);
     
             // Bind parameters
@@ -236,68 +237,46 @@
         }
 
         public static function getAllProperty($conn, $search = null, $status='published') {
-            // Prepare an SQL SELECT statement with optional search condition
-            $query = "SELECT * FROM Property WHERE
-                      (name LIKE CONCAT('%', ?, '%') OR
-                      location LIKE CONCAT('%', ?, '%'))
-                      AND status = ?";
-    
+            $query = "SELECT Property.*, User.user_name
+              FROM Property 
+              LEFT JOIN User ON Property.ownerID = User.userID 
+              WHERE (Property.name LIKE CONCAT('%', ?, '%') OR 
+                     Property.location LIKE CONCAT('%', ?, '%')) 
+                     AND Property.status = ?";
+
             // If $search is null, retrieve all records
             if ($search === null) {
-                $query = "SELECT * FROM Property";
+                $query = "SELECT Property.*, User.user_name
+                        FROM Property 
+                        LEFT JOIN User ON Property.ownerID = User.userID 
+                        WHERE Property.status = ?";
             }
-    
+
             $stmt = $conn->prepare($query);
-    
+
             // Bind parameters
             if ($search !== null) {
                 $stmt->bind_param("sss", $search, $search, $status);
+            } else {
+                $stmt->bind_param("s", $status);
             }
-    
+
             // Execute the query
             $stmt->execute();
-            
 
-            $propertyID =$name = $area = $location = $description = $imageURL = $price = $created_at = $initial_slot = $cur_slot = $status = $owner = null;
-            $stmt->bind_result(
-                $propertyID,
-                $name,
-                $area,
-                $location,
-                $description,
-                $imageURL,
-                $price,
-                $created_at,
-                $owner,
-                $status,
-                $initial_slot,
-                $cur_slot
-            );
-    
+            // Fetch the result as an associative array
+            $result = $stmt->get_result();
+
             // Fetch the result
             $properties = [];
-            while ($stmt->fetch()) {
+            while ($row = $result->fetch_assoc()) {
                 // Add property information to the array
-                $properties[] = new Property(
-                    $conn,
-                    $propertyID,
-                    $name,
-                    $owner,
-                    $area,
-                    $location,
-                    $description,
-                    $imageURL,
-                    $price,
-                    $created_at,
-                    $initial_slot,
-                    $cur_slot,
-                    $status
-                );
+                $properties[] = $row;
             }
-    
+
             // Close the statement
             $stmt->close();
-    
+
             return $properties;
         }
     }

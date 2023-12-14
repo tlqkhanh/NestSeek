@@ -14,28 +14,27 @@ export default function UserCard() {
       axios.post(`http://localhost:9000/server/api/auth/logout.php`,{
       },
       {
+          withCredentials: true,
           headers: {
               "Content-Type": "application/json"
           }
       })
       .then(response=> {
           if (response.status>=200 && response.status<400){
-              console.log(response.data);
+              cookies.remove('uid');
+              cookies.remove('type');
+              cookies.remove('token');
+              cookies.remove('username');
               alert(response.data.message);
-              window.location.href = "/explore";
+              window.location.href = "/";
           }
       })
       .catch(err => {
           console.log("Error: ", err.response.data.message)
       })
-  } catch (error) {
-      console.log(error);
-  }
-    cookies.remove('uid');
-    cookies.remove('type');
-    cookies.remove('token');
-    cookies.remove('username');
-    window.location.href = "/";
+    } catch (error) {
+        console.log(error);
+    }
   }
   return (
     <Menu as="div" className="relative text-left px-2 w-full h-full flex">

@@ -78,34 +78,22 @@
     
         // Static function to get all rents of a user
         public static function getAllRentOfUser($conn, $userId) {
-            // Prepare an SQL SELECT statement
-            $query = "SELECT * FROM Rent WHERE renterID = ?";
+            $query = "SELECT Rent.*, Property.name, Property.imageURL, Property.propertyID FROM Rent
+            JOIN Property ON Rent.propertyID = Property.propertyID
+            WHERE Rent.renterID = ?";
             $stmt = $conn->prepare($query);
-    
-            // Bind parameters
             $stmt->bind_param("i", $userId);
-    
-            // Execute the query
             $stmt->execute();
-    
-            // Declare variables to store the result
-            $rentID = $rentDate = $period = $renterID = $propertyID = $status = null;
-    
-            // Bind result variables
-            $stmt->bind_result($rentID, $rentDate, $period, $renterID, $propertyID, $status);
-    
-            // Fetch the result
+            $result = $stmt->get_result();
             $rents = [];
-            while ($stmt->fetch()) {
-                // Add rent information to the array
-                $rents[] = new Rent($conn, $rentID, $renterID, $propertyID, $rentDate, $period, $status);
+            while ($row = $result->fetch_assoc()) {
+                $rents[] = $row;
             }
-    
-            // Close the statement
             $stmt->close();
-    
+        
             return $rents;
         }
+        
     }
     
 

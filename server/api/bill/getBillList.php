@@ -1,17 +1,16 @@
 <?php
     header("Access-Control-Allow-Origin: http://localhost:3000");
-    header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header("Access-Control-Allow-Credentials: true");
-
+    session_start();
     if ($_SERVER['REQUEST_METHOD']=="GET")
     {
         require('../../config/database.php');
-        require('../../ulti/validateUserInput.php');
+        require('../../ulti/auth.php');
         require('../../models/bill.model.php');
-        if (isset($_GET['user'])){
-            $userId = $_GET['user'];
-            $billList = Bill::getAllBillsOfUser($conn,$userId);
+        if (isAuth('renter')){
+            $billList = Bill::getAllBillsOfUser($conn,$_SESSION['uid']);
             http_response_code(200);
             $response = [
                 'success' => true,
@@ -20,12 +19,13 @@
             ];
         }
         else{
-            http_response_code(400);
+            http_response_code(403);
             $response = [
-                'success' => false,
-                'message' => 'Bad request',
+                'success' => true,
+                'message' => 'Forbidden',
             ];
         }
+        
         $conn->close();
 
         // Send CORS and JSON response

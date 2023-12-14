@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
-import datapost from "./datapost";
-import Cookies from "universal-cookie";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function PaymentHistory() {
-  const cookies = new Cookies();
-  const uid = cookies.get("uid");
   const [billList, setBillList] = useState([]);
 
   async function getBillList() {
     try {
       axios
         .get(
-          `http://localhost:9000/server/api/bill/getBillList.php?user=${uid}`,
+          `http://localhost:9000/server/api/bill/getBillList.php`,
           {
+            withCredentials: true,
             headers: {
               "Content-Type": "application/json",
             },
@@ -21,7 +19,7 @@ export default function PaymentHistory() {
         )
         .then((response) => {
           if (response.status >= 200 && response.status < 400) {
-            console.log(response.data.message);
+            console.log(response.data);
             setBillList(response.data.billList);
           }
         })
@@ -74,13 +72,17 @@ export default function PaymentHistory() {
               </div>
               <div>
                 {item.status === 'paid' ? (
-                  <button className="border rounded bg-bluelight p-2 hover:bg-medium text-white">
-                    Read more
-                  </button>
+                  <Link to={`/my/payment-history/bill/${item.billID}`}>
+                    <button className="border rounded bg-bluelight p-2 hover:bg-medium text-white">
+                      Read more
+                    </button>
+                  </Link>
                 ) : (
-                  <button className="border rounded bg-blue3 p-2 hover:bg-blue2 text-white">
-                    Pay Now
-                  </button>
+                  <Link to={`/my/payment-history/bill/${item.billID}`}>
+                    <button className="border rounded bg-blue3 p-2 hover:bg-blue2 text-white">
+                      Pay Now
+                    </button>
+                  </Link>
                 )}
               </div>
             </div>
