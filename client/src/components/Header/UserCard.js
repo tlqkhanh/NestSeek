@@ -6,36 +6,36 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import Cookies from "universal-cookie";
 import axios from "axios";
 
-export default function UserCard() {
+export default function UserCard({type}) {
   const cookies = new Cookies();
-  const type = cookies.get('type');
   async function handleLogout(event){
     event.preventDefault();
     try {
       axios.post(`http://localhost:9000/server/api/auth/logout.php`,{
       },
       {
-          withCredentials: true,
           headers: {
               "Content-Type": "application/json"
           }
       })
       .then(response=> {
           if (response.status>=200 && response.status<400){
-              cookies.remove('uid');
-              cookies.remove('type');
-              cookies.remove('token');
-              cookies.remove('username');
+              console.log(response.data);
               alert(response.data.message);
-              window.location.href = "/";
+              window.location.href = "/explore";
           }
       })
       .catch(err => {
           console.log("Error: ", err.response.data.message)
       })
-    } catch (error) {
-        console.log(error);
-    }
+  } catch (error) {
+      console.log(error);
+  }
+    cookies.remove('uid');
+    cookies.remove('type');
+    cookies.remove('token');
+    cookies.remove('username');
+    window.location.href = "/";
   }
   return (
     <Menu as="div" className="relative text-left px-2 w-full h-full flex">
@@ -100,7 +100,7 @@ export default function UserCard() {
                 </a>
               )}
             </Menu.Item>
-            {/* <Menu.Item>
+            <Menu.Item>
               {({ active }) => (
                 <a
                   href="/my/my-advertise"
@@ -112,7 +112,7 @@ export default function UserCard() {
                   My Advertise
                 </a>
               )}
-            </Menu.Item> */}
+            </Menu.Item>
             <form method="POST" action="#" onSubmit={handleLogout}>
               <Menu.Item>
                 {({ active }) => (
@@ -143,7 +143,7 @@ export default function UserCard() {
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  My profile
+                  Your profile
                 </a>
               )}
             </Menu.Item>            
