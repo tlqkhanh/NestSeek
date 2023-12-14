@@ -35,7 +35,7 @@ export default function Error401() {
     ;
     return (
         <div className="flex-grow">
-          <h1 style={{textAlign: "center", fontSize: "2rem"}}>401: You are not authenticated! Please <Link to={'/log-in'} style={{color:"green"}}>Login</Link> to see the resource </h1>
+          <h1 style={{textAlign: "center", fontSize: "2rem"}}>401: You are not authenticated! <Link to={'/'} style={{color:"green"}}>Go Back</Link></h1>
         </div>
       );
 }

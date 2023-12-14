@@ -9,7 +9,7 @@ export default function AboutUs() {
         <div className={classNames("font-semibold text-blue2")}>Welcome to Nestseek – your ultimate destination for finding ideal living spaces and business premises in Ho Chi Minh City !</div>
         <div className="w-full flex justify-center">
             <img
-                src={city_pic2}
+                src={`https://img.freepik.com/premium-photo/spectacular-digital-art-3d-illustration-eco-futuristic-city-abundant-trees_31965-48861.jpg`}
                 alt="city"
                 className="w-full py-4"
             />

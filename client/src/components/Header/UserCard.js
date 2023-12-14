@@ -6,8 +6,9 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import Cookies from "universal-cookie";
 import axios from "axios";
 
-export default function UserCard({type}) {
+export default function UserCard() {
   const cookies = new Cookies();
+  const type = cookies.get('type');
   async function handleLogout(event){
     event.preventDefault();
     try {
@@ -99,7 +100,7 @@ export default function UserCard({type}) {
                 </a>
               )}
             </Menu.Item>
-            <Menu.Item>
+            {/* <Menu.Item>
               {({ active }) => (
                 <a
                   href="/my/my-advertise"
@@ -111,7 +112,7 @@ export default function UserCard({type}) {
                   My Advertise
                 </a>
               )}
-            </Menu.Item>
+            </Menu.Item> */}
             <form method="POST" action="#" onSubmit={handleLogout}>
               <Menu.Item>
                 {({ active }) => (
@@ -142,7 +143,7 @@ export default function UserCard({type}) {
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Your profile
+                  My profile
                 </a>
               )}
             </Menu.Item>            

@@ -39,7 +39,8 @@ const Response = () => {
         }
     };
 
-    const handleSubmit  = () => {
+    const handleSubmit  = (event) => {
+        event.preventDefault();
         if (!cookies.get('type') && cookies.get('type')!='owner'){
             alert('Only logined owners can upload new property!!!');
             return window.location.href = '/explore'
