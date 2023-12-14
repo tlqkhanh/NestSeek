@@ -6,7 +6,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import Cookies from "universal-cookie";
 import axios from "axios";
 
-export default function UserCard() {
+export default function UserCard({type}) {
   const cookies = new Cookies();
   async function handleLogout(event){
     event.preventDefault();
@@ -59,7 +59,7 @@ export default function UserCard() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-12 w-56 origin-top-right rounded-md bg-blue2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        {type === 'renter' ? ( <Menu.Items className="absolute right-0 z-10 mt-12 w-56 origin-top-right rounded-md bg-blue2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
@@ -70,7 +70,7 @@ export default function UserCard() {
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Your profile
+                  My profile
                 </a>
               )}
             </Menu.Item>
@@ -127,9 +127,58 @@ export default function UserCard() {
                   </button>
                 )}
               </Menu.Item>
+              
             </form>
           </div>
         </Menu.Items>
+        ):(
+          <Menu.Items className="absolute right-0 z-10 mt-12 w-56 origin-top-right rounded-md bg-blue2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="/my/profile"
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-white",
+                    "block px-4 py-2 text-sm"
+                  )}
+                >
+                  Your profile
+                </a>
+              )}
+            </Menu.Item>            
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="/my/my-advertise"
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-white",
+                    "block px-4 py-2 text-sm"
+                  )}
+                >
+                  My Advertise
+                </a>
+              )}
+            </Menu.Item>
+            <form method="POST" action="#" onSubmit={handleLogout}>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="submit"
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-white",
+                      "block w-full px-4 py-2 text-left text-sm"
+                    )}
+                  >
+                    Log out
+                  </button>
+                )}
+              </Menu.Item>
+              
+            </form>
+          </div>
+        </Menu.Items>
+          )}
       </Transition>
     </Menu>
   );
