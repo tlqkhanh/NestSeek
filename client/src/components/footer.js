@@ -28,7 +28,7 @@ export default function Footer() {
           </div>
           <div className={classNames("text-zinc-300 text-base leading-6")}>
             <ul
-              className={classNames("flex flex-col md:flex-row-reverse gap-6 px-5")}
+              className={classNames("flex flex-col md:flex-row-reverse md:gap-6 px-5")}
             >
               <li>
                 <Link to="/">Home</Link>

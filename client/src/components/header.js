@@ -4,6 +4,7 @@ import { TiThMenu } from 'react-icons/ti';
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import AdminCard from "./Header/AdminCard";
+import UserCard from "./Header/UserCard";
 import logo from "../assets/logo.png";
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -20,7 +21,7 @@ const Header = ({ isLoggedIn, userType }) => {
       }
       else {
         return (
-          <AdminCard></AdminCard>
+          <UserCard></UserCard>
         );
       }
     }
