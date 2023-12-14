@@ -29,13 +29,11 @@ export default function Explore() {
           }
       })
       .catch(err => {
-          console.log("Error: ", err.response.data.message)
+          console.log("Error: ", err.response)
       })
     } catch (error) {
         console.log(error);
     }
-
-
   };
 
   useEffect(() => {

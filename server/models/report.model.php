@@ -58,18 +58,19 @@
     
         // Static method to get all reports
         public static function getAllReports($conn) {
-            // Prepare an SQL SELECT statement
-            $query = "SELECT * FROM Report";
+            $query = "SELECT r.*, u.user_name, p.name AS property_name
+            FROM Report r
+            JOIN User u ON r.reporterID = u.userID
+            LEFT JOIN Property p ON r.reportedID = p.propertyID
+            WHERE r.report_type = 'property' AND p.status = 'published'";
             $result = $conn->query($query);
-    
-            // Fetch the result
             $reports = [];
             while ($row = $result->fetch_assoc()) {
-                // Add report information to the array
-                $reports[] = new Report($conn, $row['reportID'], $row['report_type'], $row['reportedID'], $row['reporterID'], $row['report_date'], $row['reason']);
+                $reports[] = $row;
             }
-    
+
             return $reports;
+
         }
     }
     

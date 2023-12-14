@@ -15,8 +15,9 @@
 
         if (isset($_GET['pId'])){
             $pId =$_GET['pId'];
-            $property = get_object_vars(Property::getPropertyById($conn,$pId));
+            $property = Property::getPropertyById($conn,$pId);
             if ($property){
+                $property = get_object_vars(Property::getPropertyById($conn,$pId));
                 $rating = Rating::getAvgRatingOfProperty($conn,$pId);
                 $owner = User::getUserById($property['owner'],$conn);
                 $property['rating'] = $rating;

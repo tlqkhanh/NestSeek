@@ -59,13 +59,12 @@ export default function Profile() {
                 // setImage(property.imageURL);
                 // setPrice(property.price);
                 // setSlot(property.initialSlot);
-                console.log(response.data)
                 setLoading(false);
             }
         })
         .catch(err => {
             alert(`Error: ${err.response.data.message}`);
-            console.log(err.response);
+            // console.log(err);
         })
     } catch (error) {
         console.error('Error fetching property detail:', error);

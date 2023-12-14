@@ -71,41 +71,30 @@
         // Static method to get all bills for a specific user
         public static function getAllBillsOfUser($conn, $userId) {
             // Prepare an SQL SELECT statement
-            $query = "SELECT B.* FROM Bill B
+            $query = "SELECT B.*, P.name, R.period FROM Bill B
                       JOIN Rent R ON B.for_rentID = R.rentID
+                      JOIN Property P ON P.propertyID = R.propertyID
                       WHERE R.renterID = ?";
             $stmt = $conn->prepare($query);
-    
-            // Bind parameters
             $stmt->bind_param("i", $userId);
-    
-            // Execute the query
             $stmt->execute();
-    
-            // Declare variables to store the result
-            $billID = $tax = $initialAmount = $totalAmount = $forRentID = $status = $created_data = $paid_date = null;
-    
-            // Bind result variables
-            $stmt->bind_result($billID, $tax, $initialAmount, $totalAmount, $forRentID, $status,$created_data,$paid_date);
-    
-            // Fetch the result
+            $result = $stmt->get_result();
             $bills = [];
-            while ($stmt->fetch()) {
-                // Add bill information to the array
-                $bills[] = new Bill(null, $billID, $forRentID, $tax, $initialAmount, $totalAmount, $status,$created_data,$paid_date);
+            while ($row = $result->fetch_assoc()) {
+                $bills[] = $row;
             }
-    
-            // Close the statement
             $stmt->close();
-    
             return $bills;
         }
 
         public static function getBillById($conn, $billId) {
-            $query = "SELECT b.*, r.*, p.* FROM bill b
-            JOIN rent r ON b.for_rentID = r.rentID
-            JOIN property p ON r.propertyID = p.propertyID
-            WHERE b.billID = ?";
+            $query = "SELECT Bill.*, Rent.period, Property.name, Renter.user_name AS renterName, Owner.user_name AS ownerName
+            FROM Bill
+            JOIN Rent ON Bill.for_rentID = Rent.rentID
+            JOIN Property ON Rent.propertyID = Property.propertyID
+            JOIN User AS Renter ON Rent.renterID = Renter.userID
+            JOIN User AS Owner ON Property.ownerID = Owner.userID
+            WHERE bill.billID = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("i", $billId);
             $stmt->execute();

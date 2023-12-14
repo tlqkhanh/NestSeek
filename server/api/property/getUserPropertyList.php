@@ -4,19 +4,15 @@
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header("Access-Control-Allow-Credentials: true");
     session_start();
+
     if ($_SERVER['REQUEST_METHOD']=="GET")
     {
         require('../../config/database.php');
         require('../../ulti/validateUserInput.php');
         require('../../models/property.model.php');
-        require('../../ulti/auth.php');
-        if (isAuth('admin')){
-            $searchKeyWord = null;
-            if (isset($_GET['search'])){
-                $searchKeyWord = validateInput($_GET['search']);
-            }
-            
-            $properties = Property::getAllProperty($conn,$searchKeyWord,'pending');
+        require("../../ulti/auth.php");
+        if (isAuth('owner')){
+            $properties = Property::getAllPropertyOfUser($conn,$_SESSION['uid']);
             http_response_code(200);
             $response = [
                 'success' => true,
@@ -25,16 +21,14 @@
             ];
         }
         else{
-            http_response_code(403);
+            http_response_code(401);
             $response = [
                 'success' => true,
-                'message' => 'Forbidden',
+                'message' => 'Unauthorized action',
             ];
         }
         
         $conn->close();
-
-        // Send CORS and JSON response
         header('Content-Type: application/json');
         echo json_encode($response);
     }

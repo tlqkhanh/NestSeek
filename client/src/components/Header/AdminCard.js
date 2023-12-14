@@ -14,6 +14,7 @@ export default function AdminCard() {
       axios.post(`http://localhost:9000/server/api/auth/logout.php`,{
       },
       {
+          withCredentials:true,
           headers: {
               "Content-Type": "application/json"
           }
@@ -22,6 +23,10 @@ export default function AdminCard() {
           if (response.status>=200 && response.status<400){
               console.log(response.data);
               alert(response.data.message);
+              cookies.remove('uid');
+              cookies.remove('type');
+              cookies.remove('token');
+              cookies.remove('username');
               window.location.href = "/explore";
           }
       })
@@ -31,11 +36,6 @@ export default function AdminCard() {
   } catch (error) {
       console.log(error);
   }
-    cookies.remove('uid');
-    cookies.remove('type');
-    cookies.remove('token');
-    cookies.remove('username');
-    window.location.href = "/";
   }
 
 
@@ -67,20 +67,20 @@ export default function AdminCard() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="profile"
+                  href="/my/profile"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-white",
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Your profile
+                  Profile
                 </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="pending-post"
+                  href="/admin/pending-post"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-white",
                     "block px-4 py-2 text-sm"
@@ -93,7 +93,7 @@ export default function AdminCard() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="report-list"
+                  href="/admin/report-list"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-white",
                     "block px-4 py-2 text-sm"

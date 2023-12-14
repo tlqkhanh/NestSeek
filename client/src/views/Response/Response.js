@@ -3,6 +3,7 @@ import { AiOutlineUser, AiOutlineEnvironment, AiOutlineArea, AiOutlineFieldNumbe
 import { FaRegSquare } from 'react-icons/fa';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+
 const iconStyles = {
     position: 'absolute',
     top: '50%',

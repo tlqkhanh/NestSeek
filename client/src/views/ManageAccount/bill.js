@@ -1,10 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import momo from "../../assets/momo.png";
-export default function Bill() {
-    const ispay = false; 
-    const statusText = ispay ? "Paid" : "Unpaid";
-    const statusColor = ispay ? "text-green-500" : "text-red";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
+export default function Bill() {
+    const {bill_id} = useParams('bill_id');
+    const [ispay, setIsPay] = useState('');
+    const statusText = ispay=='paid' ? "Paid" : "Unpaid";
+    const statusColor = ispay=='paid' ? "text-green-500" : "text-red";
+
+    const [billDetail, setbillDetail] = useState();
+
+  async function getbillDetail() {
+    try {
+      axios
+        .get(
+          `http://localhost:9000/server/api/bill/getBillDetail.php?billId=${bill_id}`,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          if (response.status >= 200 && response.status < 400) {
+            console.log(response.data);
+            setbillDetail(response.data.bill);
+            setIsPay(response.data.bill.status)
+          }
+        })
+        .catch((err) => {
+          console.log("Error: ", err.response.data.message);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handlePay(bill_id){
+    try {
+        axios.post(
+            `http://localhost:9000/server/api/bill/payBill.php`,
+            {
+                billId: bill_id,
+            },
+            {
+              withCredentials: true,
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((response) => {
+            if (response.status >= 200 && response.status < 400) {
+              console.log(response.data);
+              alert(response.data.message);
+              window.location.href = '/my/payment-history';
+            }
+          })
+          .catch((err) => {
+            console.log("Error: ", err.response.data.message);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+  }
+
+  useEffect(() => {
+    getbillDetail();
+  }, []);
+
+  if (!billDetail ) return <div>Loading...</div>
     
 
     return (
@@ -21,22 +88,24 @@ export default function Bill() {
                                 alt="payment method"
                             />
                     </div> </div>
-                    <div style={{ margin: "10px 0 10px" }}>Renter name : </div>
-                    <div style={{ marginBottom: "10px" }}>Owner name : </div>
-                    <div style={{ marginBottom: "10px" }}>Booking time : </div>
+                    <div style={{ margin: "10px 0 10px" }}>Renter name : {billDetail.renterName}</div>
+                    <div style={{ marginBottom: "10px" }}>Owner name : {billDetail.ownerName}</div>
+                    <div style={{ marginBottom: "10px" }}>Booking time : {billDetail.created_date}</div>
                     
                 </div>
                 <div className="md:w-1/2 flex justify-center m-4">
                     <div className="border rounded bg-bgcolor h-full w-full p-4">
-                    <span className="font-bold text-xl text-blue2" >Property name</span>
-                    <div style={{ margin: "10px 0 10px" }}>Bill ID : </div>
-                    <div style={{ marginBottom: "10px" }}>Rental period : </div>
-                    <div style={{ marginBottom: "10px" }}>Subtotal : </div>
-                    <div style={{ marginBottom: "10px" }} className="border-b pb-4 border-gray-700">Tax : </div>
-                    <div style={{ margin: "10px 0 10px" }}>Bill Now : </div>
-                    {!ispay && (
+                    <span className="font-bold text-xl text-blue2" >Bill for {billDetail.name}</span>
+                    <div style={{ margin: "10px 0 10px" }}>Bill ID : {billDetail.billID}</div>
+                    <div style={{ marginBottom: "10px" }}>Rental period : {billDetail.period} month(s)</div>
+                    <div style={{ marginBottom: "10px" }}>Cost : {billDetail.initial_amount}</div>
+                    <div style={{ marginBottom: "10px" }} className="border-b pb-4 border-gray-700">Tax : {billDetail.tax*100}%</div>
+                    <div style={{ margin: "10px 0 10px" }}>Bill Now : {billDetail.total_amount}</div>
+                    {ispay!='paid' && (
                         <div className="p-4 flex justify-center">
-                            <button className="bg-blue3 hover:bg-blue2 text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-blue3 hover:bg-blue2 text-white font-bold py-2 px-4 rounded"
+                                onClick={()=>handlePay(billDetail.billID)}
+                            >
                                 Pay Now
                             </button>
                         </div>

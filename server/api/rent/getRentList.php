@@ -8,20 +8,16 @@
     {
         require('../../config/database.php');
         require('../../ulti/validateUserInput.php');
-        require('../../models/property.model.php');
+        require('../../models/report.model.php');
+        require('../../models/rent.model.php');
         require('../../ulti/auth.php');
-        if (isAuth('admin')){
-            $searchKeyWord = null;
-            if (isset($_GET['search'])){
-                $searchKeyWord = validateInput($_GET['search']);
-            }
-            
-            $properties = Property::getAllProperty($conn,$searchKeyWord,'pending');
+        if (isAuth('renter')){
+            $rents = Rent::getAllRentOfUser($conn,$_SESSION['uid']);
             http_response_code(200);
             $response = [
                 'success' => true,
-                'message' => 'Get properties list successfully',
-                'propertyList' => $properties,
+                'message' => 'Get report list successfully',
+                'rentList' => $rents,
             ];
         }
         else{

@@ -85,8 +85,20 @@ const Detail = () => {
 
     const fetchData = async (post_id) => {
         try {
-            const response = await getPropertyDetail(post_id);
-            setPostDetail(response.data.property);
+            // const response = await getPropertyDetail(post_id);
+            // setPostDetail(response.data.property);
+            axios.get(`http://localhost:9000/server/api/property/propertyDetail.php?pId=${post_id}`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(response => {
+                if (response.status>=200 && response.status<400){
+                    setPostDetail(response.data.property);
+                }
+            })
+            .catch(err => {
+                window.location.href = `/${err.response.status}`;
+            })
         } catch (error) {
             console.error('Error fetching property detail:', error);
         }
@@ -211,6 +223,34 @@ const Detail = () => {
         }
     }
 
+    const handleAdminAction = (status,propertyID) => {
+        try {
+            axios.post(`http://localhost:9000/server/api/admin/actionToProperty.php`,{
+                propertyID: propertyID,
+                status: status
+            },
+            {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            .then(response=> {
+                if (response.status>=200 && response.status<400){
+                    console.log(response.data);
+                    alert(response.data.message);
+                    window.location.href = "/explore"
+                }
+            })
+            .catch(err => {
+                alert(`Error: ${err.response.data.message}`)
+                console.log(err.response)
+                //window.location.href = '/explore';
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    };
     
 
     if (!postDetail) {
@@ -253,7 +293,9 @@ const Detail = () => {
     } else if (userType === 'admin') {
         userButtons = (
             <div className="flex justify-end items-center">
-                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
+                <button className="bg-red hover:bg-darkred text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded"
+                    onClick={()=>handleAdminAction('rejected',postDetail.propertyID)}
+                >
                     Delete
                 </button>
             </div>
@@ -324,7 +366,7 @@ const Detail = () => {
                         </div>
                         <div className="content rounded-2xl text-darkblue p-4">
                             <h1 className="text-blue2 font-bold text-2xl">{postDetail.name}</h1>
-                            <RatingFrame userType={userType} />
+                            {userType=='renter' && <RatingFrame userType={userType} />}
                             <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.rating}</p>
                             <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
                             <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
