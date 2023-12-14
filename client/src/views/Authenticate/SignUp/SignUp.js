@@ -1,8 +1,7 @@
-import classNames from 'classnames';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-function SignUp() {
 
+const SignUp = () => {
     const [formData, setFormData] = useState({
         username: '',
         phoneNumber: '',
@@ -54,109 +53,83 @@ function SignUp() {
         }
       };
 
-    return(
-        <div className='w-full flex justify-center items-center mt-20'>
-            <div className={classNames("login-wrapper flex flex-col items-center", 'bg-bluelight rounded-xl', 'md:w-[60%] md:h-[100%] p-6 sm:w-fit sm:h-fit')}>
-                <div className='font-semibold text-2xl text-darkblue lg:p-8 md:p-6 sm:p-2'>Sign Up</div>
-                {/* <div className="form ">
-                    <div className="form-body">
-                        <div className="username md:pb-4 sm:pb-2">
-                            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                type="text" 
-                                value={firstName} onChange = {(e) => handleInputChange(e)} 
-                                id="firstName" 
-                                placeholder="First Name"
+    return (
+        <div className="flex justify-center items-center pb-8">
+            <div className="w-full max-w-md p-4 bg-bluelight border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-10">
+                <form className="space-y-6 p-6 flex flex-col items-center" onSubmit={handleSubmit}>
+                    <h5 className="text-2xl font-bold text-white">Sign Up</h5>
+                    <div className="flex text-sm text-blue2">
+                        User Type :
+                        <label className="ml-2">
+                            <input
+                                type="radio"
+                                name="userType"
+                                value="owner"
+                                checked={formData.userType === 'owner'}
+                                onChange={handleChange}
+                                className='mr-2'
                             />
-                        </div>
-                        <div className="lastname md:pb-4 sm:pb-2">
-                            <input  type="text" name="" id="lastName" value={lastName}  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    onChange = {(e) => handleInputChange(e)} 
-                                    placeholder="LastName"/>
-                        </div>
-                        <div className="email md:pb-4 sm:pb-2">
-                            <input  type="email" id="email" 
-                                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    value={email} onChange = {(e) => handleInputChange(e)} 
-                                    placeholder="Email"/>
-                        </div>
-                        <div className="password md:pb-4 sm:pb-2">
-                            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    type="password"  id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
-                        </div>
-                        <div className="confirm-password md:pb-4 sm:pb-2">
-                            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password"/>
-                        </div>
+                            Owner
+                        </label>
+                        <label className="ml-4">
+                            <input
+                                type="radio"
+                                name="userType"
+                                value="renter"
+                                checked={formData.userType === 'renter'}
+                                onChange={handleChange}
+                                className='mr-2 '
+                            />
+                            Renter
+                        </label>
                     </div>
-                    <div className="footer ">
-                        <button onClick={()=>handleSubmit()} type="submit" className="bg-darkblue py-2 px-4 rounded-lg text-white">Register</button>
-                    </div>
-                </div> */}
-                <form onSubmit={handleSubmit}>
-                    <label>
+
+                    <label htmlFor="username" className="block mb-2 text-sm font-medium text-white m-4">
                         Username:
-                        <input type="text" name="username" value={formData.username} onChange={handleChange} />
+                        <input type="text" name="username" value={formData.username} onChange={handleChange} className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" />
                     </label>
 
-                    <label>
+                    <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-white">
                         Phone Number:
-                        <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
                     </label>
 
-                    <label>
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">
                         Email:
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="email" name="email" value={formData.email} onChange={handleChange} />
                     </label>
 
-                    <label>
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">
                         Password:
-                        <input type="password" name="password" value={formData.password} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="password" name="password" value={formData.password} onChange={handleChange} />
                     </label>
 
-                    <label>
+                    <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-white">
                         Full Name:
-                        <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
                     </label>
 
-                    <label>
+                    <label htmlFor="bankNumber" className="block mb-2 text-sm font-medium text-white">
                         Bank Number (optional):
-                        <input type="text" name="bankNumber" value={formData.bankNumber} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="bankNumber" value={formData.bankNumber} onChange={handleChange} />
                     </label>
 
-                    <label>
+                    <label htmlFor="bankName" className="block mb-2 text-sm font-medium text-white">
                         Bank Name (optional):
-                        <input type="text" name="bankName" value={formData.bankName} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4"  type="text" name="bankName" value={formData.bankName} onChange={handleChange} />
                     </label>
 
-                    <div>
-                        <label>
-                        User Type:
-                        <input
-                            type="radio"
-                            name="userType"
-                            value="owner"
-                            checked={formData.userType === 'owner'}
-                            onChange={handleChange}
-                        />
-                        Owner
-                        </label>
-                        <label>
-                        <input
-                            type="radio"
-                            name="userType"
-                            value="renter"
-                            checked={formData.userType === 'renter'}
-                            onChange={handleChange}
-                        />
-                        Renter
-                        </label>
-                    </div>
-
-                    <button type="submit">Sign Up</button>
-                    </form>
+                    
+                    <button
+                        type="submit"
+                        className="lg:w-96 w-full text-white bg-blue2 hover:bg-blue3 focus:ring-4 focus:outline-none focus:ring-blue3 font-medium rounded-lg text-sm px-5 py-2.5 mt-4"
+                    >
+                        Sign Up
+                    </button>
+                </form>
             </div>
         </div>
-    )       
-}
+    );
+};
 
-export default SignUp
+export default SignUp;

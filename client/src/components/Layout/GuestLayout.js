@@ -46,9 +46,9 @@ export default function GuestLayout() {
 
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col ">
       <Header isLoggedIn={isAuth} userType={userType}/>
-      <div className="flex-grow flex">
+      <div className="flex flex-grow justify-center">
         <Outlet/>
       </div>
       <Footer />

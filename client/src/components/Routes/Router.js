@@ -12,7 +12,7 @@ import AboutUs from "../../views/AboutUs/AboutUs";
 import Explore from "../../views/Explore/explore";
 import Detail from "../../views/Explore/exploredetail";
 import LoginPage from "../../views/Authenticate/LoginPage";
-import SignUpPage from "../../views/Authenticate/SignUp/SignUpPage";
+import SignUp from "../../views/Authenticate/SignUp/SignUp";
 //end guest layout
 
 //begin user layout
