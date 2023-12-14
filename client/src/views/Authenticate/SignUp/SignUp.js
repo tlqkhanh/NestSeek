@@ -1,78 +1,124 @@
-import classNames from 'classnames';
-import React, {useState} from 'react';
-function SignUp() {
-    
-    const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [password,setPassword] = useState(null);
-    const [confirmPassword,setConfirmPassword] = useState(null);
+import React, { useState } from 'react';
+
+const SignUp = () => {
+    const [mssv, setMssv] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [acceptTerms, setAcceptTerms] = useState(false);
 
     const handleInputChange = (e) => {
-        const {id , value} = e.target;
-        if(id === "firstName"){
-            setFirstName(value);
-        }
-        if(id === "lastName"){
-            setLastName(value);
-        }
-        if(id === "email"){
-            setEmail(value);
-        }
-        if(id === "password"){
-            setPassword(value);
-        }
-        if(id === "confirmPassword"){
-            setConfirmPassword(value);
-        }
+        const { id, value, type, checked } = e.target;
 
-    }
+        switch (id) {
+            case 'mssv':
+                setMssv(value);
+                break;
+            case 'name':
+                setName(value);
+                break;
+            case 'email':
+                setEmail(value);
+                break;
+            case 'password':
+                setPassword(value);
+                break;
+            case 'accept':
+                setAcceptTerms(checked);
+                break;
+            default:
+                break;
+        }
+    };
 
-    const handleSubmit  = () => {
-        console.log(firstName,lastName,email,password,confirmPassword);
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(mssv, name, email, password, acceptTerms);
+    };
 
-    return(
-        <div className='w-full flex justify-center items-center mt-20'>
-            <div className={classNames("login-wrapper flex flex-col items-center", 'bg-bluelight rounded-xl', 'md:w-[60%] md:h-[100%] p-6 sm:w-fit sm:h-fit')}>
-                <div className='font-semibold text-2xl text-darkblue lg:p-8 md:p-6 sm:p-2'>Sign Up</div>
-                <div className="form ">
-                    <div className="form-body">
-                        <div className="username md:pb-4 sm:pb-2">
-                            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                type="text" 
-                                value={firstName} onChange = {(e) => handleInputChange(e)} 
-                                id="firstName" 
-                                placeholder="First Name"
-                            />
-                        </div>
-                        <div className="lastname md:pb-4 sm:pb-2">
-                            <input  type="text" name="" id="lastName" value={lastName}  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    onChange = {(e) => handleInputChange(e)} 
-                                    placeholder="LastName"/>
-                        </div>
-                        <div className="email md:pb-4 sm:pb-2">
-                            <input  type="email" id="email" 
-                                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    value={email} onChange = {(e) => handleInputChange(e)} 
-                                    placeholder="Email"/>
-                        </div>
-                        <div className="password md:pb-4 sm:pb-2">
-                            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    type="password"  id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
-                        </div>
-                        <div className="confirm-password md:pb-4 sm:pb-2">
-                            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:shadow-darkblue' 
-                                    type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password"/>
+    return (
+        <div className="flex flex-grow justify-center">
+            <div className="w-full max-w-md p-8 bg-bluelight border border-gray-200 rounded-lg shadow-sm">
+                <form className="space-y-6 p-6" onSubmit={handleSubmit}>
+                <div className='flex justify-center'>
+                    <h5 className="text-2xl font-bold  text-white">Sign Up</h5>
+                    </div>
+                    <div>
+                        <label htmlFor="mssv" className="block mb-2 text-sm font-medium  text-white">MSSV</label>
+                        <input
+                            type="text"
+                            name="mssv"
+                            id="mssv"
+                            className="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 sm:p-3"
+                            placeholder=""
+                            value={mssv}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="name" className="block mb-2 text-sm font-medium  text-white">Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            className="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 sm:p-3"
+                            value={name}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium  text-white">Phone Number</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="phonenumber"
+                            className="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 sm:p-3"
+                            value={email}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password" className="block mb-2 text-sm font-medium  text-white">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="••••••••"
+                            className="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 sm:p-3"
+                            value={password}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="flex items-start">
+                        <div className="flex items-start">
+                            <div className="flex items-center h-5">
+                                <input
+                                    id="accept"
+                                    type="checkbox"
+                                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                                    checked={acceptTerms}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <label htmlFor="accept" className="ms-2 text-sm font-medium  text-gray-100">Accept terms</label>
                         </div>
                     </div>
-                    <div className="footer ">
-                        <button onClick={()=>handleSubmit()} type="submit" className="bg-darkblue py-2 px-4 rounded-lg text-white">Register</button>
-                    </div>
-                </div>
+                    <button
+                        type="submit"
+                        className="w-full text-white bg-blue3 hover:bg-blue2 focus:ring-4 focus:outline-none focus:ring-blue1 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
+                        SignUp
+                    </button>
+                </form>
             </div>
         </div>
-    )       
-}
+        
+    );
+};
 
-export default SignUp
+export default SignUp;

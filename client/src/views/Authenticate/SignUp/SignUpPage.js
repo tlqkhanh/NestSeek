@@ -34,31 +34,8 @@ export default function SignUpPage({ setToken }) {
       };
     
     return (
-        <main className="flex h-fit w-full" style={{marginBottom:"0px"}}>
-            <div className="w-1/2 overflow-hidden max-w-[50vw]">
-            <Slider {...settings}>
-                <div>
-                    <img src={img1} alt="Homepage" className="h-full w-full object-cover" />
-                </div>
-               
-                <div>
-                    <img src={img3} alt="Homepage" className="h-full w-full object-cover" />
-                </div>
-                <div>
-                    <img src={img2} alt="Homepage" className="h-full w-full object-cover" />
-                </div>
-                <div>
-                    <img src={img4} alt="Homepage" className="h-full w-full object-cover" />
-                </div>
-            </Slider>
-            </div>
-            <div className="w-1/2">
-                {/* <Header /> */}
-                <div className="items-center justify-center text-#0E494">
-                    <SignUp />
-                </div>
-            </div>
-            <style>{customCSS}</style>
+        <main className="flex justify-center h-fit w-full pb-4">
+            <SignUp />
         </main>
     )
 }
