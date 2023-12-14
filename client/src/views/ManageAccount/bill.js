@@ -5,6 +5,8 @@ export default function Bill() {
     const statusText = ispay ? "Paid" : "Unpaid";
     const statusColor = ispay ? "text-green-500" : "text-red";
 
+    
+
     return (
         <div className="w-screen sm:pl-20 sm:pr-20 sm:m-10">
             <div className="flex justify-center pb-20 text-blue1 font-bold text-4xl"><h1>Your Bill</h1></div>

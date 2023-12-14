@@ -69,7 +69,10 @@
         // Static method to get all comments for a specific property
         public static function getAllTopLevelCommentsOfProperty($conn, $propertyId) {
             // Prepare an SQL SELECT statement
-            $query = "SELECT * FROM Comment WHERE propertyID = ? AND isChild = 'no'";
+            $query = "SELECT Comment.*, User.full_name
+            FROM Comment
+            JOIN User ON Comment.userID = User.userID
+            WHERE Comment.propertyID = ? AND Comment.isChild = 'no'";
             $stmt = $conn->prepare($query);
         
             // Bind parameters
@@ -77,21 +80,12 @@
         
             // Execute the query
             $stmt->execute();
-        
-            // Declare variables to store the result
-            $commentID = $comment = $commentTime = $userID = $isChild = $parentID = null;
-        
-            // Bind result variables
-            $stmt->bind_result($commentID, $comment, $commentTime, $userID, $propertyId, $isChild, $parentID);
-        
-            // Fetch the result
+
+            $resultSet = $stmt->get_result();
             $comments = [];
-            while ($stmt->fetch()) {
-                // Add comment information to the array
-                $comments[] = new Comment($conn, $commentID, $comment, $commentTime, $userID, $propertyId, $isChild, $parentID);
+            while ($row = $resultSet->fetch_assoc()) {
+                $comments[] = $row;
             }
-        
-            // Close the statement
             $stmt->close();
         
             return $comments;
@@ -99,28 +93,19 @@
 
         public static function getAllChildrenComment($conn, $parentCommentID) {
             // Prepare an SQL SELECT statement
-            $query = "SELECT * FROM Comment WHERE parentID = ?";
+            $query = "SELECT Comment.*, User.full_name FROM Comment
+            JOIN User ON Comment.userID = User.userID
+            WHERE parentID = ?";
             $stmt = $conn->prepare($query);
         
             // Bind parameters
             $stmt->bind_param("i", $parentCommentID);
-        
-            // Execute the query
             $stmt->execute();
-        
-            // Declare variables to store the result
-            $commentID = $comment = $commentTime = $userID = $propertyID = $isChild = $parentID = null;
-        
-            // Bind result variables
-            $stmt->bind_result($commentID, $comment, $commentTime, $userID, $propertyID, $isChild, $parentID);
-        
-            // Fetch the result
+            $resultSet = $stmt->get_result();
             $comments = [];
-            while ($stmt->fetch()) {
-                // Add comment information to the array
-                $comments[] = new Comment($conn, $commentID, $comment, $commentTime, $userID, $propertyID, $isChild, $parentID);
+            while ($row = $resultSet->fetch_assoc()) {
+                $comments[] = $row;
             }
-        
             // Close the statement
             $stmt->close();
         

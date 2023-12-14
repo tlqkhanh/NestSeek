@@ -16,25 +16,25 @@
         if (empty($content)){
             http_response_code(400);
             $response = [
-                $success => false,
-                $message => 'Reason of report is required!'
+                "success" => false,
+                "message" => 'Reason of report is required!'
             ];
         }
         else{
-            $report = new Report($conn,null,$data->type,$data->reportedID,$date->userID,null,$content);
+            $report = new Report($conn,null,$data->type,$data->reportedID,$data->userID,null,$content);
             $res = $report->createReport();
             if ($res){
                 http_response_code(200);
                 $response = [
-                    $success => true,
-                    $message => 'Report has been sent!'
+                    "success" => true,
+                    "message" => 'Report has been sent!'
                 ];
             }
             else{
                 http_response_code(500);
                 $response = [
-                    $success => false,
-                    $message => 'Internal server error!'
+                    "success" => false,
+                    "message" => 'Internal server error!'
                 ];
             }
         }

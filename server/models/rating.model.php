@@ -23,7 +23,7 @@
 
         // Method to add a rating instance to the database
         public function createRating() {
-            $query = "INSERT INTO Rating (rate, userID, propertyID) VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO Rating (rate, userID, propertyID) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("iii", $this->rate, $this->userID, $this->propertyID);
             $result = $stmt->execute();
@@ -166,12 +166,14 @@
             $ratingId = $rate = 0;
 
             $res = $stmt->execute();
-            if (!$res) return false;
+            
+            $stmt->store_result();
+            if (!$res || $stmt->num_rows === 0) return false;
 
             $stmt->bind_result($ratingId,$rate,$userID, $propertyID);
             $stmt->fetch();
 
-            return new Rating($conn,$rate,$userID,$propertyID);
+            return new Rating($conn,$ratingId,$rate,$userID,$propertyID);
         }
 
     }

@@ -6,6 +6,8 @@
         public $totalAmount;
         public $forRentID;
         public $status;
+        public $createdDate;
+        public $paidDate;
         private $conn;
     
         // Constructor with optional parameters
@@ -16,7 +18,9 @@
             $tax = null,
             $initialAmount = null,
             $totalAmount = null,
-            $status = 'pending'
+            $status = 'pending',
+            $createdDate = null,
+            $paidDate = null,
         ) {
             $this->conn = $conn;
             $this->billID = $billID;
@@ -25,6 +29,8 @@
             $this->totalAmount = $totalAmount;
             $this->forRentID = $forRentID;
             $this->status = $status;
+            $this->createdDate = $createdDate;
+            $this->paidDate = $paidDate;
         }
     
         // Method to add a bill instance to the database
@@ -77,16 +83,16 @@
             $stmt->execute();
     
             // Declare variables to store the result
-            $billID = $tax = $initialAmount = $totalAmount = $forRentID = $status = null;
+            $billID = $tax = $initialAmount = $totalAmount = $forRentID = $status = $created_data = $paid_date = null;
     
             // Bind result variables
-            $stmt->bind_result($billID, $tax, $initialAmount, $totalAmount, $forRentID, $status);
+            $stmt->bind_result($billID, $tax, $initialAmount, $totalAmount, $forRentID, $status,$created_data,$paid_date);
     
             // Fetch the result
             $bills = [];
             while ($stmt->fetch()) {
                 // Add bill information to the array
-                $bills[] = new Bill(null, $billID, $forRentID, $tax, $initialAmount, $totalAmount, $status);
+                $bills[] = new Bill(null, $billID, $forRentID, $tax, $initialAmount, $totalAmount, $status,$created_data,$paid_date);
             }
     
             // Close the statement
@@ -113,11 +119,6 @@
                 $stmt->close();
                 return null; // No bill found with the given ID
             }
-        }
-
-
-        public function __destruct() {
-            $this->conn->close();
         }
     }
 

@@ -3,8 +3,11 @@ import { useParams } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import RatingFrame from "../../components/rating.js";
 import { getPropertyDetail } from "../../action/property.action.js";
+import Comment from "../../components/comment.js";
 import axios from "axios";
+import Cookies from "universal-cookie"
 const Detail = () => {
+    const cookies = new Cookies();
     const { post_id } = useParams();
 
     const [postDetail, setPostDetail] = useState();
@@ -16,21 +19,21 @@ const Detail = () => {
             <div className="fixed top-0 left-0 z-50 w-full h-full overflow-auto bg-opacity-50 bg-gray-900 flex justify-center items-center">
                 <div className="bg-white rounded-lg p-8 w-96">
                     <h2 className="text-xl font-bold mb-4">Select a reason for reporting</h2>
-                    <select
+                    <input
                         value={reportReason}
                         onChange={(e) => setReportReason(e.target.value)}
                         className="block w-full p-2 mb-4 border border-gray-300 rounded"
                     >
-                        <option value="">Select a reason</option>
+                        {/* <option value="">Select a reason</option>
                         <option value="Price discrepancy">Price discrepancy</option>
                         <option value="Misleading description">Misleading description</option>
                         <option value="Fraudulent poster">Fraudulent poster</option>
                         <option value="Low-quality rental">Low-quality rental</option>
-                        <option value="Unsafe environment">Unsafe environment</option>
-                    </select>
+                        <option value="Unsafe environment">Unsafe environment</option> */}
+                    </input>
                     <div className="flex justify-end">
                         <button
-                            onClick={() => handleReport(reportReason)}
+                            onClick={() => handleReportProperty(reportReason)}
                             className="bg-blue2 text-white px-4 py-2 rounded mr-2"
                         >
                             Submit Report
@@ -46,92 +49,36 @@ const Detail = () => {
             </div>
         );
     };
-    const Comment = ({ username, date, text, replies, addReply }) => {
-        const [replying, setReplying] = useState(false);
-        const [replyText, setReplyText] = useState('');
-    
-        const handleReply = () => {
-            if (replyText.trim() !== '') {
-                addReply(username, replyText);
-                setReplying(false);
-                setReplyText('');
-            }
-        };
-    
-        return (
-            <div className="comment">
-                <div className="border border-gray rounded bg-superlight p-2">
-                <h2 className="text-blue1 font-bold">{username}</h2>
-                <p className="text-medium">Date: {date}</p>
-                <p className="text-darkblue">{text}</p>
-                </div>
-                {replies && replies.length > 0 && (
-                    <div className="replies">
-                        <p className="font-bold text-blue3 p-4">Replies:</p>
-                        {replies.map((reply, index) => (
-                            <div key={index} className="reply border rounded p-2 bg-gray-100 border-gray ml-8 mt-2">
-                                <h3 className="text-blue1 font-bold">{reply.username}</h3>
-                                <p className="text-medium">Date: {reply.date}</p>
-                                <p className="text-darkblue">{reply.text}</p>
-                            </div>
-                        ))}
-                    </div>
-                )}
-                {!replying ? (
-                    <button onClick={() => setReplying(true)} className="bg-blue2 text-white px-2 py-1 rounded mt-2">
-                        Reply
-                    </button>
-                ) : (
-                    <div className="mt-4 pt-2 ml-8">
-                        <textarea
-                            className="w-full h-20 p-2 border border-gray-300 rounded"
-                            placeholder={`Reply to ${username}...`}
-                            value={replyText}
-                            onChange={(e) => setReplyText(e.target.value)}
-                        ></textarea>
-                        <button onClick={handleReply} className="bg-blue2 text-white px-2 py-1 rounded mt-2">
-                            Send
-                        </button>
-                    </div>
-                )}
-                
-            </div>
-        );
-    };
-    
-    const [comments, setComments] = useState([
-        { id: 1, username: 'Username 1', date: 'dd/mm/yyyy', text: 'Comment text 1', 
-        replies: [
-        { id: 1, username: 'Username 1', date: 'dd/mm/yyyy', text: 'Comment text 1'},
-        { id: 1, username: 'Username 1', date: 'dd/mm/yyyy', text: 'Comment text 1'},
-        { id: 1, username: 'Username 1', date: 'dd/mm/yyyy', text: 'Comment text 1'}
-        ] },
-        { id: 2, username: 'Username 2', date: 'dd/mm/yyyy', text: 'Comment text 2', replies: [] },
-    ]);
 
-    const handleComment = (commentText) => {
-        const newComment = {
-            id: comments.length + 1,
-            username: 'New Username', // Replace this with the actual username
-            date: 'dd/mm/yyyy', // Replace this with the actual date
-            text: commentText,
-            replies: [
-                {
-                    id: 1,
-                    username: 'Reply Username',
-                    date: 'dd/mm/yyyy', // Thay thế bằng ngày thực tế
-                    text: 'This is a reply to the new comment',
+    const sendReport = async (type,reportedID,reportReason) => {
+        const uid = cookies.get('uid')
+        try {
+            axios.post(`http://localhost:9000/server/api/report/createReport.php`,{
+                userID: uid?uid:0,
+                reason: reportReason,
+                type: type,
+                reportedID: reportedID,
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json"
                 }
-            ]
-        };
-
-        setComments([...comments, newComment]);
-    };
-
-    const handleReport = (reason) => {
-    
-        console.log('Report reason:', reason);
-
+            })
+            .then(response=> {
+                if (response.status>=200 && response.status<400){
+                    console.log(response.data);
+                }
+            })
+            .catch(err => {
+                console.log("Error: ", err.response.data)
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const handleReportProperty = (reason) => {
+        sendReport('property',post_id,reason);
+        setReportReason('');
         setShowReportModal(false);
     };
 
@@ -167,12 +114,52 @@ const Detail = () => {
               console.log(error);
           }
     }
+    const [commentText,setCommentText] = useState('');
+    
+    const handleInputChange = (e) => {
+        setCommentText(e.target.value);
+    }
+
+    const handleSendMainComment = () => {
+        if (commentText.trim() !== '') {
+            sendReply();
+            fetchMainComment(post_id);
+            setCommentText('');
+        }
+    };
+
+    async function sendReply(){
+        const uid = cookies.get('uid')
+        try {
+            axios.post(`http://localhost:9000/server/api/comment/createComment.php`,{
+                propertyID: post_id,
+                userID: uid?uid:0,
+                comment: commentText,
+                parentID: 0
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response=> {
+                if (response.status>=200 && response.status<400){
+                    console.log(response.data.message);
+                }
+            })
+            .catch(err => {
+                console.log("Error: ", err.response.data)
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     useEffect(() => {
         fetchData(post_id);
         fetchMainComment(post_id);
     }, [])
-
 
     const handleDeleteProperty = async () =>{
         try {
@@ -228,9 +215,12 @@ const Detail = () => {
     if (!postDetail) {
         return <div>Loading...</div>;
     }
-    const userType = 'renter';
+
+
+    const userType = cookies.get('type');
+    const uid = cookies.get('uid');
     let userButtons;
-    if (userType === 'owner') {
+    if (userType === 'owner' && postDetail && postDetail.owner===uid) {
         userButtons = (
             <div className="flex flex-col sm:flex-row justify-end items-center">
                 <button className="bg-bluelight hover:bg-medium text-white font-bold sm:py-2 px-4 mr-4 mt-4 rounded">
@@ -349,7 +339,7 @@ const Detail = () => {
                         <div className="content rounded-2xl text-darkblue">
                             <div className="flex justify-center items-center text-textcolor">
                                 <img
-                                    src={'https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41477-019-0374-3/MediaObjects/41477_2019_374_Figa_HTML.jpg'}
+                                    src={postDetail.imageURL}
                                     alt={postDetail.name}
                                     className="w-full rounded-t-2xl"
                                 />
@@ -357,7 +347,7 @@ const Detail = () => {
                             <div className="p-4">
                                 <h1 className="text-blue2 font-bold text-2xl">{postDetail.name}</h1>
                                 <RatingFrame userType={userType} />
-                                <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.score}</p>
+                                <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.rating}</p>
                                 <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
                                 <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
                                 <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
@@ -377,22 +367,21 @@ const Detail = () => {
                         <textarea
                             className="w-full h-32 p-2 border-2 border-superlight "
                             placeholder="Type your comment here..."
+                            value={commentText}
+                            onChange={handleInputChange}
                         ></textarea>
                         <div className="flex justify-end mt-4">
-                            <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-bluelight hover:bg-medium text-white font-bold py-2 px-4 rounded"
+                                onClick={handleSendMainComment}
+                            >
                                 Send
                             </button>
                         </div>
                     </div>
                     <div className="col-span-2 pl-14 pr-14 pt-8 pb-8">
                     <h2 className="font-bold mb-4 text-2xl text-blue2">Other Comments</h2>
-                    {comments.map((comment) => (
-                        <Comment
-                        key={comment.id}
-                        username={comment.username}
-                        date={comment.date}
-                        text={comment.text}
-                        replies={comment.replies}
+                    {postMainComment.map((comment) => (
+                        <Comment data={comment}
                     />
                     ))}
             </div>

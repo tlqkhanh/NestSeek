@@ -1,17 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaStar } from 'react-icons/fa';
-const RatingFrame = ({ userType }) => {
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { useParams } from "react-router-dom";
+const RatingFrame = ({ userType}) => {
+  const cookies = new Cookies();
+  let uid = cookies.get('uid');
+  uid = uid?uid:0;
+  const propertyID = useParams('post_id').post_id;
   const [rating, setRating] = useState(0);
-  const [rated, setRated] = useState(false);
 
   const handleRatingClick = (value) => {
-    if (userType === 'renter' && !rated) {
-      setRating(value);
-      setRated(true);
-    } else if (rated) {
-      alert('You have already rated.');
-    } else {
-      alert('Only renters can rate.');
+    if (uid===0){
+      alert('Only login renters can rate.');
+    }
+    else{
+      try {
+        axios.post(`http://localhost:9000/server/api/rating/rate.php`,{
+            propertyID: propertyID,
+            userID: uid,
+            rate: value,
+        },
+        {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response=> {
+            if (response.status>=200 && response.status<400){
+                setRating(value);
+            }
+        })
+        .catch(err => {
+            alert(err.response.data.message)
+            console.log("Error: ", err.response.data)
+        })
+    } catch (error) {
+        console.log(error);
+    }
     }
   };
 
@@ -22,7 +48,7 @@ const RatingFrame = ({ userType }) => {
         <span
           key={i}
           onClick={() => handleRatingClick(i)}
-          style={{ cursor: (userType === 'renter' && !rated) ? 'pointer' : 'not-allowed' }}
+          style={{ cursor: (userType === 'renter') ? 'pointer' : 'not-allowed' }}
         >
           {i <= rating ? <FaStar color="gold"></FaStar> : <FaStar></FaStar> }
         </span>
@@ -30,6 +56,28 @@ const RatingFrame = ({ userType }) => {
     }
     return stars;
   };
+
+  useEffect(()=>{
+    try {
+      axios.get(`http://localhost:9000/server/api/rating/getRenterRatingForProperty.php?userID=${uid}&propertyID=${propertyID}`,
+      {
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+      .then(response=> {
+          if (response.status>=200 && response.status<400){
+              setRating(response.data.rating);
+          }
+      })
+      .catch(err => {
+          console.log("Error: ", err.response.data.message)
+      })
+    } catch (error) {
+        console.log(error);
+    }
+  },[])
+  
 
   return (
     <div>

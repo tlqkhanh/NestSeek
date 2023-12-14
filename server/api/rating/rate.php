@@ -15,42 +15,45 @@
         if (is_int($numOfRent)){
             if ($numOfRent>0){
                 $rating = Rating::getRatingOfUserForProperty($conn,$data->userID,$data->propertyID);
-                if (!$rating){
+                if ($rating===false){
+                    $status = "create new";
                     $rating = new Rating($conn, null, $data->rate, $data->userID, $data->propertyID);
                     $res = $rating->createRating();
                 }
                 else{
+                    $status = "update";
                     $rating->rate = $data->rate;
                     $res = $rating->updateRating();
                 }
                 if ($res){
                     http_response_code(200);
                     $response = [
-                        $success => true,
-                        $message => 'Rate property successfully!'
+                        "success" => true,
+                        "message" => 'Rate property successfully!',
+                        "status" => $status,
                     ];
                 }
                 else{
                     http_response_code(500);
                     $response = [
-                        $success => false,
-                        $message => 'Internal server error!'
+                        "success" => false,
+                        "message" => 'Internal server error!'
                     ];
                 }
             }
             else{
                 http_response_code(400);
                 $response = [
-                    $success => false,
-                    $message => 'User must rent this place before rating it!'
+                    "success" => false,
+                    "message" => 'User must rent this place before rating it!'
                 ];
             }
         }
         else{
             http_response_code(500);
                 $response = [
-                    $success => false,
-                    $message => 'Internal server error: '.$numOfRent,
+                    "success" => false,
+                    "message" => 'Internal server error: '.$numOfRent,
                 ];
         }
         $conn->close();
