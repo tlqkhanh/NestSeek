@@ -87,7 +87,7 @@ export default function AdminCard() {
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Pending
+                  Pending Post
                 </a>
               )}
             </Menu.Item>
@@ -100,7 +100,7 @@ export default function AdminCard() {
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Report
+                  Report List
                 </a>
               )}
             </Menu.Item>
