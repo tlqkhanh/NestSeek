@@ -68,10 +68,12 @@ const Detail = () => {
             .then(response=> {
                 if (response.status>=200 && response.status<400){
                     console.log(response.data);
+                    alert(response.data.message);
                 }
             })
             .catch(err => {
                 console.log("Error: ", err.response.data)
+                alert(`Error: ${ err.response.data.message}`);
             })
         } catch (error) {
             console.log(error);
@@ -161,7 +163,8 @@ const Detail = () => {
                 }
             })
             .catch(err => {
-                console.log("Error: ", err.response.data)
+                console.log("Error: ", err.response.data.message)
+                alert(`Error: ${err.response.data.message}`);
             })
         } catch (error) {
             console.log(error);
@@ -212,11 +215,14 @@ const Detail = () => {
             .then(response=> {
                 if (response.status>=200 && response.status<400){
                     console.log(response.data);
-                    //window.location.href = "/explore";
+                    alert(`${response.data.message}`);
+
+                    window.location.href = "/my/payment-history";
                 }
             })
             .catch(err => {
                 console.log("Error: ", err.response.data)
+                alert(`Error ${err.response.data.message}`);
             })
         } catch (error) {
             console.log(error);
@@ -371,7 +377,7 @@ const Detail = () => {
                             <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
                             <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
                             <p><span style={{fontWeight:"bold"}}>Location: </span>{postDetail.location}</p>
-                            <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
+                            <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}$</p>
                             <p><span style={{fontWeight:"bold"}}>Current slot: </span>{postDetail.curSlot}</p>
                             <p><span style={{fontWeight:"bold"}}>Description: </span> {postDetail.description}</p>
                             {userButtons}
@@ -395,8 +401,9 @@ const Detail = () => {
                                 <p className="text-bluelight"><span style={{fontWeight:"bold"}}>Score: </span>{postDetail.rating}</p>
                                 <p><span style={{fontWeight:"bold"}}>Author:</span> {postDetail.ownerName}</p>
                                 <p><span style={{fontWeight:"bold"}}>Date: </span>{postDetail.createdDate}</p>
-                                <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}</p>
+                                <p><span style={{fontWeight:"bold"}}>Price: </span>{postDetail.price}$</p>
                                 <p><span style={{fontWeight:"bold"}}>Location: </span>{postDetail.location}</p>
+                                <p><span style={{fontWeight:"bold"}}>Current slot: </span>{postDetail.curSlot}</p>
                                 <p><span style={{fontWeight:"bold"}}>Description: </span> {postDetail.description}</p>
                             {userButtons}
                             </div>

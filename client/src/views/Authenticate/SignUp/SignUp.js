@@ -48,6 +48,7 @@ const SignUp = () => {
             })
             .catch(err => {
                 console.log("Error: ", err.response.data.message)
+                alert(`Error: ${ err.response.data.message}`);
             })
         } catch (error) {
             console.log(error);

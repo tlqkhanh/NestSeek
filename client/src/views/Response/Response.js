@@ -72,7 +72,7 @@ const Response = () => {
             })
             .catch(err => {
                 alert(`Error: ${err.response.data.message}`)
-                window.location.href = '/explore';
+                //window.location.href = '/explore';
             })
         } catch (error) {
             console.log(error);

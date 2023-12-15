@@ -180,6 +180,66 @@
             }
         }
 
+        public static function getPropertyByIdByAdmin($conn, $propertyId) {
+            // Prepare an SQL SELECT statement
+            $query = "SELECT * FROM Property WHERE propertyID = ?";
+            $stmt = $conn->prepare($query);
+    
+            // Bind parameters
+            $stmt->bind_param("i", $propertyId);
+    
+            // Execute the query
+            $stmt->execute();
+    
+            // Declare variables to store the result
+            $propertyID = $name = $area = $location = $description = $imageURL = $price = $created_at = $initial_slot = $cur_slot = $status = $owner = null;
+    
+            // Bind result variables
+            $stmt->bind_result(
+                $propertyID,
+                $name,
+                $area,
+                $location,
+                $description,
+                $imageURL,
+                $price,
+                $created_at,
+                $owner,
+                $status,
+                $initial_slot,
+                $cur_slot
+            );
+    
+            // Fetch the result
+            $stmt->fetch();
+    
+            // Close the statement
+            $stmt->close();
+    
+            // Check if a property was found
+            if ($propertyID !== null) {
+                // Return property information as an associative array
+                return new Property($conn,
+                    $propertyID,
+                    $name,
+                    $owner,
+                    $area,
+                    $location,
+                    $description,
+                    $imageURL,
+                    $price,
+                    $created_at,
+                    $initial_slot,
+                    $cur_slot,
+                    $status,
+                    
+                );
+            } else {
+                // Property not found
+                return null;
+            }
+        }
+
         public static function getAllPropertyOfUser($conn, $userId) {
             // Prepare an SQL SELECT statement
             $query = "SELECT * FROM Property WHERE ownerID = ?";

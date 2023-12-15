@@ -26,6 +26,8 @@
             $property->updateCurSlot($curSlot-1);
             $rent = new Rent($conn,null,$data->userID,$data->propertyID,date('Y-m-d'),$data->period);
             $newRenID = $rent->createRent();
+            $rent->rentID = $newRenID;
+            $rent->updateRentStatus('waiting');
             http_response_code(200);
             $response = [
                 'success' => true,

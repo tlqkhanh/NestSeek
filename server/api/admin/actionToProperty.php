@@ -12,7 +12,7 @@
         require('../../ulti/auth.php');
         if (isAuth('admin')){
             $data = json_decode(file_get_contents("php://input"));
-            $property = Property::getPropertyById($conn,$data->propertyID);
+            $property = Property::getPropertyByIdByAdmin($conn,$data->propertyID);
             $res = $property->changePropertyStatus($data->status);
             if ($res){
                 http_response_code(200);

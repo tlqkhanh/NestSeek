@@ -22,12 +22,14 @@ export default function UserCard() {
       })
       .then(response=> {
           if (response.status>=200 && response.status<400){
-              cookies.remove('uid');
-              cookies.remove('type');
-              cookies.remove('token');
-              cookies.remove('username');
+              cookies.remove('uid', {path: '/'});
+              cookies.remove('type', {path: '/'});
+              cookies.remove('token', {path: '/'});
+              cookies.remove('username', {path: '/'});
               alert(response.data.message);
-              window.location.href = "/";
+              setTimeout(function() {
+                window.location.href = "/";
+              }, 500);
           }
       })
       .catch(err => {
