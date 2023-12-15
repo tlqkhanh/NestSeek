@@ -94,13 +94,13 @@
         else if (empty($imageURL)){
             $errorMes = 'ImageURL is required!';
         }
-        else if (empty($price) || is_double($price) || $price <= 0){
+        else if (empty($price) ||  $price <= 0){
             $errorMes = 'Price is required and must be a number greater than 0!';
         }
-        else if (empty($area) || is_double($area) || $area <= 0){
+        else if (empty($area) ||  $area <= 0){
             $errorMes = 'Area is required and must be a number greater than 0!';
         }
-        else if (empty($initialSlot) || is_int($initialSlot) || $initialSlot<=0){
+        else if (empty($initialSlot) ||  $initialSlot<=0){
             $errorMes = 'Initial slot is required and must be a number greater than 0!';
         }
         return $errorMes;

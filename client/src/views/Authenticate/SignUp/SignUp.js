@@ -59,20 +59,9 @@ const SignUp = () => {
         <div className="flex justify-center items-center pb-8">
             <div className="w-full max-w-md p-4 bg-bluelight border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-10">
                 <form className="space-y-6 p-6 flex flex-col items-center" onSubmit={handleSubmit}>
-                    <h5 className="text-2xl font-bold text-white">Sign Up</h5>
+                    <h5 className="text-2xl font-bold ">Sign Up</h5>
                     <div className="flex text-sm text-blue2">
                         User Type :
-                        <label className="ml-2">
-                            <input
-                                type="radio"
-                                name="userType"
-                                value="owner"
-                                checked={formData.userType === 'owner'}
-                                onChange={handleChange}
-                                className='mr-2'
-                            />
-                            Owner
-                        </label>
                         <label className="ml-4">
                             <input
                                 type="radio"
@@ -84,47 +73,59 @@ const SignUp = () => {
                             />
                             Renter
                         </label>
+                        <label className="ml-2">
+                            <input
+                                type="radio"
+                                name="userType"
+                                value="owner"
+                                checked={formData.userType === 'owner'}
+                                onChange={handleChange}
+                                className='mr-2'
+                            />
+                            Owner
+                        </label>
+                        
                     </div>
 
-                    <label htmlFor="username" className="block mb-2 text-sm font-medium text-white m-4">
+                    <label htmlFor="username" className="block mb-2 text-sm font-medium  m-4">
                         Username:
-                        <input type="text" name="username" value={formData.username} onChange={handleChange} className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" />
+                        <input type="text" name="username" value={formData.username} onChange={handleChange} className="lg:w-96 bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" />
                     </label>
 
-                    <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-white">
+                    <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium ">
                         Phone Number:
-                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
                     </label>
 
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium ">
                         Email:
-                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="email" name="email" value={formData.email} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="email" name="email" value={formData.email} onChange={handleChange} />
                     </label>
 
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium ">
                         Password:
-                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="password" name="password" value={formData.password} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="password" name="password" value={formData.password} onChange={handleChange} />
                     </label>
 
-                    <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-white">
+                    <label htmlFor="fullName" className="block mb-2 text-sm font-medium ">
                         Full Name:
-                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
                     </label>
 
-                    <label htmlFor="bankNumber" className="block mb-2 text-sm font-medium text-white">
+                    <label htmlFor="bankNumber" className="block mb-2 text-sm font-medium ">
                         Bank Number (optional):
-                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="bankNumber" value={formData.bankNumber} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4" type="text" name="bankNumber" value={formData.bankNumber} onChange={handleChange} />
                     </label>
 
-                    <label htmlFor="bankName" className="block mb-2 text-sm font-medium text-white">
+                    <label htmlFor="bankName" className="block mb-2 text-sm font-medium ">
                         Bank Name (optional):
-                        <input className="lg:w-96 bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4"  type="text" name="bankName" value={formData.bankName} onChange={handleChange} />
+                        <input className="lg:w-96 bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:pl-4 md:pr-4"  type="text" name="bankName" value={formData.bankName} onChange={handleChange} />
                     </label>
 
                     
                     <button
                         type="submit"
-                        className="lg:w-96 w-full text-white bg-blue2 hover:bg-blue3 focus:ring-4 focus:outline-none focus:ring-blue3 font-medium rounded-lg text-sm px-5 py-2.5 mt-4"
+                        className="text-white lg:w-96 w-full  bg-blue2 hover:bg-blue3 focus:ring-4 focus:outline-none focus:ring-blue3 font-medium rounded-lg text-sm px-5 py-2.5 mt-4"
                     >
                         Sign Up
                     </button>

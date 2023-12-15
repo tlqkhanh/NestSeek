@@ -12,6 +12,7 @@
         require('../../models/property.model.php');
         if (isAuth('owner')){
             $data = json_decode(file_get_contents("php://input"));
+            //echo $data->initialSlot;
             $errorMes = validateProperty($data);
             $property = Property::getPropertyById($conn,$data->propertyID);
             if ($property){

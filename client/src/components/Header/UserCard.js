@@ -106,7 +106,7 @@ export default function UserCard() {
                 </a>
               )}
             </Menu.Item>
-            <Menu.Item>
+            {/* <Menu.Item>
               {({ active }) => (
                 <a
                   href="/my/my-advertise"
@@ -118,7 +118,7 @@ export default function UserCard() {
                   My Advertise
                 </a>
               )}
-            </Menu.Item>
+            </Menu.Item> */}
             <form method="POST" action="#" onSubmit={handleLogout}>
               <Menu.Item>
                 {({ active }) => (

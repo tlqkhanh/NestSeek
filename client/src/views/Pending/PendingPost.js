@@ -81,7 +81,7 @@ export default function  PendingPost() {
                                 <div className="w-[50%] rounded-tr-xl p-4 flex flex-col justify-between">
                                     <div className={classNames('text-xl font-bold text-blue3', 'py-3')}>{data.name}</div>
                                     <div className={classNames('text-sm font-semibold text-blue1')}>{'Author: ' + data.user_name}</div>
-                                    <div className={classNames('text-sm font-semibold text-blue1')}>{'Date: ' + data.createdDate}</div>
+                                    <div className={classNames('text-sm font-semibold text-blue1')}>{'Date: ' + data.created_at}</div>
                                     <div className={classNames('text-sm font-semibold text-blue1')}>{'Locaion: ' + data.location}</div>
                                     <div className={classNames('text-sm font-semibold text-blue1')}>{'Price: ' + data.price + ' $'}</div>
                                 </div>

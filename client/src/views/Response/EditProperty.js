@@ -74,6 +74,7 @@ function EditProperty() {
             })
             .catch(err => {
                 console.log("Error: ", err.response.data)
+                alert(`Error: ${err.response.data.message}`);
             })
         } catch (error) {
             console.log(error);
@@ -98,13 +99,13 @@ function EditProperty() {
                     setImage(property.imageURL);
                     setPrice(property.price);
                     setSlot(property.initialSlot);
-                    alert(`${response.data.message}`);
-                    window.location.href = "/explore";
+                    //alert(`${response.data.message}`);
+                    //window.location.href = "/explore";
                 }
             })
             .catch(err => {
                 alert(`Error: ${err.response.data.message}`);
-                //window.location.href = "/explore";
+                window.location.href = "/explore";
                 console.log(err.response);
             })
         } catch (error) {
