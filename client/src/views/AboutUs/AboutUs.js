@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import city_pic from "../../assets/city2.jpg"
-import city_pic2 from "../../assets/houseabout.png"
+import city_pic2 from "../../assets/city3.jpg"
 export default function AboutUs() {
 
     return (
@@ -9,7 +9,7 @@ export default function AboutUs() {
         <div className={classNames("font-semibold text-blue2")}>Welcome to Nestseek – your ultimate destination for finding ideal living spaces and business premises in Ho Chi Minh City !</div>
         <div className="w-full flex justify-center">
             <img
-                src={`https://img.freepik.com/premium-photo/spectacular-digital-art-3d-illustration-eco-futuristic-city-abundant-trees_31965-48861.jpg`}
+                src={city_pic2}
                 alt="city"
                 className="w-full py-4"
             />

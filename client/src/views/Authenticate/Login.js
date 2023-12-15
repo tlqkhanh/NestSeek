@@ -70,7 +70,7 @@ const Login = () => {
             </button>
           </div>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-100">
-          Not registered? <a href="/sign-up" className="text-blue2 hover:underline ">Đăng ký</a>
+          Not registered? <a href="/sign-up" className="text-blue2 hover:underline ">Sign Up</a>
         </div>
         </form>
       </div>
